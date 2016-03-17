@@ -1,0 +1,740 @@
+public class cz.romario.opensudoku.gui.FolderListActivity extends android.app.ListActivity implements android.view.MenuItem$OnMenuItemClickListener
+{
+    private static final int DIALOG_ABOUT;
+    private static final int DIALOG_ADD_FOLDER;
+    private static final int DIALOG_DELETE_FOLDER;
+    private static final int DIALOG_RENAME_FOLDER;
+    public static final int MENU_ITEM_ABOUT;
+    public static final int MENU_ITEM_ADD;
+    public static final int MENU_ITEM_DELETE;
+    public static final int MENU_ITEM_EXPORT;
+    public static final int MENU_ITEM_EXPORT_ALL;
+    public static final int MENU_ITEM_IMPORT;
+    public static final int MENU_ITEM_RENAME;
+    private static final java.lang.String TAG;
+    private android.widget.TextView mAddFolderNameInput;
+    private android.database.Cursor mCursor;
+    private cz.romario.opensudoku.db.SudokuDatabase mDatabase;
+    private long mDeleteFolderID;
+    private cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder mFolderListBinder;
+    private long mRenameFolderID;
+    private android.widget.TextView mRenameFolderNameInput;
+    public static java.util.LinkedList viewLinkedList;
+    public static boolean isVisited;
+    public static java.util.LinkedList listenerLinkedList;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        specialinvoke $r0.<android.app.ListActivity: void <init>()>();
+        return;
+    }
+
+    static cz.romario.opensudoku.db.SudokuDatabase access$0(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        cz.romario.opensudoku.db.SudokuDatabase $r1;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase>;
+        return $r1;
+    }
+
+    static android.widget.TextView access$1(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.widget.TextView $r1;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView mAddFolderNameInput>;
+        return $r1;
+    }
+
+    static void access$2(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void updateList()>();
+        return;
+    }
+
+    static long access$3(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        long $l0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $l0 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mRenameFolderID>;
+        return $l0;
+    }
+
+    static android.widget.TextView access$4(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.widget.TextView $r1;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView mRenameFolderNameInput>;
+        return $r1;
+    }
+
+    static long access$5(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        long $l0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $l0 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mDeleteFolderID>;
+        return $l0;
+    }
+
+    private void updateList()
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.database.Cursor $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.database.Cursor mCursor>;
+        interfaceinvoke $r1.<android.database.Cursor: boolean requery()>();
+        return;
+    }
+
+    public boolean onContextItemSelected(android.view.MenuItem)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.view.MenuItem $r1;
+        java.lang.ClassCastException $r2;
+        android.view.ContextMenu$ContextMenuInfo $r3;
+        android.content.Intent $r4;
+        int $i0;
+        android.widget.AdapterView$AdapterContextMenuInfo $r5;
+        long $l1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.view.MenuItem;
+
+     label0:
+        $r3 = interfaceinvoke $r1.<android.view.MenuItem: android.view.ContextMenu$ContextMenuInfo getMenuInfo()>();
+        $r5 = (android.widget.AdapterView$AdapterContextMenuInfo) $r3;
+
+     label1:
+        $i0 = interfaceinvoke $r1.<android.view.MenuItem: int getItemId()>();
+        lookupswitch($i0)
+        {
+            case 2: goto label5;
+            case 3: goto label6;
+            case 4: goto label2;
+            case 5: goto label4;
+            default: goto label2;
+        };
+
+     label2:
+        return 0;
+
+     label3:
+        $r2 := @caughtexception;
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("FolderListActivity", "bad menuInfo", $r2);
+        return 0;
+
+     label4:
+        $r4 = new android.content.Intent;
+        specialinvoke $r4.<android.content.Intent: void <init>()>();
+        virtualinvoke $r4.<android.content.Intent: android.content.Intent setClass(android.content.Context,java.lang.Class)>($r0, class "cz/romario/opensudoku/gui/SudokuExportActivity");
+        $l1 = $r5.<android.widget.AdapterView$AdapterContextMenuInfo: long id>;
+        virtualinvoke $r4.<android.content.Intent: android.content.Intent putExtra(java.lang.String,long)>("FOLDER_ID", $l1);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void startActivity(android.content.Intent)>($r4);
+        return 1;
+
+     label5:
+        $l1 = $r5.<android.widget.AdapterView$AdapterContextMenuInfo: long id>;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mRenameFolderID> = $l1;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void showDialog(int)>(2);
+        return 1;
+
+     label6:
+        $l1 = $r5.<android.widget.AdapterView$AdapterContextMenuInfo: long id>;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mDeleteFolderID> = $l1;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void showDialog(int)>(3);
+        return 1;
+
+        catch java.lang.ClassCastException from label0 to label1 with label3;
+    }
+
+    protected void onCreate(android.os.Bundle)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.os.Bundle $r1;
+        android.widget.SimpleCursorAdapter $r2;
+        android.content.Context $r3;
+        android.database.Cursor $r4;
+        java.lang.String[] $r5;
+        cz.romario.opensudoku.gui.Changelog $r7;
+        android.view.View $r8;
+        android.widget.ListView $r9;
+        cz.romario.opensudoku.gui.FolderListActivity$1 $r10;
+        cz.romario.opensudoku.db.SudokuDatabase $r11;
+        int[] $r12;
+        cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder $r14;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<android.app.ListActivity: void onCreate(android.os.Bundle)>($r1);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void setContentView(int)>(2130903043);
+        $r8 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.view.View findViewById(int)>(2131230724);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void setDefaultKeyMode(int)>(2);
+        $r9 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.ListView getListView()>();
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void doReflect(android.view.View,java.lang.Object)>($r9, $r0);
+        virtualinvoke $r9.<android.widget.ListView: void setOnCreateContextMenuListener(android.view.View$OnCreateContextMenuListener)>($r0);
+        $r10 = new cz.romario.opensudoku.gui.FolderListActivity$1;
+        specialinvoke $r10.<cz.romario.opensudoku.gui.FolderListActivity$1: void <init>(cz.romario.opensudoku.gui.FolderListActivity)>($r0);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void doReflect(android.view.View,java.lang.Object)>($r8, $r10);
+        virtualinvoke $r8.<android.view.View: void setOnClickListener(android.view.View$OnClickListener)>($r10);
+        $r11 = new cz.romario.opensudoku.db.SudokuDatabase;
+        $r3 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.content.Context getApplicationContext()>();
+        specialinvoke $r11.<cz.romario.opensudoku.db.SudokuDatabase: void <init>(android.content.Context)>($r3);
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase> = $r11;
+        $r11 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase>;
+        $r4 = virtualinvoke $r11.<cz.romario.opensudoku.db.SudokuDatabase: android.database.Cursor getFolderList()>();
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.database.Cursor mCursor> = $r4;
+        $r4 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.database.Cursor mCursor>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void startManagingCursor(android.database.Cursor)>($r4);
+        $r2 = new android.widget.SimpleCursorAdapter;
+        $r4 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.database.Cursor mCursor>;
+        $r5 = newarray (java.lang.String)[2];
+        $r5[0] = "name";
+        $r5[1] = "_id";
+        $r12 = newarray (int)[2];
+        $r12[0] = 2131230722;
+        $r12[1] = 2131230723;
+        specialinvoke $r2.<android.widget.SimpleCursorAdapter: void <init>(android.content.Context,int,android.database.Cursor,java.lang.String[],int[])>($r0, 2130903044, $r4, $r5, $r12);
+        $r14 = new cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder;
+        specialinvoke $r14.<cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder: void <init>(android.content.Context)>($r0);
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder mFolderListBinder> = $r14;
+        $r14 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder mFolderListBinder>;
+        virtualinvoke $r2.<android.widget.SimpleCursorAdapter: void setViewBinder(android.widget.SimpleCursorAdapter$ViewBinder)>($r14);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void setListAdapter(android.widget.ListAdapter)>($r2);
+        $r7 = new cz.romario.opensudoku.gui.Changelog;
+        specialinvoke $r7.<cz.romario.opensudoku.gui.Changelog: void <init>(android.content.Context)>($r0);
+        virtualinvoke $r7.<cz.romario.opensudoku.gui.Changelog: void showOnFirstRun()>();
+        <cz.romario.opensudoku.gui.FolderListActivity: boolean isVisited> = 1;
+        return;
+    }
+
+    public void onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu$ContextMenuInfo)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.view.ContextMenu $r1;
+        android.view.View $r2;
+        android.view.ContextMenu$ContextMenuInfo $r3;
+        java.lang.Object $r4;
+        java.lang.ClassCastException $r5;
+        android.widget.AdapterView$AdapterContextMenuInfo $r6;
+        android.widget.ListAdapter $r7;
+        int $i0;
+        android.database.Cursor $r8;
+        java.lang.String $r10;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.view.ContextMenu;
+        $r2 := @parameter1: android.view.View;
+        $r3 := @parameter2: android.view.ContextMenu$ContextMenuInfo;
+
+     label0:
+        $r6 = (android.widget.AdapterView$AdapterContextMenuInfo) $r3;
+
+     label1:
+        $r7 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.ListAdapter getListAdapter()>();
+        $i0 = $r6.<android.widget.AdapterView$AdapterContextMenuInfo: int position>;
+        $r4 = interfaceinvoke $r7.<android.widget.ListAdapter: java.lang.Object getItem(int)>($i0);
+        $r8 = (android.database.Cursor) $r4;
+        if $r8 != null goto label4;
+
+     label2:
+        return;
+
+     label3:
+        $r5 := @caughtexception;
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("FolderListActivity", "bad menuInfo", $r5);
+        goto label2;
+
+     label4:
+        $i0 = interfaceinvoke $r8.<android.database.Cursor: int getColumnIndex(java.lang.String)>("name");
+        $r10 = interfaceinvoke $r8.<android.database.Cursor: java.lang.String getString(int)>($i0);
+        interfaceinvoke $r1.<android.view.ContextMenu: android.view.ContextMenu setHeaderTitle(java.lang.CharSequence)>($r10);
+        interfaceinvoke $r1.<android.view.ContextMenu: android.view.MenuItem add(int,int,int,int)>(0, 5, 0, 2131296361);
+        interfaceinvoke $r1.<android.view.ContextMenu: android.view.MenuItem add(int,int,int,int)>(0, 2, 1, 2131296276);
+        interfaceinvoke $r1.<android.view.ContextMenu: android.view.MenuItem add(int,int,int,int)>(0, 3, 2, 2131296277);
+        goto label2;
+
+        catch java.lang.ClassCastException from label0 to label1 with label3;
+    }
+
+    protected android.app.Dialog onCreateDialog(int)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        int $i0;
+        android.view.View $r1, $r3;
+        android.view.LayoutInflater $r2;
+        java.lang.String $r4;
+        android.widget.TextView $r5;
+        android.content.Context $r6;
+        java.lang.Object[] $r7;
+        android.app.AlertDialog$Builder $r8;
+        android.app.AlertDialog $r9;
+        cz.romario.opensudoku.gui.FolderListActivity$2 $r10;
+        cz.romario.opensudoku.gui.FolderListActivity$3 $r11;
+        cz.romario.opensudoku.gui.FolderListActivity$4 $r12;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $i0 := @parameter0: int;
+        $r2 = staticinvoke <android.view.LayoutInflater: android.view.LayoutInflater 'from'(android.content.Context)>($r0);
+        lookupswitch($i0)
+        {
+            case 0: goto label1;
+            case 1: goto label2;
+            case 2: goto label3;
+            case 3: goto label4;
+            default: goto label0;
+        };
+
+     label0:
+        return null;
+
+     label1:
+        $r1 = virtualinvoke $r2.<android.view.LayoutInflater: android.view.View inflate(int,android.view.ViewGroup)>(2130903040, null);
+        $r3 = virtualinvoke $r1.<android.view.View: android.view.View findViewById(int)>(2131230721);
+        $r5 = (android.widget.TextView) $r3;
+        $r6 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.content.Context getApplicationContext()>();
+        $r4 = staticinvoke <cz.romario.opensudoku.utils.AndroidUtils: java.lang.String getAppVersionName(android.content.Context)>($r6);
+        $r7 = newarray (java.lang.Object)[1];
+        $r7[0] = $r4;
+        $r4 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: java.lang.String getString(int,java.lang.Object[])>(2131296259, $r7);
+        virtualinvoke $r5.<android.widget.TextView: void setText(java.lang.CharSequence)>($r4);
+        $r8 = new android.app.AlertDialog$Builder;
+        specialinvoke $r8.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(2130837519);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296256);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setView(android.view.View)>($r1);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(java.lang.CharSequence,android.content.DialogInterface$OnClickListener)>("OK", null);
+        $r9 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        return $r9;
+
+     label2:
+        $r1 = virtualinvoke $r2.<android.view.LayoutInflater: android.view.View inflate(int,android.view.ViewGroup)>(2130903045, null);
+        $r3 = virtualinvoke $r1.<android.view.View: android.view.View findViewById(int)>(2131230722);
+        $r5 = (android.widget.TextView) $r3;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView mAddFolderNameInput> = $r5;
+        $r8 = new android.app.AlertDialog$Builder;
+        specialinvoke $r8.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(17301555);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296272);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setView(android.view.View)>($r1);
+        $r10 = new cz.romario.opensudoku.gui.FolderListActivity$2;
+        specialinvoke $r10.<cz.romario.opensudoku.gui.FolderListActivity$2: void <init>(cz.romario.opensudoku.gui.FolderListActivity)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)>(2131296266, $r10);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setNegativeButton(int,android.content.DialogInterface$OnClickListener)>(17039360, null);
+        $r9 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        return $r9;
+
+     label3:
+        $r1 = virtualinvoke $r2.<android.view.LayoutInflater: android.view.View inflate(int,android.view.ViewGroup)>(2130903045, null);
+        $r3 = virtualinvoke $r1.<android.view.View: android.view.View findViewById(int)>(2131230722);
+        $r5 = (android.widget.TextView) $r3;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView mRenameFolderNameInput> = $r5;
+        $r8 = new android.app.AlertDialog$Builder;
+        specialinvoke $r8.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(17301566);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296278);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setView(android.view.View)>($r1);
+        $r11 = new cz.romario.opensudoku.gui.FolderListActivity$3;
+        specialinvoke $r11.<cz.romario.opensudoku.gui.FolderListActivity$3: void <init>(cz.romario.opensudoku.gui.FolderListActivity)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)>(2131296266, $r11);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setNegativeButton(int,android.content.DialogInterface$OnClickListener)>(17039360, null);
+        $r9 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        return $r9;
+
+     label4:
+        $r8 = new android.app.AlertDialog$Builder;
+        specialinvoke $r8.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(17301533);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296279);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(int)>(2131296280);
+        $r12 = new cz.romario.opensudoku.gui.FolderListActivity$4;
+        specialinvoke $r12.<cz.romario.opensudoku.gui.FolderListActivity$4: void <init>(cz.romario.opensudoku.gui.FolderListActivity)>($r0);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)>(17039379, $r12);
+        $r8 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setNegativeButton(int,android.content.DialogInterface$OnClickListener)>(17039369, null);
+        $r9 = virtualinvoke $r8.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        return $r9;
+    }
+
+    public boolean onCreateOptionsMenu(android.view.Menu)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.view.Menu $r1;
+        android.content.ComponentName $r2;
+        android.content.Intent $r3, $r5;
+        android.view.MenuItem $r4, menuItem;
+        android.net.Uri $r6;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.view.Menu;
+        specialinvoke $r0.<android.app.ListActivity: boolean onCreateOptionsMenu(android.view.Menu)>($r1);
+        $r4 = interfaceinvoke $r1.<android.view.Menu: android.view.MenuItem add(int,int,int,int)>(0, 1, 0, 2131296272);
+        $r4 = interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setShortcut(char,char)>(51, 97);
+        interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setIcon(int)>(17301555);
+        $r4 = interfaceinvoke $r1.<android.view.Menu: android.view.MenuItem add(int,int,int,int)>(0, 7, 0, 2131296273);
+        $r4 = interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setShortcut(char,char)>(56, 105);
+        interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setIcon(int)>(17301589);
+        $r4 = interfaceinvoke $r1.<android.view.Menu: android.view.MenuItem add(int,int,int,int)>(0, 6, 1, 2131296362);
+        $r4 = interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setShortcut(char,char)>(55, 101);
+        interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setIcon(int)>(17301586);
+        $r4 = interfaceinvoke $r1.<android.view.Menu: android.view.MenuItem add(int,int,int,int)>(0, 4, 2, 2131296275);
+        $r4 = interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setShortcut(char,char)>(49, 104);
+        interfaceinvoke $r4.<android.view.MenuItem: android.view.MenuItem setIcon(int)>(17301569);
+        $r3 = new android.content.Intent;
+        $r5 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.content.Intent getIntent()>();
+        $r6 = virtualinvoke $r5.<android.content.Intent: android.net.Uri getData()>();
+        specialinvoke $r3.<android.content.Intent: void <init>(java.lang.String,android.net.Uri)>(null, $r6);
+        virtualinvoke $r3.<android.content.Intent: android.content.Intent addCategory(java.lang.String)>("android.intent.category.ALTERNATIVE");
+        $r2 = new android.content.ComponentName;
+        specialinvoke $r2.<android.content.ComponentName: void <init>(android.content.Context,java.lang.Class)>($r0, class "cz/romario/opensudoku/gui/FolderListActivity");
+        interfaceinvoke $r1.<android.view.Menu: int addIntentOptions(int,int,int,android.content.ComponentName,android.content.Intent[],android.content.Intent,int,android.view.MenuItem[])>(262144, 0, 0, $r2, null, $r3, 0, null);
+        menuItem = interfaceinvoke $r1.<android.view.Menu: android.view.MenuItem add(java.lang.CharSequence)>("TEST");
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void doReflect(android.view.View,java.lang.Object)>(menuItem, $r0);
+        interfaceinvoke menuItem.<android.view.MenuItem: android.view.MenuItem setOnMenuItemClickListener(android.view.MenuItem$OnMenuItemClickListener)>($r0);
+        return 1;
+    }
+
+    protected void onDestroy()
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        cz.romario.opensudoku.db.SudokuDatabase $r1;
+        cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder $r2;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        specialinvoke $r0.<android.app.ListActivity: void onDestroy()>();
+        $r1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase>;
+        virtualinvoke $r1.<cz.romario.opensudoku.db.SudokuDatabase: void close()>();
+        $r2 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder mFolderListBinder>;
+        virtualinvoke $r2.<cz.romario.opensudoku.gui.FolderListActivity$FolderListViewBinder: void destroy()>();
+        return;
+    }
+
+    protected void onListItemClick(android.widget.ListView, android.view.View, int, long)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.widget.ListView $r1;
+        android.view.View $r2;
+        int $i0;
+        long $l1;
+        android.content.Intent $r3;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.widget.ListView;
+        $r2 := @parameter1: android.view.View;
+        $i0 := @parameter2: int;
+        $l1 := @parameter3: long;
+        $r3 = new android.content.Intent;
+        specialinvoke $r3.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>($r0, class "cz/romario/opensudoku/gui/SudokuListActivity");
+        virtualinvoke $r3.<android.content.Intent: android.content.Intent putExtra(java.lang.String,long)>("folder_id", $l1);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void startActivity(android.content.Intent)>($r3);
+        return;
+    }
+
+    public boolean onOptionsItemSelected(android.view.MenuItem)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.view.MenuItem $r1;
+        android.content.Intent $r2;
+        int $i1;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.view.MenuItem;
+        $i1 = interfaceinvoke $r1.<android.view.MenuItem: int getItemId()>();
+        lookupswitch($i1)
+        {
+            case 1: goto label1;
+            case 2: goto label0;
+            case 3: goto label0;
+            case 4: goto label4;
+            case 5: goto label0;
+            case 6: goto label3;
+            case 7: goto label2;
+            default: goto label0;
+        };
+
+     label0:
+        $z0 = specialinvoke $r0.<android.app.ListActivity: boolean onOptionsItemSelected(android.view.MenuItem)>($r1);
+        return $z0;
+
+     label1:
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void showDialog(int)>(1);
+        return 1;
+
+     label2:
+        $r2 = new android.content.Intent;
+        specialinvoke $r2.<android.content.Intent: void <init>()>();
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent setClass(android.content.Context,java.lang.Class)>($r0, class "cz/romario/opensudoku/gui/FileListActivity");
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)>("FOLDER_NAME", "/sdcard");
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void startActivity(android.content.Intent)>($r2);
+        return 1;
+
+     label3:
+        $r2 = new android.content.Intent;
+        specialinvoke $r2.<android.content.Intent: void <init>()>();
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent setClass(android.content.Context,java.lang.Class)>($r0, class "cz/romario/opensudoku/gui/SudokuExportActivity");
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent putExtra(java.lang.String,long)>("FOLDER_ID", -1L);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void startActivity(android.content.Intent)>($r2);
+        return 1;
+
+     label4:
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void showDialog(int)>(0);
+        return 1;
+    }
+
+    protected void onPrepareDialog(int, android.app.Dialog)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        int $i0;
+        android.app.Dialog $r1;
+        cz.romario.opensudoku.game.FolderInfo $r2;
+        java.lang.String $r3, $r6;
+        cz.romario.opensudoku.db.SudokuDatabase $r4;
+        long $l1;
+        java.lang.Object[] $r5;
+        android.widget.TextView $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $i0 := @parameter0: int;
+        $r1 := @parameter1: android.app.Dialog;
+        specialinvoke $r0.<android.app.ListActivity: void onPrepareDialog(int,android.app.Dialog)>($i0, $r1);
+        lookupswitch($i0)
+        {
+            case 1: goto label0;
+            case 2: goto label1;
+            case 3: goto label4;
+            default: goto label0;
+        };
+
+     label0:
+        return;
+
+     label1:
+        $r4 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase>;
+        $l1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mRenameFolderID>;
+        $r2 = virtualinvoke $r4.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.game.FolderInfo getFolderInfo(long)>($l1);
+        if $r2 == null goto label3;
+
+        $r3 = $r2.<cz.romario.opensudoku.game.FolderInfo: java.lang.String name>;
+
+     label2:
+        $r5 = newarray (java.lang.Object)[1];
+        $r5[0] = $r3;
+        $r6 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: java.lang.String getString(int,java.lang.Object[])>(2131296278, $r5);
+        virtualinvoke $r1.<android.app.Dialog: void setTitle(java.lang.CharSequence)>($r6);
+        $r7 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView mRenameFolderNameInput>;
+        virtualinvoke $r7.<android.widget.TextView: void setText(java.lang.CharSequence)>($r3);
+        goto label0;
+
+     label3:
+        $r3 = "";
+        goto label2;
+
+     label4:
+        $r4 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase mDatabase>;
+        $l1 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mDeleteFolderID>;
+        $r2 = virtualinvoke $r4.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.game.FolderInfo getFolderInfo(long)>($l1);
+        if $r2 == null goto label6;
+
+        $r6 = $r2.<cz.romario.opensudoku.game.FolderInfo: java.lang.String name>;
+
+     label5:
+        $r5 = newarray (java.lang.Object)[1];
+        $r5[0] = $r6;
+        $r6 = virtualinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: java.lang.String getString(int,java.lang.Object[])>(2131296279, $r5);
+        virtualinvoke $r1.<android.app.Dialog: void setTitle(java.lang.CharSequence)>($r6);
+        goto label0;
+
+     label6:
+        $r6 = "";
+        goto label5;
+    }
+
+    protected void onRestoreInstanceState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.os.Bundle $r1;
+        long $l0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<android.app.ListActivity: void onRestoreInstanceState(android.os.Bundle)>($r1);
+        $l0 = virtualinvoke $r1.<android.os.Bundle: long getLong(java.lang.String)>("mRenameFolderID");
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mRenameFolderID> = $l0;
+        $l0 = virtualinvoke $r1.<android.os.Bundle: long getLong(java.lang.String)>("mDeleteFolderID");
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mDeleteFolderID> = $l0;
+        return;
+    }
+
+    protected void onSaveInstanceState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+        android.os.Bundle $r1;
+        long $l0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<android.app.ListActivity: void onSaveInstanceState(android.os.Bundle)>($r1);
+        $l0 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mRenameFolderID>;
+        virtualinvoke $r1.<android.os.Bundle: void putLong(java.lang.String,long)>("mRenameFolderID", $l0);
+        $l0 = $r0.<cz.romario.opensudoku.gui.FolderListActivity: long mDeleteFolderID>;
+        virtualinvoke $r1.<android.os.Bundle: void putLong(java.lang.String,long)>("mDeleteFolderID", $l0);
+        return;
+    }
+
+    protected void onStart()
+    {
+        cz.romario.opensudoku.gui.FolderListActivity $r0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        specialinvoke $r0.<android.app.ListActivity: void onStart()>();
+        specialinvoke $r0.<cz.romario.opensudoku.gui.FolderListActivity: void updateList()>();
+        return;
+    }
+
+    static void <clinit>()
+    {
+        java.util.LinkedList linkedList;
+
+        linkedList = new java.util.LinkedList;
+        specialinvoke linkedList.<java.util.LinkedList: void <init>()>();
+        <cz.romario.opensudoku.gui.FolderListActivity: java.util.LinkedList viewLinkedList> = linkedList;
+        linkedList = new java.util.LinkedList;
+        specialinvoke linkedList.<java.util.LinkedList: void <init>()>();
+        <cz.romario.opensudoku.gui.FolderListActivity: java.util.LinkedList listenerLinkedList> = linkedList;
+        <cz.romario.opensudoku.gui.FolderListActivity: boolean isVisited> = 0;
+        return;
+    }
+
+    public boolean onMenuItemClick(android.view.MenuItem)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity activity;
+        android.view.MenuItem menuItem;
+        java.lang.Object object;
+        android.view.View view;
+        android.widget.Toast toast;
+        int int0, int1;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.lang.reflect.Method reflectMethod;
+        java.util.LinkedList linkedList;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.String[] arrayObject;
+        java.lang.reflect.Method[] arrayReflectMethod;
+
+        activity := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        menuItem := @parameter0: android.view.MenuItem;
+
+     label0:
+        linkedList = <cz.romario.opensudoku.gui.FolderListActivity: java.util.LinkedList viewLinkedList>;
+        flag = virtualinvoke linkedList.<java.util.AbstractCollection: boolean isEmpty()>();
+        if flag == 0 goto label1;
+
+        toast = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(activity, "Test finishes", 0);
+        virtualinvoke toast.<android.widget.Toast: void show()>();
+        return 1;
+
+     label1:
+        linkedList = <cz.romario.opensudoku.gui.FolderListActivity: java.util.LinkedList viewLinkedList>;
+        object = virtualinvoke linkedList.<java.util.LinkedList: java.lang.Object poll()>();
+        view = (android.view.View) object;
+        linkedList = <cz.romario.opensudoku.gui.FolderListActivity: java.util.LinkedList listenerLinkedList>;
+        object = virtualinvoke linkedList.<java.util.LinkedList: java.lang.Object poll()>();
+        classLocal = virtualinvoke object.<java.lang.Object: java.lang.Class getClass()>();
+        arrayReflectMethod = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Method[] getMethods()>();
+        int0 = 0;
+
+     label2:
+        int1 = lengthof arrayReflectMethod;
+        if int0 >= int1 goto label0;
+
+        reflectMethod = arrayReflectMethod[int0];
+        string = virtualinvoke reflectMethod.<java.lang.reflect.Method: java.lang.String getName()>();
+        flag = virtualinvoke string.<java.lang.String: boolean startsWith(java.lang.String)>("on");
+        if flag == 0 goto label6;
+
+     label3:
+        arrayObject = newarray (java.lang.Object)[1];
+        arrayObject[0] = view;
+        virtualinvoke reflectMethod.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(object, arrayObject);
+
+     label4:
+        goto label0;
+
+     label5:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+
+     label6:
+        int0 = int0 + 1;
+        goto label2;
+
+        catch java.lang.Exception from label3 to label4 with label5;
+    }
+
+    public void doReflect(android.view.View, java.lang.Object)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity activity;
+        java.lang.Object object1, object2;
+        android.view.View view;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.util.LinkedList linkedList1, linkedList2;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.reflect.Field field1, field2, field3;
+        java.lang.Boolean booleanLocal;
+        android.content.Context context;
+
+        activity := @this: cz.romario.opensudoku.gui.FolderListActivity;
+        view := @parameter0: android.view.View;
+        object1 := @parameter1: java.lang.Object;
+        context = virtualinvoke view.<android.view.View: android.content.Context getContext()>();
+        classLocal = virtualinvoke context.<java.lang.Object: java.lang.Class getClass()>();
+        string = virtualinvoke classLocal.<java.lang.Class: java.lang.String getName()>();
+
+     label0:
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field1 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("viewLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field2 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("listenerLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field3 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("isVisited");
+        object2 = virtualinvoke field1.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList1 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field2.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList2 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field3.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        booleanLocal = (java.lang.Boolean) object2;
+        flag = virtualinvoke booleanLocal.<java.lang.Boolean: boolean booleanValue()>();
+        if flag != 0 goto label1;
+
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(view);
+        virtualinvoke linkedList2.<java.util.LinkedList: boolean offer(java.lang.Object)>(object1);
+
+     label1:
+        return;
+
+     label2:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+        goto label1;
+
+        catch java.lang.Exception from label0 to label1 with label2;
+    }
+}

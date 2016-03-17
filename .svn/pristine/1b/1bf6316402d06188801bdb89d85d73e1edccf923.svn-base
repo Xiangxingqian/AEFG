@@ -1,0 +1,14 @@
+public final class com.example.qian.R$dimen extends java.lang.Object
+{
+    public static final int activity_horizontal_margin;
+    public static final int activity_vertical_margin;
+
+    public void <init>()
+    {
+        com.example.qian.R$dimen $r0;
+
+        $r0 := @this: com.example.qian.R$dimen;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

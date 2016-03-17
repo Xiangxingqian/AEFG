@@ -1,0 +1,579 @@
+public class android.support.v4.content.LocalBroadcastManager extends java.lang.Object
+{
+    private static final boolean DEBUG;
+    static final int MSG_EXEC_PENDING_BROADCASTS;
+    private static final java.lang.String TAG;
+    private static android.support.v4.content.LocalBroadcastManager mInstance;
+    private static final java.lang.Object mLock;
+    private final java.util.HashMap mActions;
+    private final android.content.Context mAppContext;
+    private final android.os.Handler mHandler;
+    private final java.util.ArrayList mPendingBroadcasts;
+    private final java.util.HashMap mReceivers;
+
+    static void <clinit>()
+    {
+        java.lang.Object $r0;
+
+        $r0 = new java.lang.Object;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        <android.support.v4.content.LocalBroadcastManager: java.lang.Object mLock> = $r0;
+        return;
+    }
+
+    private void <init>(android.content.Context)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        android.content.Context $r1;
+        java.util.HashMap $r2;
+        android.os.Looper $r3;
+        java.util.ArrayList $r4;
+        android.support.v4.content.LocalBroadcastManager$1 $r5;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+        $r1 := @parameter0: android.content.Context;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r2 = new java.util.HashMap;
+        specialinvoke $r2.<java.util.HashMap: void <init>()>();
+        $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers> = $r2;
+        $r2 = new java.util.HashMap;
+        specialinvoke $r2.<java.util.HashMap: void <init>()>();
+        $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions> = $r2;
+        $r4 = new java.util.ArrayList;
+        specialinvoke $r4.<java.util.ArrayList: void <init>()>();
+        $r0.<android.support.v4.content.LocalBroadcastManager: java.util.ArrayList mPendingBroadcasts> = $r4;
+        $r0.<android.support.v4.content.LocalBroadcastManager: android.content.Context mAppContext> = $r1;
+        $r5 = new android.support.v4.content.LocalBroadcastManager$1;
+        $r3 = virtualinvoke $r1.<android.content.Context: android.os.Looper getMainLooper()>();
+        specialinvoke $r5.<android.support.v4.content.LocalBroadcastManager$1: void <init>(android.support.v4.content.LocalBroadcastManager,android.os.Looper)>($r0, $r3);
+        $r0.<android.support.v4.content.LocalBroadcastManager: android.os.Handler mHandler> = $r5;
+        return;
+    }
+
+    static void access$000(android.support.v4.content.LocalBroadcastManager)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+
+        $r0 := @parameter0: android.support.v4.content.LocalBroadcastManager;
+        specialinvoke $r0.<android.support.v4.content.LocalBroadcastManager: void executePendingBroadcasts()>();
+        return;
+    }
+
+    private void executePendingBroadcasts()
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        int $i0, $i1, $i2;
+        android.support.v4.content.LocalBroadcastManager$BroadcastRecord $r1;
+        android.support.v4.content.LocalBroadcastManager$BroadcastRecord[] $r2;
+        java.util.ArrayList $r3;
+        java.util.HashMap $r4;
+        android.content.Intent $r5;
+        java.lang.Object $r6;
+        android.support.v4.content.LocalBroadcastManager$ReceiverRecord $r7;
+        android.content.BroadcastReceiver $r8;
+        android.content.Context $r9;
+        java.lang.Throwable $r10;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+
+     label0:
+        $r4 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        entermonitor $r4;
+
+     label1:
+        $r3 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.ArrayList mPendingBroadcasts>;
+        $i0 = virtualinvoke $r3.<java.util.ArrayList: int size()>();
+        if $i0 > 0 goto label2;
+
+        exitmonitor $r4;
+        return;
+
+     label2:
+        $r2 = newarray (android.support.v4.content.LocalBroadcastManager$BroadcastRecord)[$i0];
+        $r3 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.ArrayList mPendingBroadcasts>;
+        virtualinvoke $r3.<java.util.ArrayList: java.lang.Object[] toArray(java.lang.Object[])>($r2);
+        $r3 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.ArrayList mPendingBroadcasts>;
+        virtualinvoke $r3.<java.util.ArrayList: void clear()>();
+        exitmonitor $r4;
+
+     label3:
+        $i0 = 0;
+
+     label4:
+        $i1 = lengthof $r2;
+        if $i0 >= $i1 goto label0;
+
+        $r1 = $r2[$i0];
+        $i1 = 0;
+
+     label5:
+        $r3 = $r1.<android.support.v4.content.LocalBroadcastManager$BroadcastRecord: java.util.ArrayList receivers>;
+        $i2 = virtualinvoke $r3.<java.util.ArrayList: int size()>();
+        if $i1 >= $i2 goto label9;
+
+        $r3 = $r1.<android.support.v4.content.LocalBroadcastManager$BroadcastRecord: java.util.ArrayList receivers>;
+        $r6 = virtualinvoke $r3.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+        $r7 = (android.support.v4.content.LocalBroadcastManager$ReceiverRecord) $r6;
+        $r8 = $r7.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: android.content.BroadcastReceiver receiver>;
+        $r9 = $r0.<android.support.v4.content.LocalBroadcastManager: android.content.Context mAppContext>;
+        $r5 = $r1.<android.support.v4.content.LocalBroadcastManager$BroadcastRecord: android.content.Intent intent>;
+        virtualinvoke $r8.<android.content.BroadcastReceiver: void onReceive(android.content.Context,android.content.Intent)>($r9, $r5);
+        $i1 = $i1 + 1;
+        goto label5;
+
+     label6:
+        $r10 := @caughtexception;
+
+     label7:
+        exitmonitor $r4;
+
+     label8:
+        throw $r10;
+
+     label9:
+        $i0 = $i0 + 1;
+        goto label4;
+
+        catch java.lang.Throwable from label1 to label3 with label6;
+        catch java.lang.Throwable from label7 to label8 with label6;
+    }
+
+    public static android.support.v4.content.LocalBroadcastManager getInstance(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.support.v4.content.LocalBroadcastManager $r1;
+        java.lang.Object $r2;
+        java.lang.Throwable $r3;
+
+        $r0 := @parameter0: android.content.Context;
+        $r2 = <android.support.v4.content.LocalBroadcastManager: java.lang.Object mLock>;
+        entermonitor $r2;
+
+     label0:
+        $r1 = <android.support.v4.content.LocalBroadcastManager: android.support.v4.content.LocalBroadcastManager mInstance>;
+        if $r1 != null goto label1;
+
+        $r1 = new android.support.v4.content.LocalBroadcastManager;
+        $r0 = virtualinvoke $r0.<android.content.Context: android.content.Context getApplicationContext()>();
+        specialinvoke $r1.<android.support.v4.content.LocalBroadcastManager: void <init>(android.content.Context)>($r0);
+        <android.support.v4.content.LocalBroadcastManager: android.support.v4.content.LocalBroadcastManager mInstance> = $r1;
+
+     label1:
+        $r1 = <android.support.v4.content.LocalBroadcastManager: android.support.v4.content.LocalBroadcastManager mInstance>;
+        exitmonitor $r2;
+        return $r1;
+
+     label2:
+        $r3 := @caughtexception;
+        exitmonitor $r2;
+
+     label3:
+        throw $r3;
+
+        catch java.lang.Throwable from label0 to label3 with label2;
+    }
+
+    public void registerReceiver(android.content.BroadcastReceiver, android.content.IntentFilter)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        android.content.BroadcastReceiver $r1;
+        android.content.IntentFilter $r2;
+        java.lang.String $r3;
+        java.lang.Object $r4;
+        android.support.v4.content.LocalBroadcastManager$ReceiverRecord $r5;
+        int $i0, $i2;
+        java.util.HashMap $r6, $r7;
+        java.util.ArrayList $r8;
+        java.lang.Throwable $r9;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+        $r1 := @parameter0: android.content.BroadcastReceiver;
+        $r2 := @parameter1: android.content.IntentFilter;
+        $r7 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        entermonitor $r7;
+
+     label0:
+        $r5 = new android.support.v4.content.LocalBroadcastManager$ReceiverRecord;
+        specialinvoke $r5.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: void <init>(android.content.IntentFilter,android.content.BroadcastReceiver)>($r2, $r1);
+        $r6 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        $r4 = virtualinvoke $r6.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r1);
+        $r8 = (java.util.ArrayList) $r4;
+        if $r8 != null goto label1;
+
+        $r8 = new java.util.ArrayList;
+        specialinvoke $r8.<java.util.ArrayList: void <init>(int)>(1);
+        $r6 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        virtualinvoke $r6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r1, $r8);
+
+     label1:
+        virtualinvoke $r8.<java.util.ArrayList: boolean add(java.lang.Object)>($r2);
+        $i0 = 0;
+
+     label2:
+        $i2 = virtualinvoke $r2.<android.content.IntentFilter: int countActions()>();
+        if $i0 >= $i2 goto label4;
+
+        $r3 = virtualinvoke $r2.<android.content.IntentFilter: java.lang.String getAction(int)>($i0);
+        $r6 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions>;
+        $r4 = virtualinvoke $r6.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r3);
+        $r8 = (java.util.ArrayList) $r4;
+        if $r8 != null goto label3;
+
+        $r8 = new java.util.ArrayList;
+        specialinvoke $r8.<java.util.ArrayList: void <init>(int)>(1);
+        $r6 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions>;
+        virtualinvoke $r6.<java.util.HashMap: java.lang.Object put(java.lang.Object,java.lang.Object)>($r3, $r8);
+
+     label3:
+        virtualinvoke $r8.<java.util.ArrayList: boolean add(java.lang.Object)>($r5);
+        $i0 = $i0 + 1;
+        goto label2;
+
+     label4:
+        exitmonitor $r7;
+        return;
+
+     label5:
+        $r9 := @caughtexception;
+        exitmonitor $r7;
+
+     label6:
+        throw $r9;
+
+        catch java.lang.Throwable from label0 to label6 with label5;
+    }
+
+    public boolean sendBroadcast(android.content.Intent)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        android.content.Intent $r1;
+        android.content.Context $r3;
+        java.lang.String $r4, $r5, $r6, $r11, $r16, $r22;
+        android.net.Uri $r7;
+        java.util.Set $r8;
+        java.lang.StringBuilder $r9;
+        boolean $z0, $z1;
+        java.lang.Object $r10;
+        int $i0, $i1;
+        java.util.ArrayList $r12, $r18;
+        java.util.HashMap $r13, $r17;
+        android.content.ContentResolver $r14;
+        android.support.v4.content.LocalBroadcastManager$ReceiverRecord $r19;
+        android.content.IntentFilter $r20;
+        java.lang.Throwable $r21;
+        android.support.v4.content.LocalBroadcastManager$BroadcastRecord $r23;
+        android.os.Handler $r24;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+        $r1 := @parameter0: android.content.Intent;
+        $r13 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        entermonitor $r13;
+
+     label0:
+        $r4 = virtualinvoke $r1.<android.content.Intent: java.lang.String getAction()>();
+        $r3 = $r0.<android.support.v4.content.LocalBroadcastManager: android.content.Context mAppContext>;
+        $r14 = virtualinvoke $r3.<android.content.Context: android.content.ContentResolver getContentResolver()>();
+        $r5 = virtualinvoke $r1.<android.content.Intent: java.lang.String resolveTypeIfNeeded(android.content.ContentResolver)>($r14);
+        $r7 = virtualinvoke $r1.<android.content.Intent: android.net.Uri getData()>();
+        $r6 = virtualinvoke $r1.<android.content.Intent: java.lang.String getScheme()>();
+        $r8 = virtualinvoke $r1.<android.content.Intent: java.util.Set getCategories()>();
+        $i1 = virtualinvoke $r1.<android.content.Intent: int getFlags()>();
+        $i1 = $i1 & 8;
+        if $i1 == 0 goto label7;
+
+        $z0 = 1;
+
+     label1:
+        if $z0 == 0 goto label2;
+
+        $r9 = new java.lang.StringBuilder;
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Resolving type ");
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" scheme ");
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r6);
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" of intent ");
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", $r11);
+
+     label2:
+        $r17 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions>;
+        $r16 = virtualinvoke $r1.<android.content.Intent: java.lang.String getAction()>();
+        $r10 = virtualinvoke $r17.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r16);
+        $r18 = (java.util.ArrayList) $r10;
+        if $r18 == null goto label24;
+
+        if $z0 == 0 goto label3;
+
+        $r9 = new java.lang.StringBuilder;
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Action list: ");
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r18);
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", $r11);
+
+     label3:
+        $r12 = null;
+        $i0 = 0;
+
+     label4:
+        $i1 = virtualinvoke $r18.<java.util.ArrayList: int size()>();
+        if $i0 >= $i1 goto label20;
+
+        $r10 = virtualinvoke $r18.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+        $r19 = (android.support.v4.content.LocalBroadcastManager$ReceiverRecord) $r10;
+        if $z0 == 0 goto label5;
+
+        $r9 = new java.lang.StringBuilder;
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Matching against filter ");
+        $r20 = $r19.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: android.content.IntentFilter filter>;
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r20);
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", $r11);
+
+     label5:
+        $z1 = $r19.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: boolean broadcasting>;
+        if $z1 == 0 goto label8;
+
+        if $z0 == 0 goto label6;
+
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", "  Filter\'s target already added");
+
+     label6:
+        $i0 = $i0 + 1;
+        goto label4;
+
+     label7:
+        $z0 = 0;
+        goto label1;
+
+     label8:
+        $r20 = $r19.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: android.content.IntentFilter filter>;
+        $i1 = virtualinvoke $r20.<android.content.IntentFilter: int match(java.lang.String,java.lang.String,java.lang.String,android.net.Uri,java.util.Set,java.lang.String)>($r4, $r5, $r6, $r7, $r8, "LocalBroadcastManager");
+        if $i1 < 0 goto label13;
+
+        if $z0 == 0 goto label9;
+
+        $r9 = new java.lang.StringBuilder;
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  Filter matched!  match=0x");
+        $r11 = staticinvoke <java.lang.Integer: java.lang.String toHexString(int)>($i1);
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+        $r11 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", $r11);
+
+     label9:
+        if $r12 != null goto label10;
+
+        $r12 = new java.util.ArrayList;
+        specialinvoke $r12.<java.util.ArrayList: void <init>()>();
+
+     label10:
+        virtualinvoke $r12.<java.util.ArrayList: boolean add(java.lang.Object)>($r19);
+        $r19.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: boolean broadcasting> = 1;
+        goto label6;
+
+     label11:
+        $r21 := @caughtexception;
+        exitmonitor $r13;
+
+     label12:
+        throw $r21;
+
+     label13:
+        if $z0 == 0 goto label6;
+
+        lookupswitch($i1)
+        {
+            case -4: goto label17;
+            case -3: goto label16;
+            case -2: goto label18;
+            case -1: goto label19;
+            default: goto label14;
+        };
+
+     label14:
+        $r11 = "unknown reason";
+
+     label15:
+        $r9 = new java.lang.StringBuilder;
+        specialinvoke $r9.<java.lang.StringBuilder: void <init>()>();
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("  Filter did not match: ");
+        $r9 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r11);
+        $r22 = virtualinvoke $r9.<java.lang.StringBuilder: java.lang.String toString()>();
+        staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>("LocalBroadcastManager", $r22);
+        goto label6;
+
+     label16:
+        $r11 = "action";
+        goto label15;
+
+     label17:
+        $r11 = "category";
+        goto label15;
+
+     label18:
+        $r11 = "data";
+        goto label15;
+
+     label19:
+        $r11 = "type";
+        goto label15;
+
+     label20:
+        if $r12 == null goto label24;
+
+        $i1 = 0;
+
+     label21:
+        $i0 = virtualinvoke $r12.<java.util.ArrayList: int size()>();
+        if $i1 >= $i0 goto label22;
+
+        $r10 = virtualinvoke $r12.<java.util.ArrayList: java.lang.Object get(int)>($i1);
+        $r19 = (android.support.v4.content.LocalBroadcastManager$ReceiverRecord) $r10;
+        $r19.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: boolean broadcasting> = 0;
+        $i1 = $i1 + 1;
+        goto label21;
+
+     label22:
+        $r18 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.ArrayList mPendingBroadcasts>;
+        $r23 = new android.support.v4.content.LocalBroadcastManager$BroadcastRecord;
+        specialinvoke $r23.<android.support.v4.content.LocalBroadcastManager$BroadcastRecord: void <init>(android.content.Intent,java.util.ArrayList)>($r1, $r12);
+        virtualinvoke $r18.<java.util.ArrayList: boolean add(java.lang.Object)>($r23);
+        $r24 = $r0.<android.support.v4.content.LocalBroadcastManager: android.os.Handler mHandler>;
+        $z1 = virtualinvoke $r24.<android.os.Handler: boolean hasMessages(int)>(1);
+        if $z1 != 0 goto label23;
+
+        $r24 = $r0.<android.support.v4.content.LocalBroadcastManager: android.os.Handler mHandler>;
+        virtualinvoke $r24.<android.os.Handler: boolean sendEmptyMessage(int)>(1);
+
+     label23:
+        exitmonitor $r13;
+        return 1;
+
+     label24:
+        exitmonitor $r13;
+
+     label25:
+        return 0;
+
+        catch java.lang.Throwable from label0 to label12 with label11;
+        catch java.lang.Throwable from label14 to label25 with label11;
+    }
+
+    public void sendBroadcastSync(android.content.Intent)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        android.content.Intent $r1;
+        boolean $z0;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+        $r1 := @parameter0: android.content.Intent;
+        $z0 = virtualinvoke $r0.<android.support.v4.content.LocalBroadcastManager: boolean sendBroadcast(android.content.Intent)>($r1);
+        if $z0 == 0 goto label0;
+
+        specialinvoke $r0.<android.support.v4.content.LocalBroadcastManager: void executePendingBroadcasts()>();
+
+     label0:
+        return;
+    }
+
+    public void unregisterReceiver(android.content.BroadcastReceiver)
+    {
+        android.support.v4.content.LocalBroadcastManager $r0;
+        android.content.BroadcastReceiver $r1, $r10;
+        java.lang.String $r2;
+        java.lang.Object $r3;
+        int $i0, $i1, $i2, $i3;
+        java.util.HashMap $r4, $r5;
+        java.util.ArrayList $r6, $r8;
+        android.content.IntentFilter $r7;
+        android.support.v4.content.LocalBroadcastManager$ReceiverRecord $r9;
+        java.lang.Throwable $r11;
+
+        $r0 := @this: android.support.v4.content.LocalBroadcastManager;
+        $r1 := @parameter0: android.content.BroadcastReceiver;
+        $r5 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        entermonitor $r5;
+
+     label0:
+        $r4 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mReceivers>;
+        $r3 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object remove(java.lang.Object)>($r1);
+        $r6 = (java.util.ArrayList) $r3;
+        if $r6 != null goto label2;
+
+        exitmonitor $r5;
+
+     label1:
+        return;
+
+     label2:
+        $i0 = 0;
+
+     label3:
+        $i2 = virtualinvoke $r6.<java.util.ArrayList: int size()>();
+        if $i0 >= $i2 goto label10;
+
+        $r3 = virtualinvoke $r6.<java.util.ArrayList: java.lang.Object get(int)>($i0);
+        $r7 = (android.content.IntentFilter) $r3;
+        $i1 = 0;
+
+     label4:
+        $i2 = virtualinvoke $r7.<android.content.IntentFilter: int countActions()>();
+        if $i1 >= $i2 goto label9;
+
+        $r2 = virtualinvoke $r7.<android.content.IntentFilter: java.lang.String getAction(int)>($i1);
+        $r4 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions>;
+        $r3 = virtualinvoke $r4.<java.util.HashMap: java.lang.Object get(java.lang.Object)>($r2);
+        $r8 = (java.util.ArrayList) $r3;
+        if $r8 == null goto label8;
+
+        $i2 = 0;
+
+     label5:
+        $i3 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+        if $i2 >= $i3 goto label7;
+
+        $r3 = virtualinvoke $r8.<java.util.ArrayList: java.lang.Object get(int)>($i2);
+        $r9 = (android.support.v4.content.LocalBroadcastManager$ReceiverRecord) $r3;
+        $r10 = $r9.<android.support.v4.content.LocalBroadcastManager$ReceiverRecord: android.content.BroadcastReceiver receiver>;
+        if $r10 != $r1 goto label6;
+
+        virtualinvoke $r8.<java.util.ArrayList: java.lang.Object remove(int)>($i2);
+        $i2 = $i2 + -1;
+
+     label6:
+        $i2 = $i2 + 1;
+        goto label5;
+
+     label7:
+        $i3 = virtualinvoke $r8.<java.util.ArrayList: int size()>();
+        if $i3 > 0 goto label8;
+
+        $r4 = $r0.<android.support.v4.content.LocalBroadcastManager: java.util.HashMap mActions>;
+        virtualinvoke $r4.<java.util.HashMap: java.lang.Object remove(java.lang.Object)>($r2);
+
+     label8:
+        $i1 = $i1 + 1;
+        goto label4;
+
+     label9:
+        $i0 = $i0 + 1;
+        goto label3;
+
+     label10:
+        exitmonitor $r5;
+        goto label1;
+
+     label11:
+        $r11 := @caughtexception;
+        exitmonitor $r5;
+
+     label12:
+        throw $r11;
+
+        catch java.lang.Throwable from label0 to label12 with label11;
+    }
+}

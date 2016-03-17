@@ -1,0 +1,132 @@
+public class cz.romario.opensudoku.utils.AndroidUtils extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.utils.AndroidUtils $r0;
+
+        $r0 := @this: cz.romario.opensudoku.utils.AndroidUtils;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public static int getAppVersionCode(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.content.pm.PackageManager$NameNotFoundException $r1;
+        android.content.pm.PackageManager $r2;
+        java.lang.String $r3;
+        android.content.pm.PackageInfo $r4;
+        int $i1;
+        java.lang.RuntimeException $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+     label0:
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+        $r3 = virtualinvoke $r0.<android.content.Context: java.lang.String getPackageName()>();
+        $r4 = virtualinvoke $r2.<android.content.pm.PackageManager: android.content.pm.PackageInfo getPackageInfo(java.lang.String,int)>($r3, 0);
+
+     label1:
+        $i1 = $r4.<android.content.pm.PackageInfo: int versionCode>;
+        return $i1;
+
+     label2:
+        $r1 := @caughtexception;
+        $r5 = new java.lang.RuntimeException;
+        specialinvoke $r5.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r1);
+        throw $r5;
+
+        catch android.content.pm.PackageManager$NameNotFoundException from label0 to label1 with label2;
+    }
+
+    public static java.lang.String getAppVersionName(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.content.pm.PackageManager$NameNotFoundException $r1;
+        android.content.pm.PackageManager $r2;
+        java.lang.String $r3;
+        android.content.pm.PackageInfo $r4;
+        java.lang.RuntimeException $r5;
+
+        $r0 := @parameter0: android.content.Context;
+
+     label0:
+        $r2 = virtualinvoke $r0.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+        $r3 = virtualinvoke $r0.<android.content.Context: java.lang.String getPackageName()>();
+        $r4 = virtualinvoke $r2.<android.content.pm.PackageManager: android.content.pm.PackageInfo getPackageInfo(java.lang.String,int)>($r3, 0);
+
+     label1:
+        $r3 = $r4.<android.content.pm.PackageInfo: java.lang.String versionName>;
+        return $r3;
+
+     label2:
+        $r1 := @caughtexception;
+        $r5 = new java.lang.RuntimeException;
+        specialinvoke $r5.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r1);
+        throw $r5;
+
+        catch android.content.pm.PackageManager$NameNotFoundException from label0 to label1 with label2;
+    }
+
+    public static boolean isIntentAvailable(android.content.Context, java.lang.String)
+    {
+        android.content.Context $r0;
+        java.lang.String $r1;
+        android.content.Intent $r2;
+        java.util.List $r3;
+        android.content.pm.PackageManager $r4;
+        int $i0;
+
+        $r0 := @parameter0: android.content.Context;
+        $r1 := @parameter1: java.lang.String;
+        $r4 = virtualinvoke $r0.<android.content.Context: android.content.pm.PackageManager getPackageManager()>();
+        $r2 = new android.content.Intent;
+        specialinvoke $r2.<android.content.Intent: void <init>(java.lang.String)>($r1);
+        $r3 = virtualinvoke $r4.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r2, 65536);
+        $i0 = interfaceinvoke $r3.<java.util.List: int size()>();
+        if $i0 <= 0 goto label0;
+
+        return 1;
+
+     label0:
+        return 0;
+    }
+
+    public static void setThemeFromPreferences(android.content.Context)
+    {
+        android.content.Context $r0;
+        android.content.SharedPreferences $r1;
+        java.lang.String $r2;
+        boolean $z0;
+
+        $r0 := @parameter0: android.content.Context;
+        $r1 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r0);
+        $r2 = interfaceinvoke $r1.<android.content.SharedPreferences: java.lang.String getString(java.lang.String,java.lang.String)>("theme", "default");
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("default");
+        if $z0 == 0 goto label1;
+
+        virtualinvoke $r0.<android.content.Context: void setTheme(int)>(2131361798);
+
+     label0:
+        return;
+
+     label1:
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("paperi");
+        if $z0 == 0 goto label2;
+
+        virtualinvoke $r0.<android.content.Context: void setTheme(int)>(2131361799);
+        goto label0;
+
+     label2:
+        $z0 = virtualinvoke $r2.<java.lang.String: boolean equals(java.lang.Object)>("paperii");
+        if $z0 == 0 goto label3;
+
+        virtualinvoke $r0.<android.content.Context: void setTheme(int)>(2131361800);
+        goto label0;
+
+     label3:
+        virtualinvoke $r0.<android.content.Context: void setTheme(int)>(2131361798);
+        goto label0;
+    }
+}

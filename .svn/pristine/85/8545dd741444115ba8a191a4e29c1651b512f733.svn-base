@@ -1,0 +1,27 @@
+public class cz.romario.opensudoku.db.SudokuInvalidFormatException extends java.lang.Exception
+{
+    private static final long serialVersionUID;
+    private final java.lang.String mData;
+
+    public void <init>(java.lang.String)
+    {
+        cz.romario.opensudoku.db.SudokuInvalidFormatException $r0;
+        java.lang.String $r1;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuInvalidFormatException;
+        $r1 := @parameter0: java.lang.String;
+        specialinvoke $r0.<java.lang.Exception: void <init>(java.lang.String)>("Invalid format of sudoku.");
+        $r0.<cz.romario.opensudoku.db.SudokuInvalidFormatException: java.lang.String mData> = $r1;
+        return;
+    }
+
+    public java.lang.String getData()
+    {
+        cz.romario.opensudoku.db.SudokuInvalidFormatException $r0;
+        java.lang.String $r1;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuInvalidFormatException;
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuInvalidFormatException: java.lang.String mData>;
+        return $r1;
+    }
+}

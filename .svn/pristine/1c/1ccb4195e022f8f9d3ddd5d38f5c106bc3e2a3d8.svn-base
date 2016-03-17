@@ -1,0 +1,59 @@
+package com.app.test.modifyClass;
+
+import soot.IntType;
+import soot.Modifier;
+import soot.RefType;
+import soot.Scene;
+import soot.SootClass;
+import soot.SootField;
+
+import com.app.test.newMethod.OnCreateOptionsMenu;
+import com.app.test.newMethod.OnMenuItemClick;
+
+public class ActivityModifier extends ClassModifier{
+
+	SootField events_field;
+	SootField count_field;
+	final RefType LIST_TYPE = RefType.v("java.util.List");
+	final RefType EVENT_TYPE = RefType.v("com.qian.Event");
+	
+	public ActivityModifier(SootClass sc) {
+		super(sc);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void addMethods() {
+			
+		//add onMenuItemClick
+		if(!sc.declaresMethod(onMenuItemClick_Name)){
+			OnMenuItemClick onMenuItemClick = new OnMenuItemClick(sc, onMenuItemClick_Name);
+			onMenuItemClick.newMethod();
+		}
+		
+		//add onCreateOptionsMenu
+		if(!sc.declaresMethod(onCreateOptionsMenu_Name)){
+			OnCreateOptionsMenu optionMenu = new OnCreateOptionsMenu(sc, onCreateOptionsMenu_Name);
+			optionMenu.newMethod();
+		}
+		else {
+			//TODO
+		}
+	}
+
+	@Override
+	public void addFields() {
+		events_field = addField("events", LIST_TYPE, Modifier.PUBLIC|Modifier.STATIC);
+		count_field = addField("count", IntType.v(), Modifier.PUBLIC|Modifier.STATIC);
+	}
+
+	//add menuItemClickListener
+	@Override
+	public void addInterface() {
+		SootClass interfaceClass = Scene.v().getSootClass(interfaceName);
+		if(!sc.implementsInterface(interfaceName)){
+			sc.addInterface(interfaceClass);
+		}
+	}
+
+}

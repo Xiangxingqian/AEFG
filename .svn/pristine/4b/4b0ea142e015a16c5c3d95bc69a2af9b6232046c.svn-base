@@ -1,0 +1,20 @@
+public final class com.example.qian.R$layout extends java.lang.Object
+{
+    public static final int activity_haha;
+    public static final int activity_main;
+    public static final int activity_super;
+    public static final int fragment;
+    public static final int list;
+    public static final int listview;
+    public static final int second;
+    public static final int tab_host;
+
+    public void <init>()
+    {
+        com.example.qian.R$layout $r0;
+
+        $r0 := @this: com.example.qian.R$layout;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

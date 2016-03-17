@@ -1,0 +1,60 @@
+class com.example.qian.MannualActivity$1 extends java.lang.Object implements android.view.View$OnClickListener
+{
+    final com.example.qian.MannualActivity this$0;
+
+    void <init>(com.example.qian.MannualActivity)
+    {
+        com.example.qian.MannualActivity$1 $r0;
+        com.example.qian.MannualActivity $r1;
+
+        $r0 := @this: com.example.qian.MannualActivity$1;
+        $r1 := @parameter0: com.example.qian.MannualActivity;
+        $r0.<com.example.qian.MannualActivity$1: com.example.qian.MannualActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.view.View)
+    {
+        com.example.qian.MannualActivity$1 $r0;
+        android.view.View $r1;
+        java.lang.Object $r2;
+        java.util.List $r3;
+        boolean $z0;
+        java.lang.StringBuilder $r4;
+        java.lang.String $r5;
+        java.util.Iterator $r6;
+        com.example.qian.Triples $r7;
+        java.io.PrintStream $r8;
+        java.lang.Class $r9;
+
+        $r0 := @this: com.example.qian.MannualActivity$1;
+        $r1 := @parameter0: android.view.View;
+        $r3 = <com.example.qian.MannualActivity: java.util.List triples>;
+        $r6 = interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>();
+
+     label0:
+        $z0 = interfaceinvoke $r6.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r2 = interfaceinvoke $r6.<java.util.Iterator: java.lang.Object next()>();
+        $r7 = (com.example.qian.Triples) $r2;
+        $r8 = <java.lang.System: java.io.PrintStream out>;
+        $r4 = new java.lang.StringBuilder;
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>(java.lang.String)>("Class: ");
+        $r9 = virtualinvoke $r7.<com.example.qian.Triples: java.lang.Class getC()>();
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r9);
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" View: ");
+        $r1 = virtualinvoke $r7.<com.example.qian.Triples: android.view.View getView()>();
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r1);
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" listener: ");
+        $r2 = virtualinvoke $r7.<com.example.qian.Triples: java.lang.Object getO()>();
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.Object)>($r2);
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r8.<java.io.PrintStream: void println(java.lang.String)>($r5);
+        goto label0;
+    }
+}

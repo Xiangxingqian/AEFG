@@ -1,0 +1,872 @@
+public class cz.romario.opensudoku.db.SudokuDatabase extends java.lang.Object
+{
+    public static final java.lang.String DATABASE_NAME;
+    public static final java.lang.String FOLDER_TABLE_NAME;
+    private static final java.lang.String INBOX_FOLDER_NAME;
+    public static final java.lang.String SUDOKU_TABLE_NAME;
+    private android.database.sqlite.SQLiteStatement mInsertSudokuStatement;
+    private cz.romario.opensudoku.db.DatabaseHelper mOpenHelper;
+
+    public void <init>(android.content.Context)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        android.content.Context $r1;
+        cz.romario.opensudoku.db.DatabaseHelper $r2;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 := @parameter0: android.content.Context;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r2 = new cz.romario.opensudoku.db.DatabaseHelper;
+        specialinvoke $r2.<cz.romario.opensudoku.db.DatabaseHelper: void <init>(android.content.Context)>($r1);
+        $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper> = $r2;
+        return;
+    }
+
+    public void beginTransaction()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        cz.romario.opensudoku.db.DatabaseHelper $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r1.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: void beginTransaction()>();
+        return;
+    }
+
+    public void close()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        android.database.sqlite.SQLiteStatement $r1;
+        cz.romario.opensudoku.db.DatabaseHelper $r2;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        if $r1 == null goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        virtualinvoke $r1.<android.database.sqlite.SQLiteStatement: void close()>();
+
+     label0:
+        $r2 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        virtualinvoke $r2.<cz.romario.opensudoku.db.DatabaseHelper: void close()>();
+        return;
+    }
+
+    public void deleteFolder(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.sqlite.SQLiteDatabase $r1;
+        cz.romario.opensudoku.db.DatabaseHelper $r2;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r4;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r2 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r1 = virtualinvoke $r2.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r3 = new java.lang.StringBuilder;
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("folder_id=");
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("sudoku", $r4, null);
+        $r3 = new java.lang.StringBuilder;
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("folder", $r4, null);
+        return;
+    }
+
+    public void deleteSudoku(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.sqlite.SQLiteDatabase $r1;
+        cz.romario.opensudoku.db.DatabaseHelper $r2;
+        java.lang.StringBuilder $r3;
+        java.lang.String $r4;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r2 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r1 = virtualinvoke $r2.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r3 = new java.lang.StringBuilder;
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: int delete(java.lang.String,java.lang.String,java.lang.String[])>("sudoku", $r4, null);
+        return;
+    }
+
+    public void endTransaction()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        cz.romario.opensudoku.db.DatabaseHelper $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r1.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: void endTransaction()>();
+        return;
+    }
+
+    public android.database.Cursor exportFolder(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.sqlite.SQLiteDatabase $r1;
+        java.lang.String $r2, $r6;
+        cz.romario.opensudoku.db.DatabaseHelper $r3;
+        byte $b2;
+        java.lang.StringBuilder $r4;
+        java.lang.String[] $r5;
+        android.database.Cursor $r7;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r2 = "select f._id as folder_id, f.name as folder_name, f.created as folder_created, s.created, s.state, s.time, s.last_played, s.data, s.puzzle_note from folder f left outer join sudoku s on f._id = s.folder_id";
+        $r3 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r1 = virtualinvoke $r3.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $b2 = $l0 cmp -1L;
+        if $b2 == 0 goto label0;
+
+        $r4 = new java.lang.StringBuilder;
+        $r2 = staticinvoke <java.lang.String: java.lang.String valueOf(java.lang.Object)>("select f._id as folder_id, f.name as folder_name, f.created as folder_created, s.created, s.state, s.time, s.last_played, s.data, s.puzzle_note from folder f left outer join sudoku s on f._id = s.folder_id");
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>(java.lang.String)>($r2);
+        $r4 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" where f._id = ?");
+        $r2 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label0:
+        $b2 = $l0 cmp -1L;
+        if $b2 == 0 goto label2;
+
+        $r5 = newarray (java.lang.String)[1];
+        $r6 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+        $r5[0] = $r6;
+
+     label1:
+        $r7 = virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r2, $r5);
+        return $r7;
+
+     label2:
+        $r5 = null;
+        goto label1;
+    }
+
+    public android.database.Cursor exportSudoku(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.sqlite.SQLiteDatabase $r1;
+        cz.romario.opensudoku.db.DatabaseHelper $r3;
+        java.lang.String $r4;
+        java.lang.String[] $r5;
+        android.database.Cursor $r6;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r3 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r1 = virtualinvoke $r3.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r5 = newarray (java.lang.String)[1];
+        $r4 = staticinvoke <java.lang.String: java.lang.String valueOf(long)>($l0);
+        $r5[0] = $r4;
+        $r6 = virtualinvoke $r1.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>("select f._id as folder_id, f.name as folder_name, f.created as folder_created, s.created, s.state, s.time, s.last_played, s.data, s.puzzle_note from sudoku s inner join folder f on s.folder_id = f._id where s._id = ?", $r5);
+        return $r6;
+    }
+
+    public cz.romario.opensudoku.game.FolderInfo findFolder(java.lang.String)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        java.lang.String $r1, $r4;
+        android.database.sqlite.SQLiteQueryBuilder $r2;
+        android.database.sqlite.SQLiteDatabase $r3;
+        android.database.Cursor $r5;
+        cz.romario.opensudoku.game.FolderInfo $r6;
+        long $l1;
+        cz.romario.opensudoku.db.DatabaseHelper $r7;
+        java.lang.String[] $r8;
+        boolean $z0;
+        int $i2;
+        java.lang.Throwable $r10;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 := @parameter0: java.lang.String;
+        $r6 = null;
+        $r2 = new android.database.sqlite.SQLiteQueryBuilder;
+        specialinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void <init>()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void setTables(java.lang.String)>("folder");
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>("name = ?");
+        $r5 = null;
+
+     label0:
+        $r7 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r3 = virtualinvoke $r7.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r8 = newarray (java.lang.String)[1];
+        $r8[0] = $r1;
+        $r5 = virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: android.database.Cursor query(android.database.sqlite.SQLiteDatabase,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>($r3, null, null, $r8, null, null, null);
+        $z0 = interfaceinvoke $r5.<android.database.Cursor: boolean moveToFirst()>();
+        if $z0 == 0 goto label3;
+
+        $i2 = interfaceinvoke $r5.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_id");
+        $l1 = interfaceinvoke $r5.<android.database.Cursor: long getLong(int)>($i2);
+        $i2 = interfaceinvoke $r5.<android.database.Cursor: int getColumnIndex(java.lang.String)>("name");
+        $r4 = interfaceinvoke $r5.<android.database.Cursor: java.lang.String getString(int)>($i2);
+        $r6 = new cz.romario.opensudoku.game.FolderInfo;
+        specialinvoke $r6.<cz.romario.opensudoku.game.FolderInfo: void <init>()>();
+        $r6.<cz.romario.opensudoku.game.FolderInfo: long id> = $l1;
+        $r6.<cz.romario.opensudoku.game.FolderInfo: java.lang.String name> = $r4;
+
+     label1:
+        if $r5 == null goto label2;
+
+        interfaceinvoke $r5.<android.database.Cursor: void close()>();
+
+     label2:
+        return $r6;
+
+     label3:
+        if $r5 == null goto label2;
+
+        interfaceinvoke $r5.<android.database.Cursor: void close()>();
+        return null;
+
+     label4:
+        $r10 := @caughtexception;
+        if $r5 == null goto label5;
+
+        interfaceinvoke $r5.<android.database.Cursor: void close()>();
+
+     label5:
+        throw $r10;
+
+        catch java.lang.Throwable from label0 to label1 with label4;
+    }
+
+    public cz.romario.opensudoku.game.FolderInfo getFolderInfo(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.sqlite.SQLiteQueryBuilder $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        java.lang.String $r3;
+        android.database.Cursor $r4;
+        cz.romario.opensudoku.game.FolderInfo $r5;
+        java.lang.StringBuilder $r6;
+        cz.romario.opensudoku.db.DatabaseHelper $r7;
+        boolean $z0;
+        int $i1;
+        java.lang.Throwable $r9;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r5 = null;
+        $r1 = new android.database.sqlite.SQLiteQueryBuilder;
+        specialinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void <init>()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void setTables(java.lang.String)>("folder");
+        $r6 = new java.lang.StringBuilder;
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r3 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>($r3);
+        $r4 = null;
+
+     label0:
+        $r7 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r7.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r4 = virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: android.database.Cursor query(android.database.sqlite.SQLiteDatabase,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>($r2, null, null, null, null, null, null);
+        $z0 = interfaceinvoke $r4.<android.database.Cursor: boolean moveToFirst()>();
+        if $z0 == 0 goto label3;
+
+        $i1 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_id");
+        $l0 = interfaceinvoke $r4.<android.database.Cursor: long getLong(int)>($i1);
+        $i1 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("name");
+        $r3 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i1);
+        $r5 = new cz.romario.opensudoku.game.FolderInfo;
+        specialinvoke $r5.<cz.romario.opensudoku.game.FolderInfo: void <init>()>();
+        $r5.<cz.romario.opensudoku.game.FolderInfo: long id> = $l0;
+        $r5.<cz.romario.opensudoku.game.FolderInfo: java.lang.String name> = $r3;
+
+     label1:
+        if $r4 == null goto label2;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+     label2:
+        return $r5;
+
+     label3:
+        if $r4 == null goto label2;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+        return null;
+
+     label4:
+        $r9 := @caughtexception;
+        if $r4 == null goto label5;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+     label5:
+        throw $r9;
+
+        catch java.lang.Throwable from label0 to label1 with label4;
+    }
+
+    public cz.romario.opensudoku.game.FolderInfo getFolderInfoFull(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        android.database.Cursor $r1, $r7;
+        int $i1, $i2, $i3;
+        android.database.sqlite.SQLiteDatabase $r2;
+        cz.romario.opensudoku.game.FolderInfo $r3;
+        java.lang.String $r4;
+        cz.romario.opensudoku.db.DatabaseHelper $r5;
+        java.lang.StringBuilder $r6;
+        boolean $z0;
+        java.lang.Throwable $r9;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 = null;
+
+     label0:
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r5.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r6 = new java.lang.StringBuilder;
+        specialinvoke $r6.<java.lang.StringBuilder: void <init>(java.lang.String)>("select folder._id as _id, folder.name as name, sudoku.state as state, count(sudoku.state) as count from folder left join sudoku on folder._id = sudoku.folder_id where folder._id = ");
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r6 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" group by sudoku.state");
+        $r4 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+        $r7 = virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: android.database.Cursor rawQuery(java.lang.String,java.lang.String[])>($r4, null);
+
+     label1:
+        $r1 = $r7;
+        $r3 = null;
+
+     label2:
+        $z0 = interfaceinvoke $r7.<android.database.Cursor: boolean moveToNext()>();
+
+     label3:
+        if $z0 != 0 goto label5;
+
+        if $r7 == null goto label4;
+
+        interfaceinvoke $r7.<android.database.Cursor: void close()>();
+
+     label4:
+        return $r3;
+
+     label5:
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_id");
+        $l0 = interfaceinvoke $r7.<android.database.Cursor: long getLong(int)>($i2);
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndex(java.lang.String)>("name");
+        $r4 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i2);
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndex(java.lang.String)>("state");
+        $i2 = interfaceinvoke $r7.<android.database.Cursor: int getInt(int)>($i2);
+        $i1 = interfaceinvoke $r7.<android.database.Cursor: int getColumnIndex(java.lang.String)>("count");
+        $i1 = interfaceinvoke $r7.<android.database.Cursor: int getInt(int)>($i1);
+        if $r3 != null goto label13;
+
+        $r3 = new cz.romario.opensudoku.game.FolderInfo;
+        specialinvoke $r3.<cz.romario.opensudoku.game.FolderInfo: void <init>(long,java.lang.String)>($l0, $r4);
+
+     label6:
+        $i3 = $r3.<cz.romario.opensudoku.game.FolderInfo: int puzzleCount>;
+        $i3 = $i3 + $i1;
+        $r3.<cz.romario.opensudoku.game.FolderInfo: int puzzleCount> = $i3;
+        if $i2 != 2 goto label7;
+
+        $i3 = $r3.<cz.romario.opensudoku.game.FolderInfo: int solvedCount>;
+        $i3 = $i3 + $i1;
+        $r3.<cz.romario.opensudoku.game.FolderInfo: int solvedCount> = $i3;
+
+     label7:
+        if $i2 != 0 goto label8;
+
+        $i3 = $r3.<cz.romario.opensudoku.game.FolderInfo: int playingCount>;
+        $i3 = $i3 + $i1;
+        $r3.<cz.romario.opensudoku.game.FolderInfo: int playingCount> = $i3;
+
+     label8:
+        goto label2;
+
+     label9:
+        $r9 := @caughtexception;
+
+     label10:
+        if $r1 == null goto label11;
+
+        interfaceinvoke $r1.<android.database.Cursor: void close()>();
+
+     label11:
+        throw $r9;
+
+     label12:
+        $r9 := @caughtexception;
+        goto label10;
+
+     label13:
+        goto label6;
+
+        catch java.lang.Throwable from label0 to label1 with label9;
+        catch java.lang.Throwable from label2 to label3 with label12;
+        catch java.lang.Throwable from label5 to label6 with label12;
+        catch java.lang.Throwable from label6 to label8 with label9;
+    }
+
+    public android.database.Cursor getFolderList()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        android.database.sqlite.SQLiteQueryBuilder $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        cz.romario.opensudoku.db.DatabaseHelper $r4;
+        android.database.Cursor $r5;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = new android.database.sqlite.SQLiteQueryBuilder;
+        specialinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void <init>()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void setTables(java.lang.String)>("folder");
+        $r4 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r4.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r5 = virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: android.database.Cursor query(android.database.sqlite.SQLiteDatabase,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>($r2, null, null, null, null, null, "created ASC");
+        return $r5;
+    }
+
+    public cz.romario.opensudoku.game.FolderInfo getInboxFolder()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        cz.romario.opensudoku.game.FolderInfo $r1;
+        long $l0;
+        java.lang.Long $r3;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = virtualinvoke $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.game.FolderInfo findFolder(java.lang.String)>("Inbox");
+        if $r1 == null goto label0;
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+        $r3 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+        $r1 = virtualinvoke $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.game.FolderInfo insertFolder(java.lang.String,java.lang.Long)>("Inbox", $r3);
+
+     label0:
+        return $r1;
+    }
+
+    public cz.romario.opensudoku.game.SudokuGame getSudoku(long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0, $l1, $l2, $l4;
+        android.database.sqlite.SQLiteQueryBuilder $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        java.lang.String $r3, $r5;
+        android.database.Cursor $r4;
+        cz.romario.opensudoku.game.SudokuGame $r6;
+        int $i3, $i5;
+        java.lang.StringBuilder $r7;
+        cz.romario.opensudoku.db.DatabaseHelper $r8;
+        boolean $z0;
+        cz.romario.opensudoku.game.CellCollection $r11;
+        java.lang.Throwable $r12;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 = new android.database.sqlite.SQLiteQueryBuilder;
+        specialinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void <init>()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void setTables(java.lang.String)>("sudoku");
+        $r7 = new java.lang.StringBuilder;
+        specialinvoke $r7.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $r7 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r5 = virtualinvoke $r7.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>($r5);
+        $r4 = null;
+        $r6 = null;
+
+     label0:
+        $r8 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r8.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r4 = virtualinvoke $r1.<android.database.sqlite.SQLiteQueryBuilder: android.database.Cursor query(android.database.sqlite.SQLiteDatabase,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>($r2, null, null, null, null, null, null);
+        $z0 = interfaceinvoke $r4.<android.database.Cursor: boolean moveToFirst()>();
+        if $z0 == 0 goto label2;
+
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("_id");
+        $l0 = interfaceinvoke $r4.<android.database.Cursor: long getLong(int)>($i3);
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("created");
+        $l1 = interfaceinvoke $r4.<android.database.Cursor: long getLong(int)>($i3);
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("data");
+        $r3 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i3);
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("last_played");
+        $l2 = interfaceinvoke $r4.<android.database.Cursor: long getLong(int)>($i3);
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("state");
+        $i3 = interfaceinvoke $r4.<android.database.Cursor: int getInt(int)>($i3);
+        $i5 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("time");
+        $l4 = interfaceinvoke $r4.<android.database.Cursor: long getLong(int)>($i5);
+        $i5 = interfaceinvoke $r4.<android.database.Cursor: int getColumnIndex(java.lang.String)>("puzzle_note");
+        $r5 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i5);
+        $r6 = new cz.romario.opensudoku.game.SudokuGame;
+        specialinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void <init>()>();
+
+     label1:
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setId(long)>($l0);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setCreated(long)>($l1);
+        $r11 = staticinvoke <cz.romario.opensudoku.game.CellCollection: cz.romario.opensudoku.game.CellCollection deserialize(java.lang.String)>($r3);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setCells(cz.romario.opensudoku.game.CellCollection)>($r11);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setLastPlayed(long)>($l2);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setState(int)>($i3);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setTime(long)>($l4);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.SudokuGame: void setNote(java.lang.String)>($r5);
+
+     label2:
+        if $r4 == null goto label3;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+     label3:
+        return $r6;
+
+     label4:
+        $r12 := @caughtexception;
+
+     label5:
+        if $r4 == null goto label6;
+
+        interfaceinvoke $r4.<android.database.Cursor: void close()>();
+
+     label6:
+        throw $r12;
+
+     label7:
+        $r12 := @caughtexception;
+        goto label5;
+
+        catch java.lang.Throwable from label0 to label1 with label4;
+        catch java.lang.Throwable from label1 to label2 with label7;
+    }
+
+    public android.database.Cursor getSudokuList(long, cz.romario.opensudoku.gui.SudokuListFilter)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        cz.romario.opensudoku.gui.SudokuListFilter $r1;
+        android.database.sqlite.SQLiteQueryBuilder $r2;
+        android.database.sqlite.SQLiteDatabase $r3;
+        java.lang.String $r4;
+        java.lang.StringBuilder $r5;
+        boolean $z0;
+        cz.romario.opensudoku.db.DatabaseHelper $r6;
+        android.database.Cursor $r7;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 := @parameter1: cz.romario.opensudoku.gui.SudokuListFilter;
+        $r2 = new android.database.sqlite.SQLiteQueryBuilder;
+        specialinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void <init>()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void setTables(java.lang.String)>("sudoku");
+        $r5 = new java.lang.StringBuilder;
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("folder_id=");
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>($r4);
+        if $r1 == null goto label2;
+
+        $z0 = $r1.<cz.romario.opensudoku.gui.SudokuListFilter: boolean showStateCompleted>;
+        if $z0 != 0 goto label0;
+
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>(" and state!=2");
+
+     label0:
+        $z0 = $r1.<cz.romario.opensudoku.gui.SudokuListFilter: boolean showStateNotStarted>;
+        if $z0 != 0 goto label1;
+
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>(" and state!=1");
+
+     label1:
+        $z0 = $r1.<cz.romario.opensudoku.gui.SudokuListFilter: boolean showStatePlaying>;
+        if $z0 != 0 goto label2;
+
+        virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: void appendWhere(java.lang.CharSequence)>(" and state!=0");
+
+     label2:
+        $r6 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r3 = virtualinvoke $r6.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getReadableDatabase()>();
+        $r7 = virtualinvoke $r2.<android.database.sqlite.SQLiteQueryBuilder: android.database.Cursor query(android.database.sqlite.SQLiteDatabase,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String,java.lang.String,java.lang.String)>($r3, null, null, null, null, null, "created DESC");
+        return $r7;
+    }
+
+    public long importSudoku(long, cz.romario.opensudoku.db.SudokuImportParams) throws cz.romario.opensudoku.db.SudokuInvalidFormatException
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0, $l4;
+        cz.romario.opensudoku.db.SudokuImportParams $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        java.lang.String $r3;
+        boolean $z0;
+        cz.romario.opensudoku.db.SudokuInvalidFormatException $r4;
+        int $i2;
+        android.database.sqlite.SQLiteStatement $r5;
+        cz.romario.opensudoku.db.DatabaseHelper $r6;
+        byte $b3;
+        android.database.SQLException $r7;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 := @parameter1: cz.romario.opensudoku.db.SudokuImportParams;
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        if $r3 != null goto label0;
+
+        $r4 = new cz.romario.opensudoku.db.SudokuInvalidFormatException;
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        specialinvoke $r4.<cz.romario.opensudoku.db.SudokuInvalidFormatException: void <init>(java.lang.String)>($r3);
+        throw $r4;
+
+     label0:
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        $i2 = <cz.romario.opensudoku.game.CellCollection: int DATA_VERSION_PLAIN>;
+        $z0 = staticinvoke <cz.romario.opensudoku.game.CellCollection: boolean isValid(java.lang.String,int)>($r3, $i2);
+        if $z0 != 0 goto label1;
+
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        $i2 = <cz.romario.opensudoku.game.CellCollection: int DATA_VERSION_1>;
+        $z0 = staticinvoke <cz.romario.opensudoku.game.CellCollection: boolean isValid(java.lang.String,int)>($r3, $i2);
+        if $z0 != 0 goto label1;
+
+        $r4 = new cz.romario.opensudoku.db.SudokuInvalidFormatException;
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        specialinvoke $r4.<cz.romario.opensudoku.db.SudokuInvalidFormatException: void <init>(java.lang.String)>($r3);
+        throw $r4;
+
+     label1:
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        if $r5 != null goto label2;
+
+        $r6 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r6.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r5 = virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: android.database.sqlite.SQLiteStatement compileStatement(java.lang.String)>("insert into sudoku (folder_id, created, state, time, last_played, data, puzzle_note) values (?, ?, ?, ?, ?, ?, ?)");
+        $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement> = $r5;
+
+     label2:
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindLong(int,long)>(1, $l0);
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $l0 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: long created>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindLong(int,long)>(2, $l0);
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $l0 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: long state>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindLong(int,long)>(3, $l0);
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $l0 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: long time>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindLong(int,long)>(4, $l0);
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $l0 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: long lastPlayed>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindLong(int,long)>(5, $l0);
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindString(int,java.lang.String)>(6, $r3);
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String note>;
+        if $r3 != null goto label4;
+
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindNull(int)>(7);
+
+     label3:
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $l4 = virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: long executeInsert()>();
+        $b3 = $l4 cmp 0L;
+        if $b3 <= 0 goto label5;
+
+        return $l4;
+
+     label4:
+        $r5 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: android.database.sqlite.SQLiteStatement mInsertSudokuStatement>;
+        $r3 = $r1.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String note>;
+        virtualinvoke $r5.<android.database.sqlite.SQLiteStatement: void bindString(int,java.lang.String)>(7, $r3);
+        goto label3;
+
+     label5:
+        $r7 = new android.database.SQLException;
+        specialinvoke $r7.<android.database.SQLException: void <init>(java.lang.String)>("Failed to insert sudoku.");
+        throw $r7;
+    }
+
+    public cz.romario.opensudoku.game.FolderInfo insertFolder(java.lang.String, java.lang.Long)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        java.lang.String $r1, $r8;
+        java.lang.Long $r2;
+        android.database.sqlite.SQLiteDatabase $r3;
+        cz.romario.opensudoku.game.FolderInfo $r4;
+        long $l0;
+        android.content.ContentValues $r5;
+        byte $b1;
+        cz.romario.opensudoku.db.DatabaseHelper $r7;
+        android.database.SQLException $r9;
+        java.lang.Object[] $r10;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 := @parameter0: java.lang.String;
+        $r2 := @parameter1: java.lang.Long;
+        $r5 = new android.content.ContentValues;
+        specialinvoke $r5.<android.content.ContentValues: void <init>()>();
+        virtualinvoke $r5.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("created", $r2);
+        virtualinvoke $r5.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("name", $r1);
+        $r7 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r3 = virtualinvoke $r7.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $l0 = virtualinvoke $r3.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("folder", "_id", $r5);
+        $b1 = $l0 cmp 0L;
+        if $b1 <= 0 goto label0;
+
+        $r4 = new cz.romario.opensudoku.game.FolderInfo;
+        specialinvoke $r4.<cz.romario.opensudoku.game.FolderInfo: void <init>()>();
+        $r4.<cz.romario.opensudoku.game.FolderInfo: long id> = $l0;
+        $r4.<cz.romario.opensudoku.game.FolderInfo: java.lang.String name> = $r1;
+        return $r4;
+
+     label0:
+        $r9 = new android.database.SQLException;
+        $r10 = newarray (java.lang.Object)[1];
+        $r10[0] = $r1;
+        $r8 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Failed to insert folder \'%s\'.", $r10);
+        specialinvoke $r9.<android.database.SQLException: void <init>(java.lang.String)>($r8);
+        throw $r9;
+    }
+
+    public long insertSudoku(long, cz.romario.opensudoku.game.SudokuGame)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0, $l1;
+        cz.romario.opensudoku.game.SudokuGame $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        android.content.ContentValues $r3;
+        cz.romario.opensudoku.db.DatabaseHelper $r4;
+        cz.romario.opensudoku.game.CellCollection $r5;
+        java.lang.String $r6, $r7;
+        java.lang.Long $r8;
+        int $i2;
+        java.lang.Integer $r9;
+        byte $b4;
+        android.database.SQLException $r10;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 := @parameter1: cz.romario.opensudoku.game.SudokuGame;
+        $r4 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r4.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r3 = new android.content.ContentValues;
+        specialinvoke $r3.<android.content.ContentValues: void <init>()>();
+        $r5 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: cz.romario.opensudoku.game.CellCollection getCells()>();
+        $r7 = virtualinvoke $r5.<cz.romario.opensudoku.game.CellCollection: java.lang.String serialize()>();
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("data", $r7);
+        $l1 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getCreated()>();
+        $r8 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("created", $r8);
+        $l1 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getLastPlayed()>();
+        $r8 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("last_played", $r8);
+        $i2 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: int getState()>();
+        $r9 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i2);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("state", $r9);
+        $l1 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getTime()>();
+        $r8 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l1);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("time", $r8);
+        $r6 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: java.lang.String getNote()>();
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("puzzle_note", $r6);
+        $r8 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("folder_id", $r8);
+        $l1 = virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: long insert(java.lang.String,java.lang.String,android.content.ContentValues)>("sudoku", "name", $r3);
+        $b4 = $l1 cmp 0L;
+        if $b4 <= 0 goto label0;
+
+        return $l1;
+
+     label0:
+        $r10 = new android.database.SQLException;
+        specialinvoke $r10.<android.database.SQLException: void <init>(java.lang.String)>("Failed to insert sudoku.");
+        throw $r10;
+    }
+
+    public void setTransactionSuccessful()
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        cz.romario.opensudoku.db.DatabaseHelper $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r1.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: void setTransactionSuccessful()>();
+        return;
+    }
+
+    public void updateFolder(long, java.lang.String)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        long $l0;
+        java.lang.String $r1, $r4;
+        android.database.sqlite.SQLiteDatabase $r2;
+        android.content.ContentValues $r3;
+        java.lang.StringBuilder $r5;
+        cz.romario.opensudoku.db.DatabaseHelper $r6;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $l0 := @parameter0: long;
+        $r1 := @parameter1: java.lang.String;
+        $r3 = new android.content.ContentValues;
+        specialinvoke $r3.<android.content.ContentValues: void <init>()>();
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("name", $r1);
+        $r6 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r6.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r5 = new java.lang.StringBuilder;
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("folder", $r3, $r4, null);
+        return;
+    }
+
+    public void updateSudoku(cz.romario.opensudoku.game.SudokuGame)
+    {
+        cz.romario.opensudoku.db.SudokuDatabase $r0;
+        cz.romario.opensudoku.game.SudokuGame $r1;
+        android.database.sqlite.SQLiteDatabase $r2;
+        android.content.ContentValues $r3;
+        java.lang.String $r4, $r6;
+        cz.romario.opensudoku.game.CellCollection $r5;
+        long $l0;
+        java.lang.Long $r7;
+        int $i1;
+        java.lang.Integer $r8;
+        cz.romario.opensudoku.db.DatabaseHelper $r9;
+        java.lang.StringBuilder $r10;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuDatabase;
+        $r1 := @parameter0: cz.romario.opensudoku.game.SudokuGame;
+        $r3 = new android.content.ContentValues;
+        specialinvoke $r3.<android.content.ContentValues: void <init>()>();
+        $r5 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: cz.romario.opensudoku.game.CellCollection getCells()>();
+        $r6 = virtualinvoke $r5.<cz.romario.opensudoku.game.CellCollection: java.lang.String serialize()>();
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("data", $r6);
+        $l0 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getLastPlayed()>();
+        $r7 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("last_played", $r7);
+        $i1 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: int getState()>();
+        $r8 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i1);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Integer)>("state", $r8);
+        $l0 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getTime()>();
+        $r7 = staticinvoke <java.lang.Long: java.lang.Long valueOf(long)>($l0);
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.Long)>("time", $r7);
+        $r4 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: java.lang.String getNote()>();
+        virtualinvoke $r3.<android.content.ContentValues: void put(java.lang.String,java.lang.String)>("puzzle_note", $r4);
+        $r9 = $r0.<cz.romario.opensudoku.db.SudokuDatabase: cz.romario.opensudoku.db.DatabaseHelper mOpenHelper>;
+        $r2 = virtualinvoke $r9.<cz.romario.opensudoku.db.DatabaseHelper: android.database.sqlite.SQLiteDatabase getWritableDatabase()>();
+        $r10 = new java.lang.StringBuilder;
+        specialinvoke $r10.<java.lang.StringBuilder: void <init>(java.lang.String)>("_id=");
+        $l0 = virtualinvoke $r1.<cz.romario.opensudoku.game.SudokuGame: long getId()>();
+        $r10 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.StringBuilder append(long)>($l0);
+        $r4 = virtualinvoke $r10.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r2.<android.database.sqlite.SQLiteDatabase: int update(java.lang.String,android.content.ContentValues,java.lang.String,java.lang.String[])>("sudoku", $r3, $r4, null);
+        return;
+    }
+}

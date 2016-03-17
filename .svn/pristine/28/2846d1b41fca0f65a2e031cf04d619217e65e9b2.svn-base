@@ -1,0 +1,46 @@
+class cz.romario.opensudoku.gui.FolderListActivity$3 extends java.lang.Object implements android.content.DialogInterface$OnClickListener
+{
+    final cz.romario.opensudoku.gui.FolderListActivity this$0;
+
+    void <init>(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity$3 $r0;
+        cz.romario.opensudoku.gui.FolderListActivity $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity$3;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity$3: cz.romario.opensudoku.gui.FolderListActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.content.DialogInterface, int)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity$3 $r0;
+        android.content.DialogInterface $r1;
+        int $i0;
+        cz.romario.opensudoku.gui.FolderListActivity $r2;
+        cz.romario.opensudoku.db.SudokuDatabase $r3;
+        long $l1;
+        android.widget.TextView $r4;
+        java.lang.CharSequence $r5;
+        java.lang.String $r6;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity$3;
+        $r1 := @parameter0: android.content.DialogInterface;
+        $i0 := @parameter1: int;
+        $r2 = $r0.<cz.romario.opensudoku.gui.FolderListActivity$3: cz.romario.opensudoku.gui.FolderListActivity this$0>;
+        $r3 = staticinvoke <cz.romario.opensudoku.gui.FolderListActivity: cz.romario.opensudoku.db.SudokuDatabase access$0(cz.romario.opensudoku.gui.FolderListActivity)>($r2);
+        $r2 = $r0.<cz.romario.opensudoku.gui.FolderListActivity$3: cz.romario.opensudoku.gui.FolderListActivity this$0>;
+        $l1 = staticinvoke <cz.romario.opensudoku.gui.FolderListActivity: long access$3(cz.romario.opensudoku.gui.FolderListActivity)>($r2);
+        $r2 = $r0.<cz.romario.opensudoku.gui.FolderListActivity$3: cz.romario.opensudoku.gui.FolderListActivity this$0>;
+        $r4 = staticinvoke <cz.romario.opensudoku.gui.FolderListActivity: android.widget.TextView access$4(cz.romario.opensudoku.gui.FolderListActivity)>($r2);
+        $r5 = virtualinvoke $r4.<android.widget.TextView: java.lang.CharSequence getText()>();
+        $r6 = interfaceinvoke $r5.<java.lang.CharSequence: java.lang.String toString()>();
+        $r6 = virtualinvoke $r6.<java.lang.String: java.lang.String trim()>();
+        virtualinvoke $r3.<cz.romario.opensudoku.db.SudokuDatabase: void updateFolder(long,java.lang.String)>($l1, $r6);
+        $r2 = $r0.<cz.romario.opensudoku.gui.FolderListActivity$3: cz.romario.opensudoku.gui.FolderListActivity this$0>;
+        staticinvoke <cz.romario.opensudoku.gui.FolderListActivity: void access$2(cz.romario.opensudoku.gui.FolderListActivity)>($r2);
+        return;
+    }
+}

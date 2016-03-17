@@ -1,0 +1,16 @@
+Hi Xiangxing,
+
+Wei and I have been thinking about assigning you a specific topicfor your master thesis. Since you have played with Android andvarious program analysis tools for a while, do you want toimplement a program analysis tool that produces state models forAndroid applications? Specifically, the tool will take an AndroidApp (for example, angrybirds.apk) as input, analyze it, and outputa precise state model of the App. The basic state model can berepresented by a graph, in which the nodes correspond to activitiesand the edges correspond to event actions.
+Of course, we have a few additional requirements on the statemodel:
+
+1. The data flow across activities should be included
+2. The data source must be labeled, for example, whether the dataare from the system file, network, or user input, etc.
+3. The state model should be viewed in a browser as a graph.(Eventually we want to setup a web site, through which users canupload Apps and browse the generated graph).
+
+There are several challenges you need to work out by yourself. Forexample, what specific code information you need in the model? howto get them? How to represent the model in a memory-friendly way ora database is needed if the model too large? At some point you mayalso find that you need to change the model, such as adding a newfeature (such as threads and the line numbers of actionstatements), so you must think carefully when architecting thetool.
+
+There is no requirement on the programming languages or frameworksyou use. You can use SOOT, WALA, SCanDroid, FlowDroid, Acteve, etc.whatever makes you more productive. Only one requirement: the toolmust be stable, fast, and easy to use.
+
+Do you want to focus on developing such a tool in the rest of yourmaster study?
+
+Jeff.

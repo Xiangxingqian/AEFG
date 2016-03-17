@@ -1,0 +1,46 @@
+class com.example.qian.TestActivity$1 extends java.lang.Object implements com.example.qian.TestA$Listener
+{
+    final com.example.qian.TestActivity this$0;
+
+    void <init>(com.example.qian.TestActivity)
+    {
+        com.example.qian.TestActivity$1 $r0;
+        com.example.qian.TestActivity $r1;
+
+        $r0 := @this: com.example.qian.TestActivity$1;
+        $r1 := @parameter0: com.example.qian.TestActivity;
+        $r0.<com.example.qian.TestActivity$1: com.example.qian.TestActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void listening(int, android.os.Message)
+    {
+        com.example.qian.TestActivity$1 $r0;
+        int $i0;
+        android.os.Message $r1;
+        android.app.AlertDialog$Builder $r2;
+        com.example.qian.TestActivity $r3;
+        java.lang.String $r4;
+        android.os.Bundle $r5;
+        com.example.qian.TestActivity$1$1 $r6;
+        android.app.AlertDialog $r7;
+
+        $r0 := @this: com.example.qian.TestActivity$1;
+        $i0 := @parameter0: int;
+        $r1 := @parameter1: android.os.Message;
+        $r2 = new android.app.AlertDialog$Builder;
+        $r3 = $r0.<com.example.qian.TestActivity$1: com.example.qian.TestActivity this$0>;
+        specialinvoke $r2.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r3);
+        $r5 = virtualinvoke $r1.<android.os.Message: android.os.Bundle getData()>();
+        $r4 = virtualinvoke $r5.<android.os.Bundle: java.lang.String getString(java.lang.String)>("qian");
+        $r2 = virtualinvoke $r2.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(java.lang.CharSequence)>($r4);
+        $r2 = virtualinvoke $r2.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(java.lang.CharSequence)>("\u76d1\u542c\u6210\u529f\uff01\uff01\uff01");
+        $r6 = new com.example.qian.TestActivity$1$1;
+        specialinvoke $r6.<com.example.qian.TestActivity$1$1: void <init>(com.example.qian.TestActivity$1)>($r0);
+        $r2 = virtualinvoke $r2.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(java.lang.CharSequence,android.content.DialogInterface$OnClickListener)>("OK", $r6);
+        $r7 = virtualinvoke $r2.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        virtualinvoke $r7.<android.app.AlertDialog: void show()>();
+        return;
+    }
+}

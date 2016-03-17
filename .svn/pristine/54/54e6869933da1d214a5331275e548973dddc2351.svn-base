@@ -1,0 +1,67 @@
+package com.app.test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import soot.G;
+import soot.Scene;
+import soot.SootClass;
+import soot.SootMethod;
+import soot.options.Options;
+
+import com.app.test.newClass.Event;
+
+import entry.Entry;
+
+public class DoTesting {
+	
+	public static SootClass eventClass;
+	
+	public static void main(String[] args ){
+		String apkFileLocation = args[3];
+		Entry entry = new Entry(apkFileLocation, args[1]);	
+		entry.initSoot();
+		System.out.println(Entry.getActivities());
+		
+		
+		List<SootClass> unresolvedClasses = new ArrayList<SootClass>();
+		unresolvedClasses.add(eventClass);
+		initSoot_ClassesCreating();
+		eventClass = createEventClass();
+		Scene.v().addClass(eventClass);
+		G.reset();
+		//Scene.v().addClass(eventClass);
+		G.v().out.println(Scene.v().getClasses());
+		//eventClass.setApplicationClass();
+		
+		G.v().out.println(eventClass.getMethods());
+		for(SootMethod sm:eventClass.getMethods()){
+			String subSignature = sm.getSubSignature();
+			G.v().out.println(subSignature);
+			G.v().out.println(eventClass.declaresMethod(subSignature));
+		}
+		boolean declaresMethod = eventClass.declaresMethod("void <init>(java.lang.Class,android.view.View,java.lang.Object)");
+		G.v().out.println("123"+(Scene.v().getSubSigNumberer()==null));
+		AndroidInstrument ai = new AndroidInstrument(unresolvedClasses);
+		ai.instrument(args);
+	}
+	
+	public static void initSoot_ClassesCreating(){
+		Options.v().set_soot_classpath(
+				"/lib/jce.jar;" +
+				"/lib/tools.jar;" +
+				"lib/android.jar;"+
+				"/lib/android-support-v4.jar;"
+				);	
+		Scene.v().loadClassAndSupport("java.util.ArrayList");
+		Scene.v().loadClassAndSupport("java.lang.Object");
+		Scene.v().loadClassAndSupport("java.lang.System");
+		Scene.v().loadClassAndSupport("java.io.PrintStream");
+		Scene.v().loadNecessaryClasses();
+	}
+	
+	public static SootClass createEventClass(){
+		Event event = new Event("com.qian.Event");
+		return event.newClass();
+	}
+}

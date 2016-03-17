@@ -1,0 +1,12 @@
+public final class cz.romario.opensudoku.R extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.R $r0;
+
+        $r0 := @this: cz.romario.opensudoku.R;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

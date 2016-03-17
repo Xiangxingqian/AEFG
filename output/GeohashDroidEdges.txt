@@ -1,0 +1,12 @@
+0 src: DetailedInfoScreen tgt: PreferenceEditScreen 
+view: "MenuItem" id: 3 
+1 src: GeohashDroid tgt: PreferenceEditScreen 
+view: "MenuItem" id: 1 
+2 src: GeohashDroid tgt: StockGrabber 
+view: 2131165243 
+3 src: GeohashDroid tgt: StockGrabber 
+view: 2131165243 
+4 src: GeohashDroid tgt: LocationGrabber 
+view: 2131165243 
+5 src: GeohashDroid tgt: GraticuleMap 
+view: 2131165242 

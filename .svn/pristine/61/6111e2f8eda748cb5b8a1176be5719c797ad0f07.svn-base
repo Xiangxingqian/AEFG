@@ -1,0 +1,32 @@
+public class cz.romario.opensudoku.db.SudokuImportParams extends java.lang.Object
+{
+    public long created;
+    public java.lang.String data;
+    public long lastPlayed;
+    public java.lang.String note;
+    public long state;
+    public long time;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.db.SudokuImportParams $r0;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuImportParams;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void clear()
+    {
+        cz.romario.opensudoku.db.SudokuImportParams $r0;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuImportParams;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: long created> = 0L;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: long state> = 1L;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: long time> = 0L;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: long lastPlayed> = 0L;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String data> = null;
+        $r0.<cz.romario.opensudoku.db.SudokuImportParams: java.lang.String note> = null;
+        return;
+    }
+}

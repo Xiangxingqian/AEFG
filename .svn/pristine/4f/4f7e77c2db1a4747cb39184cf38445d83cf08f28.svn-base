@@ -1,0 +1,46 @@
+public final class cz.romario.opensudoku.R$id extends java.lang.Object
+{
+    public static final int button_1;
+    public static final int button_2;
+    public static final int button_3;
+    public static final int button_4;
+    public static final int button_5;
+    public static final int button_6;
+    public static final int button_7;
+    public static final int button_8;
+    public static final int button_9;
+    public static final int button_clear;
+    public static final int button_close;
+    public static final int created;
+    public static final int detail;
+    public static final int directory;
+    public static final int filename;
+    public static final int filter_status;
+    public static final int get_more_puzzles;
+    public static final int input_methods;
+    public static final int last_played;
+    public static final int name;
+    public static final int note;
+    public static final int progress;
+    public static final int root_layout;
+    public static final int save_button;
+    public static final int seek_bar;
+    public static final int seek_bar_container;
+    public static final int state;
+    public static final int sudoku_board;
+    public static final int switch_input_mode;
+    public static final int switch_num_note;
+    public static final int time;
+    public static final int time_label;
+    public static final int value;
+    public static final int version_label;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.R$id $r0;
+
+        $r0 := @this: cz.romario.opensudoku.R$id;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

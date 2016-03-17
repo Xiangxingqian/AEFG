@@ -1,0 +1,13 @@
+public final class com.example.qian.R$anim extends java.lang.Object
+{
+    public static final int rotate;
+
+    public void <init>()
+    {
+        com.example.qian.R$anim $r0;
+
+        $r0 := @this: com.example.qian.R$anim;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

@@ -1,0 +1,44 @@
+class cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3 extends java.lang.Object implements android.view.View$OnClickListener
+{
+    final cz.romario.opensudoku.gui.inputmethod.IMSingleNumber this$0;
+
+    void <init>(cz.romario.opensudoku.gui.inputmethod.IMSingleNumber)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3 $r0;
+        cz.romario.opensudoku.gui.inputmethod.IMSingleNumber $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.view.View)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3 $r0;
+        android.view.View $r1;
+        cz.romario.opensudoku.gui.inputmethod.IMSingleNumber $r2, $r3;
+        int $i0;
+        byte $b1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3;
+        $r1 := @parameter0: android.view.View;
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber this$0>;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber this$0>;
+        $i0 = staticinvoke <cz.romario.opensudoku.gui.inputmethod.IMSingleNumber: int access$2(cz.romario.opensudoku.gui.inputmethod.IMSingleNumber)>($r2);
+        if $i0 != 0 goto label1;
+
+        $b1 = 1;
+
+     label0:
+        staticinvoke <cz.romario.opensudoku.gui.inputmethod.IMSingleNumber: void access$3(cz.romario.opensudoku.gui.inputmethod.IMSingleNumber,int)>($r3, $b1);
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMSingleNumber$3: cz.romario.opensudoku.gui.inputmethod.IMSingleNumber this$0>;
+        staticinvoke <cz.romario.opensudoku.gui.inputmethod.IMSingleNumber: void access$1(cz.romario.opensudoku.gui.inputmethod.IMSingleNumber)>($r3);
+        return;
+
+     label1:
+        $b1 = 0;
+        goto label0;
+    }
+}

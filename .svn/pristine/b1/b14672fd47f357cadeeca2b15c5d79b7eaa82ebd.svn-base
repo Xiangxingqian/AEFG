@@ -1,0 +1,247 @@
+package com.app.test.newMethod;
+
+import java.util.List;
+
+import soot.ArrayType;
+import soot.BooleanType;
+import soot.IntType;
+import soot.Local;
+import soot.Modifier;
+import soot.RefType;
+import soot.Scene;
+import soot.SootClass;
+import soot.SootField;
+import soot.SootMethod;
+import soot.Type;
+import soot.Value;
+import soot.jimple.AssignStmt;
+import soot.jimple.GotoStmt;
+import soot.jimple.IdentityStmt;
+import soot.jimple.IntConstant;
+import soot.jimple.Jimple;
+import soot.jimple.LengthExpr;
+import soot.jimple.ParameterRef;
+import soot.jimple.ReturnStmt;
+import soot.jimple.StringConstant;
+import soot.jimple.ThisRef;
+
+import com.app.test.MethodBuilder;
+
+public class OnMenuItemClick extends MethodBuilder{
+
+	RefType currentActivity_Type = RefType.v(sc);
+	RefType class_Type = RefType.v("java.lang.Class");
+	RefType exception_Type = RefType.v("java.lang.Exception");
+	RefType reflectMethod_Type = RefType.v("java.lang.reflect.Method");
+	RefType linkedList_Type = RefType.v("java.util.LinkedList");
+	RefType view_Type = RefType.v("android.view.View");
+	RefType object_Type = RefType.v("java.lang.Object");
+	RefType toast_Type = RefType.v("android.widget.Toast");
+	RefType string_Type = RefType.v("java.lang.String");
+	//RefType arrayObject_Type = RefType.v("[Ljava.lang.String;");
+	//RefType arrayReflectMethod_Type = RefType.v("[Ljava.lang.reflect.Method;");
+	
+	Local currentActivity,menuItem,classLocal,exception,object,arrayObject,string,
+		view,linkedList,flag,int0,int1,reflectMethod,arrayReflectMethod,toast;
+	
+	public OnMenuItemClick(SootClass sc, String subSignature) {
+		super(sc, subSignature);
+	}
+
+	@Override
+	protected void addUnits() {
+		
+		SootMethod isEmpty_method = Scene.v().getMethod("<java.util.LinkedList: boolean isEmpty()>");
+		SootMethod poll_method = Scene.v().getMethod("<java.util.LinkedList: java.lang.Object poll()>");
+		SootMethod getClass_method = Scene.v().getMethod("<java.lang.Object: java.lang.Class getClass()>");
+		SootMethod getMethods_method = Scene.v().getMethod("<java.lang.Class: java.lang.reflect.Method[] getMethods()>");
+		SootMethod getName_method = Scene.v().getMethod("<java.lang.reflect.Method: java.lang.String getName()>");
+		SootMethod startsWith_method = Scene.v().getMethod("<java.lang.String: boolean startsWith(java.lang.String)>");
+		SootMethod invoke_method = Scene.v().getMethod("<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>");
+		SootMethod printStackTrace_method = Scene.v().getMethod("<java.lang.Exception: void printStackTrace()>");
+
+//		SootMethod size_method = Scene.v().getMethod("<java.util.List: int size()>");
+//		SootMethod get_method = Scene.v().getMethod("<java.util.List: java.lang.Object get(int)>");
+//		SootMethod getO_method = Scene.v().getMethod("<com.qian.Event: java.lang.Object getO()>");
+//		SootMethod getV_method = Scene.v().getMethod("<com.qian.Event: android.view.View getV()>");
+//		SootMethod onClick_method = Scene.v().getMethod("<android.view.View$OnClickListener: void onClick(android.view.View)>");
+//		SootMethod getContent_method = Scene.v().getMethod("<android.view.View: android.content.Context getContext()>");
+//		SootMethod equals_method = Scene.v().getMethod("<java.lang.Object: boolean equals(java.lang.Object)>");
+//		SootMethod contains_method = Scene.v().getMethod("<java.util.List: boolean contains(java.lang.Object)");
+//		SootMethod add_method = Scene.v().getMethod("<java.util.List: boolean add(java.lang.Object)>");
+		SootMethod makeText_method = Scene.v().getMethod("<android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>");
+		SootMethod show_method = Scene.v().getMethod("<android.widget.Toast: void show()>");
+		
+		SootField listenerLinkedList_field = sc.getFieldByName("listenerLinkedList");
+		SootField viewLinkedList_field = sc.getFieldByName("viewLinkedList");
+		SootField isVisited_field = sc.getFieldByName("isVisited");
+		
+		addIdentityStmt(currentActivity, new ThisRef(currentActivity_Type));
+		addIdentityStmt(menuItem, new ParameterRef(menuItem_Type,0));
+		
+		//label0, 
+		AssignStmt label0 = Jimple.v().newAssignStmt(linkedList, Jimple.v().newStaticFieldRef(viewLinkedList_field.makeRef()));
+		//label1, 
+		AssignStmt label1 = Jimple.v().newAssignStmt(linkedList, Jimple.v().newStaticFieldRef(viewLinkedList_field.makeRef()));
+		//label2, 
+		AssignStmt label2 = Jimple.v().newAssignStmt(int1,Jimple.v().newLengthExpr(arrayReflectMethod));
+		//label3, 
+		AssignStmt label3 = Jimple.v().newAssignStmt(arrayObject,Jimple.v().newNewArrayExpr(object_Type, IntConstant.v(1)));
+		//label4, 
+		GotoStmt label4 = Jimple.v().newGotoStmt(label0);
+		//label5, 
+		IdentityStmt label5 = Jimple.v().newIdentityStmt(exception, Jimple.v().newCaughtExceptionRef());
+		//label6
+		AssignStmt label6 = Jimple.v().newAssignStmt(int0,Jimple.v().newAddExpr(int0, IntConstant.v(1)));
+		
+		
+		//set parameters
+		List<Value> makeText_params = paramValues();
+		makeText_params.add(currentActivity);
+		makeText_params.add(StringConstant.v("Test finishes"));
+		makeText_params.add(IntConstant.v(0));
+		
+		//Jimple.v().new 
+		//RefType.v()
+		
+		body.getUnits().add(label0);
+		addAssignStmt(flag, Jimple.v().newVirtualInvokeExpr(linkedList, isEmpty_method.makeRef()));
+		addIfStmt(Jimple.v().newEqExpr(flag, IntConstant.v(0)), label1);
+		
+		addAssignStmt(toast,Jimple.v().newStaticInvokeExpr(makeText_method.makeRef(),makeText_params));
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(toast, show_method.makeRef()));
+		addReturnTypeStmt(IntConstant.v(1));
+		
+		body.getUnits().add(label1);
+		addAssignStmt(object, Jimple.v().newVirtualInvokeExpr(linkedList,poll_method.makeRef()));
+		addAssignStmt(view, Jimple.v().newCastExpr(object, view_Type));
+		addAssignStmt(linkedList, Jimple.v().newStaticFieldRef(listenerLinkedList_field.makeRef()));
+		addAssignStmt(object, Jimple.v().newVirtualInvokeExpr(linkedList,poll_method.makeRef()));
+		addAssignStmt(classLocal, Jimple.v().newVirtualInvokeExpr(object,getClass_method.makeRef()));
+		addAssignStmt(arrayReflectMethod, Jimple.v().newVirtualInvokeExpr(classLocal,getMethods_method.makeRef()));
+		addAssignStmt(int0, IntConstant.v(0));
+		
+		body.getUnits().add(label2);
+		addIfStmt(Jimple.v().newGeExpr(int0, int1), label0);
+		addAssignStmt(reflectMethod, Jimple.v().newArrayRef(arrayReflectMethod, int0));
+		addAssignStmt(string, Jimple.v().newVirtualInvokeExpr(reflectMethod, getName_method.makeRef()));
+		addAssignStmt(flag, Jimple.v().newVirtualInvokeExpr(string,startsWith_method.makeRef(),StringConstant.v("on")));
+		addIfStmt(Jimple.v().newEqExpr(flag, IntConstant.v(0)), label6);
+		
+		body.getUnits().add(label3);
+		addAssignStmt(Jimple.v().newArrayRef(arrayObject,IntConstant.v(1)), view);
+		
+		List<Value> invoke_params = paramValues();
+		invoke_params.add(object);
+		invoke_params.add(arrayObject);
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(reflectMethod, invoke_method.makeRef(),invoke_params));
+		
+		body.getUnits().add(label4);
+		
+		body.getUnits().add(label5);
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(exception,printStackTrace_method.makeRef()));
+		
+		body.getUnits().add(label6);
+		addGotoStmt(label2);
+		
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(sField.makeRef()) );
+//		addAssignStmt(iterator, Jimple.v().newInterfaceInvokeExpr(list, iterator_method.makeRef()));
+//		
+//		//label0:
+//		AssignStmt hasNext_Unit = addAssignStmt(flag, Jimple.v().newInterfaceInvokeExpr(iterator, hasNext_method.makeRef()));
+//		//AssignStmt next_Unit = addAssignStmt(object, Jimple.v().newInterfaceInvokeExpr(iterator, next_method.makeRef()));
+//		
+//		//AssignStmt next_Unit = null;
+//		//= Jimple.v().newAssignStmt(object, Jimple.v().newInterfaceInvokeExpr(iterator, next_method.makeRef()));
+//		AssignStmt next_Unit = Jimple.v().newAssignStmt(object, Jimple.v().newInterfaceInvokeExpr(iterator, next_method.makeRef()));
+//		
+//		addIfStmt(Jimple.v().newNeExpr(flag, IntConstant.v(0)), next_Unit);
+//		addAssignStmt(int0, Jimple.v().newStaticFieldRef(count_field.makeRef()));		
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(events_field.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newInterfaceInvokeExpr(list, size_method.makeRef()));
+//		
+//		List<Value> emptyParams = paramValues();
+//		emptyParams.add(currentActivity);
+//		emptyParams.add(StringConstant.v("Test finishes"));
+//		emptyParams.add(IntConstant.v(0));
+//		AssignStmt makeText = Jimple.v().newAssignStmt(toast,Jimple.v().newStaticInvokeExpr(makeText_method.makeRef(),emptyParams));
+//		
+//		addIfStmt(Jimple.v().newGeExpr(int0, int1), makeText);
+//		
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(events_field.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newStaticFieldRef(count_field.makeRef()));
+//		addAssignStmt(object, Jimple.v().newInterfaceInvokeExpr(list, get_method.makeRef(),int1));
+//		addAssignStmt(event, Jimple.v().newCastExpr(object, event_Type));
+//		addAssignStmt(object, Jimple.v().newVirtualInvokeExpr(event, getO_method.makeRef()));
+//		addAssignStmt(onClickListener, Jimple.v().newCastExpr(object, onClickListener_Type));
+//		addAssignStmt(view, Jimple.v().newVirtualInvokeExpr(event, getV_method.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newStaticFieldRef(count_field.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newAddExpr(int1, IntConstant.v(1)));
+//		addAssignStmt(Jimple.v().newStaticFieldRef(count_field.makeRef()), int1);
+//		addInvokeStmt(Jimple.v().newInterfaceInvokeExpr(onClickListener, onClick_method.makeRef(),view));
+//		
+//		//label1: 
+//		ReturnStmt return1 = addReturnTypeStmt(IntConstant.v(1));
+//		
+//		//label2:
+//		body.getUnits().add(next_Unit);
+//		//next_Unit = addAssignStmt(object, Jimple.v().newInterfaceInvokeExpr(iterator, hasNext_method.makeRef()));
+//		addAssignStmt(event, Jimple.v().newCastExpr(object, event_Type));
+//		addAssignStmt(view, Jimple.v().newVirtualInvokeExpr(event, getV_method.makeRef()));
+//		addAssignStmt(context,Jimple.v().newVirtualInvokeExpr(view, getContent_method.makeRef()));
+//		addAssignStmt(flag, Jimple.v().newVirtualInvokeExpr(context,equals_method.makeRef(),currentActivity));
+//		addIfStmt(Jimple.v().newEqExpr(flag, IntConstant.v(0)), hasNext_Unit);
+//		
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(events_field.makeRef()));
+//		addAssignStmt(flag, Jimple.v().newInterfaceInvokeExpr(list,contains_method.makeRef(),event));
+//		addIfStmt(Jimple.v().newNeExpr(flag, IntConstant.v(0)), hasNext_Unit);
+//		
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(events_field.makeRef()));
+//		addInvokeStmt(Jimple.v().newInterfaceInvokeExpr(list, add_method.makeRef(),event));
+//		addGotoStmt(hasNext_Unit);
+//		
+//		//label3:
+////		List<Value> emptyParams = EmptyParams();
+////		emptyParams.add(activity);
+////		emptyParams.add(StringConstant.v("Test finishes"));
+////		emptyParams.add(IntConstant.v(0));
+////		makeText = addAssignStmt(toast,Jimple.v().newStaticInvokeExpr(makeText_method.makeRef(),emptyParams));
+//		body.getUnits().add(makeText);
+//		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(toast, show_method.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newStaticFieldRef(count_field.makeRef()));
+//		addAssignStmt(list, Jimple.v().newStaticFieldRef(events_field.makeRef()));
+//		addAssignStmt(int0, Jimple.v().newInterfaceInvokeExpr(list, size_method.makeRef()));
+//		addAssignStmt(int1, Jimple.v().newSubExpr(int1, int0));
+//		addAssignStmt(Jimple.v().newStaticFieldRef(count_field.makeRef()), int1);
+//		addGotoStmt(return1);
+				
+	}
+
+	@Override
+	protected void addLocals() {
+		currentActivity = addLocal("activity", currentActivity_Type);
+		menuItem = addLocal("menuItem", menuItem_Type);
+		object = addLocal("object", object_Type);
+		view = addLocal("view", view_Type);
+		toast = addLocal("toast", toast_Type);
+		int0 = addLocal("int0", IntType.v());
+		int1 = addLocal("int1", IntType.v());
+		flag = addLocal("flag", BooleanType.v());
+		classLocal = addLocal("classLocal", class_Type);
+		reflectMethod = addLocal("reflectMethod", reflectMethod_Type);
+		linkedList = addLocal("linkedList", linkedList_Type);
+		string = addLocal("string", string_Type);
+		exception = addLocal("exception", exception_Type);
+		arrayObject = addLocalArray("arrayObject", string_Type);
+		arrayReflectMethod = addLocalArray("arrayReflectMethod", reflectMethod_Type);
+		
+	}
+
+	@Override
+	protected void newMethodName() {
+		List<Type> emptyTypes = paramTypes();
+		emptyTypes.add(menuItem_Type);
+		method = new SootMethod("onMenuItemClick", emptyTypes, BooleanType.v(),Modifier.PUBLIC);
+	}
+
+}

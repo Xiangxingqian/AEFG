@@ -1,0 +1,5 @@
+public interface  com.example.qian.TestA$Listener extends java.lang.Object
+{
+
+    public abstract void listening(int, android.os.Message);
+}

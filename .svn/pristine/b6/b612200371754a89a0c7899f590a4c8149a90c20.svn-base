@@ -1,0 +1,57 @@
+class cz.romario.opensudoku.gui.SudokuExportActivity$3 extends java.lang.Object implements cz.romario.opensudoku.gui.exporting.FileExportTask$OnExportFinishedListener
+{
+    final cz.romario.opensudoku.gui.SudokuExportActivity this$0;
+
+    void <init>(cz.romario.opensudoku.gui.SudokuExportActivity)
+    {
+        cz.romario.opensudoku.gui.SudokuExportActivity$3 $r0;
+        cz.romario.opensudoku.gui.SudokuExportActivity $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.SudokuExportActivity$3;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.SudokuExportActivity;
+        $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onExportFinished(cz.romario.opensudoku.gui.exporting.FileExportTaskResult)
+    {
+        cz.romario.opensudoku.gui.SudokuExportActivity$3 $r0;
+        cz.romario.opensudoku.gui.exporting.FileExportTaskResult $r1;
+        cz.romario.opensudoku.gui.SudokuExportActivity $r2, $r5;
+        java.io.File $r3;
+        java.lang.String $r4;
+        boolean $z0;
+        java.lang.Object[] $r6;
+        android.widget.Toast $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.SudokuExportActivity$3;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.exporting.FileExportTaskResult;
+        $r2 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        virtualinvoke $r2.<cz.romario.opensudoku.gui.SudokuExportActivity: void dismissDialog(int)>(2);
+        $z0 = $r1.<cz.romario.opensudoku.gui.exporting.FileExportTaskResult: boolean successful>;
+        if $z0 == 0 goto label1;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        $r5 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        $r6 = newarray (java.lang.Object)[1];
+        $r3 = $r1.<cz.romario.opensudoku.gui.exporting.FileExportTaskResult: java.io.File file>;
+        $r6[0] = $r3;
+        $r4 = virtualinvoke $r5.<cz.romario.opensudoku.gui.SudokuExportActivity: java.lang.String getString(int,java.lang.Object[])>(2131296377, $r6);
+        $r7 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>($r2, $r4, 0);
+        virtualinvoke $r7.<android.widget.Toast: void show()>();
+
+     label0:
+        $r5 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        virtualinvoke $r5.<cz.romario.opensudoku.gui.SudokuExportActivity: void finish()>();
+        return;
+
+     label1:
+        $r5 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        $r2 = $r0.<cz.romario.opensudoku.gui.SudokuExportActivity$3: cz.romario.opensudoku.gui.SudokuExportActivity this$0>;
+        $r4 = virtualinvoke $r2.<cz.romario.opensudoku.gui.SudokuExportActivity: java.lang.String getString(int)>(2131296366);
+        $r7 = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>($r5, $r4, 1);
+        virtualinvoke $r7.<android.widget.Toast: void show()>();
+        goto label0;
+    }
+}

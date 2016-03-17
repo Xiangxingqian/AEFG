@@ -1,0 +1,35 @@
+class cz.romario.opensudoku.gui.FolderListActivity$1 extends java.lang.Object implements android.view.View$OnClickListener
+{
+    final cz.romario.opensudoku.gui.FolderListActivity this$0;
+
+    void <init>(cz.romario.opensudoku.gui.FolderListActivity)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity$1 $r0;
+        cz.romario.opensudoku.gui.FolderListActivity $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity$1;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.FolderListActivity;
+        $r0.<cz.romario.opensudoku.gui.FolderListActivity$1: cz.romario.opensudoku.gui.FolderListActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.view.View)
+    {
+        cz.romario.opensudoku.gui.FolderListActivity$1 $r0;
+        android.view.View $r1;
+        android.content.Intent $r2;
+        android.net.Uri $r5;
+        cz.romario.opensudoku.gui.FolderListActivity $r6;
+
+        $r0 := @this: cz.romario.opensudoku.gui.FolderListActivity$1;
+        $r1 := @parameter0: android.view.View;
+        $r2 = new android.content.Intent;
+        $r5 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>("http://code.google.com/p/opensudoku-android/wiki/Puzzles");
+        specialinvoke $r2.<android.content.Intent: void <init>(java.lang.String,android.net.Uri)>("android.intent.action.VIEW", $r5);
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent setFlags(int)>(268435456);
+        $r6 = $r0.<cz.romario.opensudoku.gui.FolderListActivity$1: cz.romario.opensudoku.gui.FolderListActivity this$0>;
+        virtualinvoke $r6.<cz.romario.opensudoku.gui.FolderListActivity: void startActivity(android.content.Intent)>($r2);
+        return;
+    }
+}

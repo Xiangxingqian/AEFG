@@ -1,0 +1,397 @@
+public class cz.romario.opensudoku.gui.HintsQueue extends java.lang.Object
+{
+    private static final java.lang.String PREF_FILE_NAME;
+    private android.content.Context mContext;
+    private android.content.DialogInterface$OnClickListener mHintClosed;
+    private android.app.AlertDialog mHintDialog;
+    private java.util.Queue mMessages;
+    private boolean mOneTimeHintsEnabled;
+    private android.content.SharedPreferences mPrefs;
+
+    public void <init>(android.content.Context)
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        android.content.Context $r1, $r5;
+        android.content.SharedPreferences $r2;
+        cz.romario.opensudoku.gui.HintsQueue$1 $r3;
+        cz.romario.opensudoku.gui.HintsQueue$2 $r6;
+        boolean $z0;
+        android.app.AlertDialog$Builder $r7;
+        android.content.DialogInterface$OnClickListener $r8;
+        android.app.AlertDialog $r9;
+        cz.romario.opensudoku.gui.HintsQueue$3 $r10;
+        java.util.LinkedList $r11;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r1 := @parameter0: android.content.Context;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r3 = new cz.romario.opensudoku.gui.HintsQueue$1;
+        specialinvoke $r3.<cz.romario.opensudoku.gui.HintsQueue$1: void <init>(cz.romario.opensudoku.gui.HintsQueue)>($r0);
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.DialogInterface$OnClickListener mHintClosed> = $r3;
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.Context mContext> = $r1;
+        $r5 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.Context mContext>;
+        $r2 = virtualinvoke $r5.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("hints", 0);
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs> = $r2;
+        $r2 = staticinvoke <android.preference.PreferenceManager: android.content.SharedPreferences getDefaultSharedPreferences(android.content.Context)>($r1);
+        $r6 = new cz.romario.opensudoku.gui.HintsQueue$2;
+        specialinvoke $r6.<cz.romario.opensudoku.gui.HintsQueue$2: void <init>(cz.romario.opensudoku.gui.HintsQueue)>($r0);
+        interfaceinvoke $r2.<android.content.SharedPreferences: void registerOnSharedPreferenceChangeListener(android.content.SharedPreferences$OnSharedPreferenceChangeListener)>($r6);
+        $z0 = interfaceinvoke $r2.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("show_hints", 1);
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: boolean mOneTimeHintsEnabled> = $z0;
+        $r7 = new android.app.AlertDialog$Builder;
+        specialinvoke $r7.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r1);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(17301569);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296333);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(java.lang.CharSequence)>("");
+        $r8 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.DialogInterface$OnClickListener mHintClosed>;
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)>(2131296264, $r8);
+        $r9 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog> = $r9;
+        $r9 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        $r10 = new cz.romario.opensudoku.gui.HintsQueue$3;
+        specialinvoke $r10.<cz.romario.opensudoku.gui.HintsQueue$3: void <init>(cz.romario.opensudoku.gui.HintsQueue)>($r0);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void doReflect(android.view.View,java.lang.Object)>($r9, $r10);
+        virtualinvoke $r9.<android.app.AlertDialog: void setOnDismissListener(android.content.DialogInterface$OnDismissListener)>($r10);
+        $r11 = new java.util.LinkedList;
+        specialinvoke $r11.<java.util.LinkedList: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: java.util.Queue mMessages> = $r11;
+        return;
+    }
+
+    static void access$0(cz.romario.opensudoku.gui.HintsQueue, boolean)
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        boolean $z0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.HintsQueue;
+        $z0 := @parameter1: boolean;
+        $r0.<cz.romario.opensudoku.gui.HintsQueue: boolean mOneTimeHintsEnabled> = $z0;
+        return;
+    }
+
+    static void access$1(cz.romario.opensudoku.gui.HintsQueue)
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.HintsQueue;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void processQueue()>();
+        return;
+    }
+
+    private void addHint(cz.romario.opensudoku.gui.HintsQueue$Message)
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        cz.romario.opensudoku.gui.HintsQueue$Message $r1;
+        java.util.Queue $r2, $r3;
+        boolean $z0;
+        android.app.AlertDialog $r4, $r5;
+        java.lang.Throwable $r6, $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.HintsQueue$Message;
+        $r3 = $r0.<cz.romario.opensudoku.gui.HintsQueue: java.util.Queue mMessages>;
+        entermonitor $r3;
+
+     label0:
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: java.util.Queue mMessages>;
+        interfaceinvoke $r2.<java.util.Queue: boolean add(java.lang.Object)>($r1);
+        exitmonitor $r3;
+
+     label1:
+        $r4 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        entermonitor $r4;
+
+     label2:
+        $r5 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        $z0 = virtualinvoke $r5.<android.app.AlertDialog: boolean isShowing()>();
+        if $z0 != 0 goto label3;
+
+        specialinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void processQueue()>();
+
+     label3:
+        exitmonitor $r4;
+
+     label4:
+        return;
+
+     label5:
+        $r6 := @caughtexception;
+
+     label6:
+        exitmonitor $r3;
+
+     label7:
+        throw $r6;
+
+     label8:
+        $r7 := @caughtexception;
+
+     label9:
+        exitmonitor $r4;
+
+     label10:
+        throw $r7;
+
+        catch java.lang.Throwable from label0 to label1 with label5;
+        catch java.lang.Throwable from label2 to label4 with label8;
+        catch java.lang.Throwable from label6 to label7 with label5;
+        catch java.lang.Throwable from label9 to label10 with label8;
+    }
+
+    private void processQueue()
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        java.lang.Object $r1;
+        java.util.Queue $r2, $r3;
+        cz.romario.opensudoku.gui.HintsQueue$Message $r4;
+        java.lang.Throwable $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r3 = $r0.<cz.romario.opensudoku.gui.HintsQueue: java.util.Queue mMessages>;
+        entermonitor $r3;
+
+     label0:
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: java.util.Queue mMessages>;
+        $r1 = interfaceinvoke $r2.<java.util.Queue: java.lang.Object poll()>();
+        $r4 = (cz.romario.opensudoku.gui.HintsQueue$Message) $r1;
+        exitmonitor $r3;
+
+     label1:
+        if $r4 == null goto label2;
+
+        specialinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void showHintDialog(cz.romario.opensudoku.gui.HintsQueue$Message)>($r4);
+
+     label2:
+        return;
+
+     label3:
+        $r5 := @caughtexception;
+
+     label4:
+        exitmonitor $r3;
+
+     label5:
+        throw $r5;
+
+        catch java.lang.Throwable from label0 to label1 with label3;
+        catch java.lang.Throwable from label4 to label5 with label3;
+    }
+
+    private void showHintDialog(cz.romario.opensudoku.gui.HintsQueue$Message)
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        cz.romario.opensudoku.gui.HintsQueue$Message $r1;
+        android.app.AlertDialog $r2, $r3;
+        android.content.Context $r4;
+        int $i0;
+        java.lang.String $r5;
+        java.lang.CharSequence $r6;
+        java.lang.Throwable $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.HintsQueue$Message;
+        $r3 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        entermonitor $r3;
+
+     label0:
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        $r4 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.Context mContext>;
+        $i0 = $r1.<cz.romario.opensudoku.gui.HintsQueue$Message: int titleResID>;
+        $r5 = virtualinvoke $r4.<android.content.Context: java.lang.String getString(int)>($i0);
+        virtualinvoke $r2.<android.app.AlertDialog: void setTitle(java.lang.CharSequence)>($r5);
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        $r4 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.Context mContext>;
+        $i0 = $r1.<cz.romario.opensudoku.gui.HintsQueue$Message: int messageResID>;
+        $r6 = virtualinvoke $r4.<android.content.Context: java.lang.CharSequence getText(int)>($i0);
+        virtualinvoke $r2.<android.app.AlertDialog: void setMessage(java.lang.CharSequence)>($r6);
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        virtualinvoke $r2.<android.app.AlertDialog: void show()>();
+        exitmonitor $r3;
+        return;
+
+     label1:
+        $r7 := @caughtexception;
+        exitmonitor $r3;
+
+     label2:
+        throw $r7;
+
+        catch java.lang.Throwable from label0 to label2 with label1;
+    }
+
+    public boolean legacyHintsWereDisplayed()
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        boolean $z0, $z1;
+        android.content.SharedPreferences $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $z0 = 0;
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z1 = interfaceinvoke $r1.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("hint_2131099727", 0);
+        if $z1 == 0 goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z1 = interfaceinvoke $r1.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("hint_2131099730", 0);
+        if $z1 == 0 goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z1 = interfaceinvoke $r1.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("hint_2131099726", 0);
+        if $z1 == 0 goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z1 = interfaceinvoke $r1.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("hint_2131099729", 0);
+        if $z1 == 0 goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z1 = interfaceinvoke $r1.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>("hint_2131099728", 0);
+        if $z1 == 0 goto label0;
+
+        $z0 = 1;
+
+     label0:
+        return $z0;
+    }
+
+    public void pause()
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        android.app.AlertDialog $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        if $r1 == null goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.app.AlertDialog mHintDialog>;
+        virtualinvoke $r1.<android.app.AlertDialog: void cancel()>();
+
+     label0:
+        return;
+    }
+
+    public void resetOneTimeHints()
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        android.content.SharedPreferences$Editor $r1;
+        android.content.SharedPreferences $r2;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r2 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $r1 = interfaceinvoke $r2.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+        interfaceinvoke $r1.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor clear()>();
+        interfaceinvoke $r1.<android.content.SharedPreferences$Editor: boolean commit()>();
+        return;
+    }
+
+    public transient void showHint(int, int, java.lang.Object[])
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        int $i0, $i1;
+        java.lang.Object[] $r1;
+        cz.romario.opensudoku.gui.HintsQueue$Message $r2;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $i0 := @parameter0: int;
+        $i1 := @parameter1: int;
+        $r1 := @parameter2: java.lang.Object[];
+        $r2 = new cz.romario.opensudoku.gui.HintsQueue$Message;
+        specialinvoke $r2.<cz.romario.opensudoku.gui.HintsQueue$Message: void <init>(cz.romario.opensudoku.gui.HintsQueue$Message)>(null);
+        $r2.<cz.romario.opensudoku.gui.HintsQueue$Message: int titleResID> = $i0;
+        $r2.<cz.romario.opensudoku.gui.HintsQueue$Message: int messageResID> = $i1;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void addHint(cz.romario.opensudoku.gui.HintsQueue$Message)>($r2);
+        return;
+    }
+
+    public transient void showOneTimeHint(java.lang.String, int, int, java.lang.Object[])
+    {
+        cz.romario.opensudoku.gui.HintsQueue $r0;
+        java.lang.String $r1;
+        int $i0, $i1;
+        java.lang.Object[] $r2;
+        android.content.SharedPreferences$Editor $r3;
+        boolean $z0;
+        java.lang.StringBuilder $r5;
+        android.content.SharedPreferences $r6;
+
+        $r0 := @this: cz.romario.opensudoku.gui.HintsQueue;
+        $r1 := @parameter0: java.lang.String;
+        $i0 := @parameter1: int;
+        $i1 := @parameter2: int;
+        $r2 := @parameter3: java.lang.Object[];
+        $z0 = $r0.<cz.romario.opensudoku.gui.HintsQueue: boolean mOneTimeHintsEnabled>;
+        if $z0 == 0 goto label0;
+
+        $z0 = virtualinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: boolean legacyHintsWereDisplayed()>();
+        if $z0 == 0 goto label1;
+
+     label0:
+        return;
+
+     label1:
+        $r5 = new java.lang.StringBuilder;
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("hint_");
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r1);
+        $r1 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+        $r6 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $z0 = interfaceinvoke $r6.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>($r1, 0);
+        if $z0 != 0 goto label0;
+
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.HintsQueue: void showHint(int,int,java.lang.Object[])>($i0, $i1, $r2);
+        $r6 = $r0.<cz.romario.opensudoku.gui.HintsQueue: android.content.SharedPreferences mPrefs>;
+        $r3 = interfaceinvoke $r6.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+        interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putBoolean(java.lang.String,boolean)>($r1, 1);
+        interfaceinvoke $r3.<android.content.SharedPreferences$Editor: boolean commit()>();
+        goto label0;
+    }
+
+    public void doReflect(android.view.View, java.lang.Object)
+    {
+        cz.romario.opensudoku.gui.HintsQueue activity;
+        java.lang.Object object1, object2;
+        android.view.View view;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.util.LinkedList linkedList1, linkedList2;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.reflect.Field field1, field2, field3;
+        java.lang.Boolean booleanLocal;
+        android.content.Context context;
+
+        activity := @this: cz.romario.opensudoku.gui.HintsQueue;
+        view := @parameter0: android.view.View;
+        object1 := @parameter1: java.lang.Object;
+        context = virtualinvoke view.<android.view.View: android.content.Context getContext()>();
+        classLocal = virtualinvoke context.<java.lang.Object: java.lang.Class getClass()>();
+        string = virtualinvoke classLocal.<java.lang.Class: java.lang.String getName()>();
+
+     label0:
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field1 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("viewLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field2 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("listenerLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field3 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("isVisited");
+        object2 = virtualinvoke field1.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList1 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field2.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList2 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field3.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        booleanLocal = (java.lang.Boolean) object2;
+        flag = virtualinvoke booleanLocal.<java.lang.Boolean: boolean booleanValue()>();
+        if flag != 0 goto label1;
+
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(view);
+        virtualinvoke linkedList2.<java.util.LinkedList: boolean offer(java.lang.Object)>(object1);
+
+     label1:
+        return;
+
+     label2:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+        goto label1;
+
+        catch java.lang.Exception from label0 to label1 with label2;
+    }
+}

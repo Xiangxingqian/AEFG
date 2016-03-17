@@ -1,0 +1,15 @@
+public class cz.romario.opensudoku.gui.exporting.FileExportTaskResult extends java.lang.Object
+{
+    public java.lang.String error;
+    public java.io.File file;
+    public boolean successful;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.gui.exporting.FileExportTaskResult $r0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.exporting.FileExportTaskResult;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

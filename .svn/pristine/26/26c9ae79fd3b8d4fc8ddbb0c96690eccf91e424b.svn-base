@@ -1,0 +1,17 @@
+public final class com.example.qian.R$string extends java.lang.Object
+{
+    public static final int action_settings;
+    public static final int app_name;
+    public static final int button;
+    public static final int hello_world;
+    public static final int mannual;
+
+    public void <init>()
+    {
+        com.example.qian.R$string $r0;
+
+        $r0 := @this: com.example.qian.R$string;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

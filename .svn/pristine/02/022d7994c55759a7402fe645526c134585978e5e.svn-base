@@ -1,0 +1,34 @@
+public class com.example.qian.MyApplication extends android.app.Application
+{
+    private int score;
+
+    public void <init>()
+    {
+        com.example.qian.MyApplication $r0;
+
+        $r0 := @this: com.example.qian.MyApplication;
+        specialinvoke $r0.<android.app.Application: void <init>()>();
+        return;
+    }
+
+    public int getScore()
+    {
+        com.example.qian.MyApplication $r0;
+        int $i0;
+
+        $r0 := @this: com.example.qian.MyApplication;
+        $i0 = $r0.<com.example.qian.MyApplication: int score>;
+        return $i0;
+    }
+
+    public void setScore(int)
+    {
+        com.example.qian.MyApplication $r0;
+        int $i0;
+
+        $r0 := @this: com.example.qian.MyApplication;
+        $i0 := @parameter0: int;
+        $r0.<com.example.qian.MyApplication: int score> = $i0;
+        return;
+    }
+}

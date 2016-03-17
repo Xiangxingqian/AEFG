@@ -1,0 +1,19 @@
+public abstract class cz.romario.opensudoku.db.SudokuColumns extends java.lang.Object implements android.provider.BaseColumns
+{
+    public static final java.lang.String CREATED;
+    public static final java.lang.String DATA;
+    public static final java.lang.String FOLDER_ID;
+    public static final java.lang.String LAST_PLAYED;
+    public static final java.lang.String PUZZLE_NOTE;
+    public static final java.lang.String STATE;
+    public static final java.lang.String TIME;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.db.SudokuColumns $r0;
+
+        $r0 := @this: cz.romario.opensudoku.db.SudokuColumns;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

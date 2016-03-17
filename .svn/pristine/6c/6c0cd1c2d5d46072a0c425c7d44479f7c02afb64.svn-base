@@ -1,0 +1,568 @@
+public class cz.romario.opensudoku.gui.inputmethod.IMControlPanel extends android.widget.LinearLayout
+{
+    public static final int INPUT_METHOD_NUMPAD;
+    public static final int INPUT_METHOD_POPUP;
+    public static final int INPUT_METHOD_SINGLE_NUMBER;
+    private int mActiveMethodIndex;
+    private cz.romario.opensudoku.gui.SudokuBoardView mBoard;
+    private android.content.Context mContext;
+    private cz.romario.opensudoku.game.SudokuGame mGame;
+    private cz.romario.opensudoku.gui.HintsQueue mHintsQueue;
+    private java.util.List mInputMethods;
+    private cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener mOnCellSelected;
+    private cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener mOnCellTapListener;
+    private android.view.View$OnClickListener mSwitchModeListener;
+
+    public void <init>(android.content.Context)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        android.content.Context $r1;
+        java.util.ArrayList $r2;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1 $r3;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2 $r4;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3 $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 := @parameter0: android.content.Context;
+        specialinvoke $r0.<android.widget.LinearLayout: void <init>(android.content.Context)>($r1);
+        $r2 = new java.util.ArrayList;
+        specialinvoke $r2.<java.util.ArrayList: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods> = $r2;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex> = -1;
+        $r3 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1;
+        specialinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener mOnCellTapListener> = $r3;
+        $r4 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2;
+        specialinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener mOnCellSelected> = $r4;
+        $r5 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3;
+        specialinvoke $r5.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.view.View$OnClickListener mSwitchModeListener> = $r5;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.content.Context mContext> = $r1;
+        return;
+    }
+
+    public void <init>(android.content.Context, android.util.AttributeSet)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        android.content.Context $r1;
+        android.util.AttributeSet $r2;
+        java.util.ArrayList $r3;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1 $r4;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2 $r5;
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3 $r6;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 := @parameter0: android.content.Context;
+        $r2 := @parameter1: android.util.AttributeSet;
+        specialinvoke $r0.<android.widget.LinearLayout: void <init>(android.content.Context,android.util.AttributeSet)>($r1, $r2);
+        $r3 = new java.util.ArrayList;
+        specialinvoke $r3.<java.util.ArrayList: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods> = $r3;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex> = -1;
+        $r4 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1;
+        specialinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$1: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener mOnCellTapListener> = $r4;
+        $r5 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2;
+        specialinvoke $r5.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$2: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener mOnCellSelected> = $r5;
+        $r6 = new cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3;
+        specialinvoke $r6.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel$3: void <init>(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.view.View$OnClickListener mSwitchModeListener> = $r6;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.content.Context mContext> = $r1;
+        return;
+    }
+
+    static int access$0(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        return $i0;
+    }
+
+    static java.util.List access$1(cz.romario.opensudoku.gui.inputmethod.IMControlPanel)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.util.List $r1;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        return $r1;
+    }
+
+    private void addInputMethod(int, cz.romario.opensudoku.gui.inputmethod.InputMethod)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r1;
+        android.content.Context $r3;
+        cz.romario.opensudoku.game.SudokuGame $r5;
+        cz.romario.opensudoku.gui.SudokuBoardView $r6;
+        cz.romario.opensudoku.gui.HintsQueue $r7;
+        java.util.List $r8;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 := @parameter0: int;
+        $r1 := @parameter1: cz.romario.opensudoku.gui.inputmethod.InputMethod;
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.content.Context mContext>;
+        $r5 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.game.SudokuGame mGame>;
+        $r6 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        $r7 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void initialize(android.content.Context,cz.romario.opensudoku.gui.inputmethod.IMControlPanel,cz.romario.opensudoku.game.SudokuGame,cz.romario.opensudoku.gui.SudokuBoardView,cz.romario.opensudoku.gui.HintsQueue)>($r3, $r0, $r5, $r6, $r7);
+        $r8 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        interfaceinvoke $r8.<java.util.List: void add(int,java.lang.Object)>($i0, $r1);
+        return;
+    }
+
+    private void createInputMethods()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.util.List $r1;
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r2;
+        int $i0;
+        cz.romario.opensudoku.gui.inputmethod.IMSingleNumber $r3;
+        cz.romario.opensudoku.gui.inputmethod.IMNumpad $r4;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i0 = interfaceinvoke $r1.<java.util.List: int size()>();
+        if $i0 != 0 goto label0;
+
+        $r2 = new cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        specialinvoke $r2.<cz.romario.opensudoku.gui.inputmethod.IMPopup: void <init>()>();
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void addInputMethod(int,cz.romario.opensudoku.gui.inputmethod.InputMethod)>(0, $r2);
+        $r3 = new cz.romario.opensudoku.gui.inputmethod.IMSingleNumber;
+        specialinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.IMSingleNumber: void <init>()>();
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void addInputMethod(int,cz.romario.opensudoku.gui.inputmethod.InputMethod)>(1, $r3);
+        $r4 = new cz.romario.opensudoku.gui.inputmethod.IMNumpad;
+        specialinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMNumpad: void <init>()>();
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void addInputMethod(int,cz.romario.opensudoku.gui.inputmethod.InputMethod)>(2, $r4);
+
+     label0:
+        return;
+    }
+
+    private void ensureControlPanel(int)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+        android.view.View $r1, $r3;
+        java.lang.Object $r2;
+        java.util.List $r4;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r5;
+        boolean $z0;
+        android.widget.Button $r6;
+        android.view.View$OnClickListener $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 := @parameter0: int;
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r2 = interfaceinvoke $r4.<java.util.List: java.lang.Object get(int)>($i0);
+        $r5 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r2;
+        $z0 = virtualinvoke $r5.<cz.romario.opensudoku.gui.inputmethod.InputMethod: boolean isInputMethodViewCreated()>();
+        if $z0 != 0 goto label0;
+
+        $r1 = virtualinvoke $r5.<cz.romario.opensudoku.gui.inputmethod.InputMethod: android.view.View getInputMethodView()>();
+        $r3 = virtualinvoke $r1.<android.view.View: android.view.View findViewById(int)>(2131230736);
+        $r6 = (android.widget.Button) $r3;
+        $r7 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: android.view.View$OnClickListener mSwitchModeListener>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void doReflect(android.view.View,java.lang.Object)>($r6, $r7);
+        virtualinvoke $r6.<android.widget.Button: void setOnClickListener(android.view.View$OnClickListener)>($r7);
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void addView(android.view.View,int,int)>($r1, -1, -1);
+
+     label0:
+        return;
+    }
+
+    private void ensureInputMethods()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.util.List $r1;
+        int $i0;
+        java.lang.IllegalStateException $r3;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i0 = interfaceinvoke $r1.<java.util.List: int size()>();
+        if $i0 != 0 goto label0;
+
+        $r3 = new java.lang.IllegalStateException;
+        specialinvoke $r3.<java.lang.IllegalStateException: void <init>(java.lang.String)>("Input methods are not created yet. Call initialize() first.");
+        throw $r3;
+
+     label0:
+        return;
+    }
+
+    public void activateFirstInputMethod()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+        java.lang.Object $r1;
+        java.util.List $r2;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r3;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureInputMethods()>();
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        if $i0 == -1 goto label0;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i0);
+        $r3 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        $z0 = virtualinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.InputMethod: boolean isEnabled()>();
+        if $z0 != 0 goto label1;
+
+     label0:
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void activateInputMethod(int)>(0);
+
+     label1:
+        return;
+    }
+
+    public void activateInputMethod(int)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0, $i1, $i4;
+        java.lang.Object $r1;
+        boolean $z0, $z1;
+        java.util.List $r2;
+        java.lang.String $r3;
+        java.lang.Integer $r4;
+        java.lang.IllegalArgumentException $r5;
+        java.lang.Object[] $r6;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r7;
+        cz.romario.opensudoku.gui.HintsQueue $r8;
+        android.view.View $r9;
+        byte $b5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 := @parameter0: int;
+        if $i0 < -1 goto label0;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i1 = interfaceinvoke $r2.<java.util.List: int size()>();
+        if $i0 < $i1 goto label1;
+
+     label0:
+        $r5 = new java.lang.IllegalArgumentException;
+        $r6 = newarray (java.lang.Object)[1];
+        $r4 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+        $r6[0] = $r4;
+        $r3 = staticinvoke <java.lang.String: java.lang.String format(java.lang.String,java.lang.Object[])>("Invalid method id: %s.", $r6);
+        specialinvoke $r5.<java.lang.IllegalArgumentException: void <init>(java.lang.String)>($r3);
+        throw $r5;
+
+     label1:
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureInputMethods()>();
+        $i1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        if $i1 == -1 goto label2;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i1);
+        $r7 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void deactivate()>();
+
+     label2:
+        $z0 = 0;
+        $i1 = $i0;
+        $i0 = 0;
+        if $i1 == -1 goto label4;
+
+     label3:
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i4 = interfaceinvoke $r2.<java.util.List: int size()>();
+        if $i0 <= $i4 goto label8;
+
+     label4:
+        if $z0 != 0 goto label5;
+
+        $i1 = -1;
+
+     label5:
+        $i0 = 0;
+
+     label6:
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i4 = interfaceinvoke $r2.<java.util.List: int size()>();
+        if $i0 < $i4 goto label11;
+
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex> = $i1;
+        $i4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        if $i4 == -1 goto label7;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i4);
+        $r7 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void activate()>();
+        $r8 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        if $r8 == null goto label7;
+
+        $r8 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        $r3 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: java.lang.String getInputMethodName()>();
+        $i4 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: int getNameResID()>();
+        $i1 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: int getHelpResID()>();
+        $r6 = newarray (java.lang.Object)[0];
+        virtualinvoke $r8.<cz.romario.opensudoku.gui.HintsQueue: void showOneTimeHint(java.lang.String,int,int,java.lang.Object[])>($r3, $i4, $i1, $r6);
+
+     label7:
+        return;
+
+     label8:
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i1);
+        $r7 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        $z1 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: boolean isEnabled()>();
+        if $z1 == 0 goto label9;
+
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureControlPanel(int)>($i1);
+        $z0 = 1;
+        goto label4;
+
+     label9:
+        $i1 = $i1 + 1;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i4 = interfaceinvoke $r2.<java.util.List: int size()>();
+        if $i1 != $i4 goto label10;
+
+        $i1 = 0;
+
+     label10:
+        $i0 = $i0 + 1;
+        goto label3;
+
+     label11:
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i0);
+        $r7 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        $z1 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: boolean isInputMethodViewCreated()>();
+        if $z1 == 0 goto label13;
+
+        $r9 = virtualinvoke $r7.<cz.romario.opensudoku.gui.inputmethod.InputMethod: android.view.View getInputMethodView()>();
+        if $i0 != $i1 goto label14;
+
+        $b5 = 0;
+
+     label12:
+        virtualinvoke $r9.<android.view.View: void setVisibility(int)>($b5);
+
+     label13:
+        $i0 = $i0 + 1;
+        goto label6;
+
+     label14:
+        $b5 = 8;
+        goto label12;
+    }
+
+    public void activateNextInputMethod()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0, $i1;
+        java.util.List $r2;
+        cz.romario.opensudoku.gui.HintsQueue $r3;
+        java.lang.Object[] $r4;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureInputMethods()>();
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        $i0 = $i0 + 1;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i1 = interfaceinvoke $r2.<java.util.List: int size()>();
+        if $i0 < $i1 goto label1;
+
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        if $r3 == null goto label0;
+
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        $r4 = newarray (java.lang.Object)[0];
+        virtualinvoke $r3.<cz.romario.opensudoku.gui.HintsQueue: void showOneTimeHint(java.lang.String,int,int,java.lang.Object[])>("thatIsAll", 2131296335, 2131296340, $r4);
+
+     label0:
+        $i0 = 0;
+
+     label1:
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void activateInputMethod(int)>($i0);
+        return;
+    }
+
+    public int getActiveMethodIndex()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        return $i0;
+    }
+
+    public cz.romario.opensudoku.gui.inputmethod.InputMethod getInputMethod(int)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        int $i0;
+        java.util.List $r1;
+        java.lang.Object $r2;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r3;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $i0 := @parameter0: int;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureInputMethods()>();
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r2 = interfaceinvoke $r1.<java.util.List: java.lang.Object get(int)>($i0);
+        $r3 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r2;
+        return $r3;
+    }
+
+    public java.util.List getInputMethods()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.util.List $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r1 = staticinvoke <java.util.Collections: java.util.List unmodifiableList(java.util.List)>($r1);
+        return $r1;
+    }
+
+    public void initialize(cz.romario.opensudoku.gui.SudokuBoardView, cz.romario.opensudoku.game.SudokuGame, cz.romario.opensudoku.gui.HintsQueue)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        cz.romario.opensudoku.gui.SudokuBoardView $r1;
+        cz.romario.opensudoku.game.SudokuGame $r2;
+        cz.romario.opensudoku.gui.HintsQueue $r3;
+        cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener $r4;
+        cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r1 := @parameter0: cz.romario.opensudoku.gui.SudokuBoardView;
+        $r2 := @parameter1: cz.romario.opensudoku.game.SudokuGame;
+        $r3 := @parameter2: cz.romario.opensudoku.gui.HintsQueue;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView mBoard> = $r1;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener mOnCellTapListener>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void doReflect(android.view.View,java.lang.Object)>($r1, $r4);
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.SudokuBoardView: void setOnCellTappedListener(cz.romario.opensudoku.gui.SudokuBoardView$OnCellTappedListener)>($r4);
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        $r5 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener mOnCellSelected>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void doReflect(android.view.View,java.lang.Object)>($r1, $r5);
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.SudokuBoardView: void setOnCellSelectedListener(cz.romario.opensudoku.gui.SudokuBoardView$OnCellSelectedListener)>($r5);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.game.SudokuGame mGame> = $r2;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue> = $r3;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void createInputMethods()>();
+        return;
+    }
+
+    public void pause()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.lang.Object $r1;
+        java.util.List $r2;
+        boolean $z0;
+        java.util.Iterator $r3;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r4;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $r3 = interfaceinvoke $r2.<java.util.List: java.util.Iterator iterator()>();
+
+     label0:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r1 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+        $r4 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void pause()>();
+        goto label0;
+    }
+
+    public void showHelpForActiveMethod()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel $r0;
+        java.lang.Object $r1;
+        int $i0, $i2;
+        java.util.List $r2;
+        cz.romario.opensudoku.gui.inputmethod.InputMethod $r3;
+        cz.romario.opensudoku.gui.HintsQueue $r4;
+        java.lang.Object[] $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: void ensureInputMethods()>();
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        if $i0 == -1 goto label0;
+
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: java.util.List mInputMethods>;
+        $i0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: int mActiveMethodIndex>;
+        $r1 = interfaceinvoke $r2.<java.util.List: java.lang.Object get(int)>($i0);
+        $r3 = (cz.romario.opensudoku.gui.inputmethod.InputMethod) $r1;
+        virtualinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void activate()>();
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMControlPanel: cz.romario.opensudoku.gui.HintsQueue mHintsQueue>;
+        $i2 = virtualinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.InputMethod: int getNameResID()>();
+        $i0 = virtualinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.InputMethod: int getHelpResID()>();
+        $r5 = newarray (java.lang.Object)[0];
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.HintsQueue: void showHint(int,int,java.lang.Object[])>($i2, $i0, $r5);
+
+     label0:
+        return;
+    }
+
+    public void doReflect(android.view.View, java.lang.Object)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMControlPanel activity;
+        java.lang.Object object1, object2;
+        android.view.View view;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.util.LinkedList linkedList1, linkedList2;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.reflect.Field field1, field2, field3;
+        java.lang.Boolean booleanLocal;
+        android.content.Context context;
+
+        activity := @this: cz.romario.opensudoku.gui.inputmethod.IMControlPanel;
+        view := @parameter0: android.view.View;
+        object1 := @parameter1: java.lang.Object;
+        context = virtualinvoke view.<android.view.View: android.content.Context getContext()>();
+        classLocal = virtualinvoke context.<java.lang.Object: java.lang.Class getClass()>();
+        string = virtualinvoke classLocal.<java.lang.Class: java.lang.String getName()>();
+
+     label0:
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field1 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("viewLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field2 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("listenerLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field3 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("isVisited");
+        object2 = virtualinvoke field1.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList1 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field2.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList2 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field3.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        booleanLocal = (java.lang.Boolean) object2;
+        flag = virtualinvoke booleanLocal.<java.lang.Boolean: boolean booleanValue()>();
+        if flag != 0 goto label1;
+
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(view);
+        virtualinvoke linkedList2.<java.util.LinkedList: boolean offer(java.lang.Object)>(object1);
+
+     label1:
+        return;
+
+     label2:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+        goto label1;
+
+        catch java.lang.Exception from label0 to label1 with label2;
+    }
+}

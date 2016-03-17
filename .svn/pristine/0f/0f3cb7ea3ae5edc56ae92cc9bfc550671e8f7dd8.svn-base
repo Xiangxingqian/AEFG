@@ -1,0 +1,14 @@
+public final class cz.romario.opensudoku.R$color extends java.lang.Object
+{
+    public static final int im_number_button_completed_text;
+    public static final int im_number_button_selected_background;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.R$color $r0;
+
+        $r0 := @this: cz.romario.opensudoku.R$color;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

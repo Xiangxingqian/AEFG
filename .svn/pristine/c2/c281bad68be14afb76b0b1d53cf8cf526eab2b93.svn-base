@@ -1,0 +1,53 @@
+class com.example.qian.SecondActivity$MyListener1$1 extends java.lang.Object implements java.lang.Runnable
+{
+    final com.example.qian.SecondActivity$MyListener1 this$1;
+
+    void <init>(com.example.qian.SecondActivity$MyListener1)
+    {
+        com.example.qian.SecondActivity$MyListener1$1 $r0;
+        com.example.qian.SecondActivity$MyListener1 $r1;
+
+        $r0 := @this: com.example.qian.SecondActivity$MyListener1$1;
+        $r1 := @parameter0: com.example.qian.SecondActivity$MyListener1;
+        $r0.<com.example.qian.SecondActivity$MyListener1$1: com.example.qian.SecondActivity$MyListener1 this$1> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void run()
+    {
+        com.example.qian.SecondActivity$MyListener1$1 $r0;
+        java.lang.Exception $r1;
+        int $i0, $i2;
+        com.example.qian.SecondActivity $r2;
+        com.example.qian.SecondActivity$MyListener1 $r3;
+        android.widget.ProgressBar $r4;
+
+        $r0 := @this: com.example.qian.SecondActivity$MyListener1$1;
+        $i0 = 0;
+
+     label0:
+        if $i0 < 100 goto label1;
+
+        return;
+
+     label1:
+        $r3 = $r0.<com.example.qian.SecondActivity$MyListener1$1: com.example.qian.SecondActivity$MyListener1 this$1>;
+        $r2 = staticinvoke <com.example.qian.SecondActivity$MyListener1: com.example.qian.SecondActivity access$0(com.example.qian.SecondActivity$MyListener1)>($r3);
+        $r4 = $r2.<com.example.qian.SecondActivity: android.widget.ProgressBar pBar>;
+        $i2 = $i0 + 1;
+        virtualinvoke $r4.<android.widget.ProgressBar: void setProgress(int)>($i2);
+        staticinvoke <java.lang.Thread: void sleep(long)>(100L);
+
+     label2:
+        $i0 = $i0 + 1;
+        goto label0;
+
+     label3:
+        $r1 := @caughtexception;
+        virtualinvoke $r1.<java.lang.Exception: void printStackTrace()>();
+        goto label2;
+
+        catch java.lang.Exception from label1 to label2 with label3;
+    }
+}

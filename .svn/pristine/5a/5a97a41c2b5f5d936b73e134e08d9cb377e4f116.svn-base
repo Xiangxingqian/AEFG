@@ -1,0 +1,16 @@
+public final class cz.romario.opensudoku.R$array extends java.lang.Object
+{
+    public static final int game_levels;
+    public static final int game_states;
+    public static final int theme_codes;
+    public static final int theme_names;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.R$array $r0;
+
+        $r0 := @this: cz.romario.opensudoku.R$array;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

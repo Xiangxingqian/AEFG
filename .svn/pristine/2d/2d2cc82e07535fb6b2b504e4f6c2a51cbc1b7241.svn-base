@@ -1,0 +1,144 @@
+package com.app.test.newMethod;
+
+import java.util.List;
+
+import soot.BooleanType;
+import soot.IntType;
+import soot.Local;
+import soot.Modifier;
+import soot.RefType;
+import soot.Scene;
+import soot.SootClass;
+import soot.SootField;
+import soot.SootMethod;
+import soot.Trap;
+import soot.Value;
+import soot.VoidType;
+import soot.jimple.AssignStmt;
+import soot.jimple.GotoStmt;
+import soot.jimple.IdentityStmt;
+import soot.jimple.IntConstant;
+import soot.jimple.Jimple;
+import soot.jimple.ReturnVoidStmt;
+import soot.jimple.StringConstant;
+import soot.jimple.ThisRef;
+
+import com.app.test.MethodBuilder;
+
+public class DoTest extends MethodBuilder{
+
+	public static final String CLASSNAME = "doTest";
+	public static final String SUBSIGNATURE = "void doTest()";
+	
+	public DoTest(SootClass sc, String subSignature) {
+		super(sc, subSignature);
+	}
+
+	@Override
+	protected void addUnits() {
+		Local currentActivity,classLocal,exception,object,arrayObject,string,
+		view,linkedList,flag,int0,int1,int2,reflectMethod,arrayReflectMethod,toast;
+		{
+			currentActivity = addLocal("activity", sc_Type);
+			object = addLocal("object", object_Type);
+			view = addLocal("view", view_Type);
+			toast = addLocal("toast", toast_Type);
+			int0 = addLocal("int0", IntType.v());
+			int1 = addLocal("int1", IntType.v());
+			int2 = addLocal("int2", IntType.v());
+			flag = addLocal("flag", BooleanType.v());
+			classLocal = addLocal("classLocal", class_Type);
+			reflectMethod = addLocal("reflectMethod", reflectMethod_Type);
+			linkedList = addLocal("linkedList", linkedList_Type);
+			string = addLocal("string", string_Type);
+			exception = addLocal("exception", exception_Type);
+			arrayObject = addLocalArray("arrayObject", string_Type);
+			arrayReflectMethod = addLocalArray("arrayReflectMethod", reflectMethod_Type);
+		}
+		
+		SootField listenerLinkedList_field = sc.getFieldByName("listenerLinkedList");
+		SootField viewLinkedList_field = sc.getFieldByName("viewLinkedList");
+		
+		addIdentityStmt(currentActivity, new ThisRef(sc_Type));
+		
+		
+		//label0, 
+		AssignStmt label0 = Jimple.v().newAssignStmt(linkedList, Jimple.v().newStaticFieldRef(viewLinkedList_field.makeRef()));
+		//label1, 
+		AssignStmt label1 = Jimple.v().newAssignStmt(linkedList, Jimple.v().newStaticFieldRef(viewLinkedList_field.makeRef()));
+		//label2, 
+		AssignStmt label2 = Jimple.v().newAssignStmt(int1,Jimple.v().newLengthExpr(arrayReflectMethod));
+		//label3, 
+		AssignStmt label3 = Jimple.v().newAssignStmt(arrayObject,Jimple.v().newNewArrayExpr(object_Type, IntConstant.v(1)));
+		//label4, 
+		GotoStmt label4 = Jimple.v().newGotoStmt(label0);
+		//label5, 
+		IdentityStmt label5 = Jimple.v().newIdentityStmt(exception, Jimple.v().newCaughtExceptionRef());
+		//label6
+		AssignStmt label6 = Jimple.v().newAssignStmt(int0,Jimple.v().newAddExpr(int0, IntConstant.v(1)));
+		//label7
+		ReturnVoidStmt label7  = Jimple.v().newReturnVoidStmt();
+		
+		
+		addAssignStmt(linkedList, Jimple.v().newStaticFieldRef(viewLinkedList_field.makeRef()));
+		addAssignStmt(int2, Jimple.v().newVirtualInvokeExpr(linkedList, linkedListSize_method.makeRef()));
+		addIfStmt(Jimple.v().newNeExpr(int2, IntConstant.v(0)), label0);
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(currentActivity, sc.getMethod(OnRestart.SUBSIGNATURE).makeRef()));
+		addGotoStmt(label7);
+		
+		//set parameters
+		List<Value> makeText_params = paramValues();
+		makeText_params.add(currentActivity);
+		makeText_params.add(StringConstant.v("Test finishes"));
+		makeText_params.add(IntConstant.v(0));
+		
+		body.getUnits().add(label0);
+		addAssignStmt(flag, Jimple.v().newVirtualInvokeExpr(linkedList, isEmpty_method.makeRef()));
+		addIfStmt(Jimple.v().newEqExpr(flag, IntConstant.v(0)), label1);
+		
+		addAssignStmt(toast,Jimple.v().newStaticInvokeExpr(makeText_method.makeRef(),makeText_params));
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(toast, show_method.makeRef()));
+		body.getUnits().add(label7);
+		//addReturnVoidStmt();
+		
+		body.getUnits().add(label1);
+		addAssignStmt(object, Jimple.v().newVirtualInvokeExpr(linkedList,poll_method.makeRef()));
+		addAssignStmt(view, Jimple.v().newCastExpr(object, view_Type));
+		addAssignStmt(linkedList, Jimple.v().newStaticFieldRef(listenerLinkedList_field.makeRef()));
+		addAssignStmt(object, Jimple.v().newVirtualInvokeExpr(linkedList,poll_method.makeRef()));
+		addAssignStmt(classLocal, Jimple.v().newVirtualInvokeExpr(object,getClass_method.makeRef()));
+		addAssignStmt(arrayReflectMethod, Jimple.v().newVirtualInvokeExpr(classLocal,getMethods_method.makeRef()));
+		addAssignStmt(int0, IntConstant.v(0));
+		
+		body.getUnits().add(label2);
+		addIfStmt(Jimple.v().newGeExpr(int0, int1), label0);
+		addAssignStmt(reflectMethod, Jimple.v().newArrayRef(arrayReflectMethod, int0));
+		addAssignStmt(string, Jimple.v().newVirtualInvokeExpr(reflectMethod, reflectMethodGetName_method.makeRef()));
+		addAssignStmt(flag, Jimple.v().newVirtualInvokeExpr(string,startsWith_method.makeRef(),StringConstant.v("on")));
+		addIfStmt(Jimple.v().newEqExpr(flag, IntConstant.v(0)), label6);
+		
+		body.getUnits().add(label3);
+		addAssignStmt(Jimple.v().newArrayRef(arrayObject,IntConstant.v(0)), view);
+		
+		List<Value> invoke_params = paramValues();
+		invoke_params.add(object);
+		invoke_params.add(arrayObject);
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(reflectMethod, invoke_method.makeRef(),invoke_params));
+		
+		body.getUnits().add(label4);
+		
+		body.getUnits().add(label5);
+		addInvokeStmt(Jimple.v().newVirtualInvokeExpr(exception,printStackTrace_method.makeRef()));
+		
+		body.getUnits().add(label6);
+		addGotoStmt(label2);
+		Trap trap = Jimple.v().newTrap(Scene.v().getSootClass("java.lang.Exception"), label3, label4, label5);
+		body.getTraps().add(trap);
+
+	}
+
+	@Override
+	protected void newMethodName() {
+		currentMethod = new SootMethod(CLASSNAME, paramTypes(), VoidType.v(),Modifier.PUBLIC);
+	}
+}

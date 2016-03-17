@@ -1,0 +1,35 @@
+class com.example.qian.MainFragment$1 extends java.lang.Object implements android.view.View$OnClickListener
+{
+    final com.example.qian.MainFragment this$0;
+
+    void <init>(com.example.qian.MainFragment)
+    {
+        com.example.qian.MainFragment$1 $r0;
+        com.example.qian.MainFragment $r1;
+
+        $r0 := @this: com.example.qian.MainFragment$1;
+        $r1 := @parameter0: com.example.qian.MainFragment;
+        $r0.<com.example.qian.MainFragment$1: com.example.qian.MainFragment this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.view.View)
+    {
+        com.example.qian.MainFragment$1 $r0;
+        android.view.View $r1;
+        android.content.Intent $r2;
+        com.example.qian.MainFragment $r3;
+        android.app.Activity $r5;
+
+        $r0 := @this: com.example.qian.MainFragment$1;
+        $r1 := @parameter0: android.view.View;
+        $r2 = new android.content.Intent;
+        $r3 = $r0.<com.example.qian.MainFragment$1: com.example.qian.MainFragment this$0>;
+        $r5 = virtualinvoke $r3.<com.example.qian.MainFragment: android.app.Activity getActivity()>();
+        specialinvoke $r2.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>($r5, class "com/example/qian/PlayActivity");
+        $r3 = $r0.<com.example.qian.MainFragment$1: com.example.qian.MainFragment this$0>;
+        virtualinvoke $r3.<com.example.qian.MainFragment: void startActivity(android.content.Intent)>($r2);
+        return;
+    }
+}

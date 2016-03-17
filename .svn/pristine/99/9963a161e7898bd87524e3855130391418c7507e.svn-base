@@ -1,0 +1,362 @@
+public class cz.romario.opensudoku.gui.inputmethod.IMPopup extends cz.romario.opensudoku.gui.inputmethod.InputMethod
+{
+    private cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog;
+    private boolean mHighlightCompletedValues;
+    private cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNoteEditListener mOnNoteEditListener;
+    private cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNumberEditListener mOnNumberEditListener;
+    private android.content.DialogInterface$OnDismissListener mOnPopupDismissedListener;
+    private cz.romario.opensudoku.game.Cell mSelectedCell;
+    private boolean mShowNumberTotals;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.gui.inputmethod.IMPopup$1 $r1;
+        cz.romario.opensudoku.gui.inputmethod.IMPopup$2 $r2;
+        cz.romario.opensudoku.gui.inputmethod.IMPopup$3 $r3;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.InputMethod: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mHighlightCompletedValues> = 1;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mShowNumberTotals> = 0;
+        $r1 = new cz.romario.opensudoku.gui.inputmethod.IMPopup$1;
+        specialinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopup$1: void <init>(cz.romario.opensudoku.gui.inputmethod.IMPopup)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNumberEditListener mOnNumberEditListener> = $r1;
+        $r2 = new cz.romario.opensudoku.gui.inputmethod.IMPopup$2;
+        specialinvoke $r2.<cz.romario.opensudoku.gui.inputmethod.IMPopup$2: void <init>(cz.romario.opensudoku.gui.inputmethod.IMPopup)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNoteEditListener mOnNoteEditListener> = $r2;
+        $r3 = new cz.romario.opensudoku.gui.inputmethod.IMPopup$3;
+        specialinvoke $r3.<cz.romario.opensudoku.gui.inputmethod.IMPopup$3: void <init>(cz.romario.opensudoku.gui.inputmethod.IMPopup)>($r0);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: android.content.DialogInterface$OnDismissListener mOnPopupDismissedListener> = $r3;
+        return;
+    }
+
+    static cz.romario.opensudoku.game.Cell access$0(cz.romario.opensudoku.gui.inputmethod.IMPopup)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.game.Cell $r1;
+
+        $r0 := @parameter0: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.game.Cell mSelectedCell>;
+        return $r1;
+    }
+
+    private void ensureEditCellDialog()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.gui.inputmethod.IMPopupDialog $r1;
+        android.content.Context $r2;
+        cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNumberEditListener $r3;
+        cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNoteEditListener $r4;
+        android.content.DialogInterface$OnDismissListener $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        if $r1 != null goto label0;
+
+        $r1 = new cz.romario.opensudoku.gui.inputmethod.IMPopupDialog;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: android.content.Context mContext>;
+        specialinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void <init>(android.content.Context)>($r2);
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog> = $r1;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r3 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNumberEditListener mOnNumberEditListener>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: void doReflect(android.view.View,java.lang.Object)>($r1, $r3);
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void setOnNumberEditListener(cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNumberEditListener)>($r3);
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNoteEditListener mOnNoteEditListener>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: void doReflect(android.view.View,java.lang.Object)>($r1, $r4);
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void setOnNoteEditListener(cz.romario.opensudoku.gui.inputmethod.IMPopupDialog$OnNoteEditListener)>($r4);
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r5 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: android.content.DialogInterface$OnDismissListener mOnPopupDismissedListener>;
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: void doReflect(android.view.View,java.lang.Object)>($r1, $r5);
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void setOnDismissListener(android.content.DialogInterface$OnDismissListener)>($r5);
+
+     label0:
+        return;
+    }
+
+    protected android.view.View createControlPanelView()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        java.lang.Object $r1;
+        android.content.Context $r2;
+        android.view.LayoutInflater $r4;
+        android.view.View $r5;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r2 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: android.content.Context mContext>;
+        $r1 = virtualinvoke $r2.<android.content.Context: java.lang.Object getSystemService(java.lang.String)>("layout_inflater");
+        $r4 = (android.view.LayoutInflater) $r1;
+        $r5 = virtualinvoke $r4.<android.view.LayoutInflater: android.view.View inflate(int,android.view.ViewGroup)>(2130903047, null);
+        return $r5;
+    }
+
+    public java.lang.String getAbbrName()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        android.content.Context $r1;
+        java.lang.String $r2;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: android.content.Context mContext>;
+        $r2 = virtualinvoke $r1.<android.content.Context: java.lang.String getString(int)>(2131296330);
+        return $r2;
+    }
+
+    public int getHelpResID()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        return 2131296337;
+    }
+
+    public boolean getHighlightCompletedValues()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mHighlightCompletedValues>;
+        return $z0;
+    }
+
+    public int getNameResID()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        return 2131296321;
+    }
+
+    public boolean getShowNumberTotals()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mShowNumberTotals>;
+        return $z0;
+    }
+
+    protected void onActivated()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.gui.SudokuBoardView $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.SudokuBoardView: void setAutoHideTouchedCellHint(boolean)>(0);
+        return;
+    }
+
+    protected void onCellTapped(cz.romario.opensudoku.game.Cell)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.game.Cell $r1;
+        java.lang.Object $r2;
+        java.util.Map $r3;
+        boolean $z0;
+        int $i0, $i2;
+        cz.romario.opensudoku.gui.inputmethod.IMPopupDialog $r4;
+        java.lang.Integer $r5;
+        cz.romario.opensudoku.game.CellNote $r6;
+        java.util.Set $r7;
+        cz.romario.opensudoku.game.SudokuGame $r8;
+        cz.romario.opensudoku.game.CellCollection $r9;
+        java.util.Iterator $r10;
+        java.util.Map$Entry $r11;
+        cz.romario.opensudoku.gui.SudokuBoardView $r12;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 := @parameter0: cz.romario.opensudoku.game.Cell;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.game.Cell mSelectedCell> = $r1;
+        $z0 = virtualinvoke $r1.<cz.romario.opensudoku.game.Cell: boolean isEditable()>();
+        if $z0 == 0 goto label9;
+
+        specialinvoke $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: void ensureEditCellDialog()>();
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void resetButtons()>();
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $i0 = virtualinvoke $r1.<cz.romario.opensudoku.game.Cell: int getValue()>();
+        $r5 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i0);
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void updateNumber(java.lang.Integer)>($r5);
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r6 = virtualinvoke $r1.<cz.romario.opensudoku.game.Cell: cz.romario.opensudoku.game.CellNote getNote()>();
+        $r7 = virtualinvoke $r6.<cz.romario.opensudoku.game.CellNote: java.util.Set getNotedNumbers()>();
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void updateNote(java.util.Collection)>($r7);
+        $r3 = null;
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mHighlightCompletedValues>;
+        if $z0 != 0 goto label0;
+
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mShowNumberTotals>;
+        if $z0 == 0 goto label1;
+
+     label0:
+        $r8 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.game.SudokuGame mGame>;
+        $r9 = virtualinvoke $r8.<cz.romario.opensudoku.game.SudokuGame: cz.romario.opensudoku.game.CellCollection getCells()>();
+        $r3 = virtualinvoke $r9.<cz.romario.opensudoku.game.CellCollection: java.util.Map getValuesUseCount()>();
+
+     label1:
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mHighlightCompletedValues>;
+        if $z0 == 0 goto label3;
+
+        $r7 = interfaceinvoke $r3.<java.util.Map: java.util.Set entrySet()>();
+        $r10 = interfaceinvoke $r7.<java.util.Set: java.util.Iterator iterator()>();
+
+     label2:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label7;
+
+     label3:
+        $z0 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mShowNumberTotals>;
+        if $z0 == 0 goto label5;
+
+        $r7 = interfaceinvoke $r3.<java.util.Map: java.util.Set entrySet()>();
+        $r10 = interfaceinvoke $r7.<java.util.Set: java.util.Iterator iterator()>();
+
+     label4:
+        $z0 = interfaceinvoke $r10.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label8;
+
+     label5:
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void show()>();
+
+     label6:
+        return;
+
+     label7:
+        $r2 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+        $r11 = (java.util.Map$Entry) $r2;
+        $r2 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+        $r5 = (java.lang.Integer) $r2;
+        $i0 = virtualinvoke $r5.<java.lang.Integer: int intValue()>();
+        if $i0 < 9 goto label2;
+
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r2 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+        $r5 = (java.lang.Integer) $r2;
+        $i0 = virtualinvoke $r5.<java.lang.Integer: int intValue()>();
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void highlightNumber(int)>($i0);
+        goto label2;
+
+     label8:
+        $r2 = interfaceinvoke $r10.<java.util.Iterator: java.lang.Object next()>();
+        $r11 = (java.util.Map$Entry) $r2;
+        $r4 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        $r2 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getKey()>();
+        $r5 = (java.lang.Integer) $r2;
+        $i0 = virtualinvoke $r5.<java.lang.Integer: int intValue()>();
+        $r2 = interfaceinvoke $r11.<java.util.Map$Entry: java.lang.Object getValue()>();
+        $r5 = (java.lang.Integer) $r2;
+        $i2 = virtualinvoke $r5.<java.lang.Integer: int intValue()>();
+        virtualinvoke $r4.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void setValueCount(int,int)>($i0, $i2);
+        goto label4;
+
+     label9:
+        $r12 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        virtualinvoke $r12.<cz.romario.opensudoku.gui.SudokuBoardView: void hideTouchedCellHint()>();
+        goto label6;
+    }
+
+    protected void onDeactivated()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.gui.SudokuBoardView $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.SudokuBoardView mBoard>;
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.SudokuBoardView: void setAutoHideTouchedCellHint(boolean)>(1);
+        return;
+    }
+
+    protected void onPause()
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        cz.romario.opensudoku.gui.inputmethod.IMPopupDialog $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        if $r1 == null goto label0;
+
+        $r1 = $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: cz.romario.opensudoku.gui.inputmethod.IMPopupDialog mEditCellDialog>;
+        virtualinvoke $r1.<cz.romario.opensudoku.gui.inputmethod.IMPopupDialog: void cancel()>();
+
+     label0:
+        return;
+    }
+
+    public void setHighlightCompletedValues(boolean)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $z0 := @parameter0: boolean;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mHighlightCompletedValues> = $z0;
+        return;
+    }
+
+    public void setShowNumberTotals(boolean)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup $r0;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        $z0 := @parameter0: boolean;
+        $r0.<cz.romario.opensudoku.gui.inputmethod.IMPopup: boolean mShowNumberTotals> = $z0;
+        return;
+    }
+
+    public void doReflect(android.view.View, java.lang.Object)
+    {
+        cz.romario.opensudoku.gui.inputmethod.IMPopup activity;
+        java.lang.Object object1, object2;
+        android.view.View view;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.util.LinkedList linkedList1, linkedList2;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.reflect.Field field1, field2, field3;
+        java.lang.Boolean booleanLocal;
+        android.content.Context context;
+
+        activity := @this: cz.romario.opensudoku.gui.inputmethod.IMPopup;
+        view := @parameter0: android.view.View;
+        object1 := @parameter1: java.lang.Object;
+        context = virtualinvoke view.<android.view.View: android.content.Context getContext()>();
+        classLocal = virtualinvoke context.<java.lang.Object: java.lang.Class getClass()>();
+        string = virtualinvoke classLocal.<java.lang.Class: java.lang.String getName()>();
+
+     label0:
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field1 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("viewLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field2 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("listenerLinkedList");
+        classLocal = staticinvoke <java.lang.Class: java.lang.Class forName(java.lang.String)>(string);
+        field3 = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Field getField(java.lang.String)>("isVisited");
+        object2 = virtualinvoke field1.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList1 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field2.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        linkedList2 = (java.util.LinkedList) object2;
+        object2 = virtualinvoke field3.<java.lang.reflect.Field: java.lang.Object get(java.lang.Object)>(null);
+        booleanLocal = (java.lang.Boolean) object2;
+        flag = virtualinvoke booleanLocal.<java.lang.Boolean: boolean booleanValue()>();
+        if flag != 0 goto label1;
+
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(view);
+        virtualinvoke linkedList2.<java.util.LinkedList: boolean offer(java.lang.Object)>(object1);
+
+     label1:
+        return;
+
+     label2:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+        goto label1;
+
+        catch java.lang.Exception from label0 to label1 with label2;
+    }
+}

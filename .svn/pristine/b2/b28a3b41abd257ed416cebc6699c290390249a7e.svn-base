@@ -1,0 +1,14 @@
+public final class com.example.qian.R$style extends java.lang.Object
+{
+    public static final int AppBaseTheme;
+    public static final int AppTheme;
+
+    public void <init>()
+    {
+        com.example.qian.R$style $r0;
+
+        $r0 := @this: com.example.qian.R$style;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

@@ -1,0 +1,464 @@
+public class android.support.v4.util.TimeUtils extends java.lang.Object
+{
+    public static final int HUNDRED_DAY_FIELD_LEN;
+    private static final int SECONDS_PER_DAY;
+    private static final int SECONDS_PER_HOUR;
+    private static final int SECONDS_PER_MINUTE;
+    private static char[] sFormatStr;
+    private static final java.lang.Object sFormatSync;
+
+    static void <clinit>()
+    {
+        java.lang.Object $r0;
+        char[] $r1;
+
+        $r0 = new java.lang.Object;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        <android.support.v4.util.TimeUtils: java.lang.Object sFormatSync> = $r0;
+        $r1 = newarray (char)[24];
+        <android.support.v4.util.TimeUtils: char[] sFormatStr> = $r1;
+        return;
+    }
+
+    public void <init>()
+    {
+        android.support.v4.util.TimeUtils $r0;
+
+        $r0 := @this: android.support.v4.util.TimeUtils;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    private static int accumField(int, int, boolean, int)
+    {
+        int $i0, $i1, $i2;
+        boolean $z0;
+
+        $i0 := @parameter0: int;
+        $i1 := @parameter1: int;
+        $z0 := @parameter2: boolean;
+        $i2 := @parameter3: int;
+        if $i0 > 99 goto label0;
+
+        if $z0 == 0 goto label1;
+
+        if $i2 < 3 goto label1;
+
+     label0:
+        $i2 = $i1 + 3;
+        return $i2;
+
+     label1:
+        if $i0 > 9 goto label2;
+
+        if $z0 == 0 goto label3;
+
+        if $i2 < 2 goto label3;
+
+     label2:
+        $i2 = $i1 + 2;
+        return $i2;
+
+     label3:
+        if $z0 != 0 goto label4;
+
+        if $i0 <= 0 goto label5;
+
+     label4:
+        $i2 = $i1 + 1;
+        return $i2;
+
+     label5:
+        return 0;
+    }
+
+    public static void formatDuration(long, long, java.io.PrintWriter)
+    {
+        long $l0, $l1, $l2;
+        java.io.PrintWriter $r0;
+        byte $b3;
+
+        $l0 := @parameter0: long;
+        $l1 := @parameter1: long;
+        $r0 := @parameter2: java.io.PrintWriter;
+        $b3 = $l0 cmp 0L;
+        if $b3 != 0 goto label1;
+
+        virtualinvoke $r0.<java.io.PrintWriter: void print(java.lang.String)>("--");
+
+     label0:
+        return;
+
+     label1:
+        $l2 = $l0 - $l1;
+        staticinvoke <android.support.v4.util.TimeUtils: void formatDuration(long,java.io.PrintWriter,int)>($l2, $r0, 0);
+        goto label0;
+    }
+
+    public static void formatDuration(long, java.io.PrintWriter)
+    {
+        long $l0;
+        java.io.PrintWriter $r0;
+
+        $l0 := @parameter0: long;
+        $r0 := @parameter1: java.io.PrintWriter;
+        staticinvoke <android.support.v4.util.TimeUtils: void formatDuration(long,java.io.PrintWriter,int)>($l0, $r0, 0);
+        return;
+    }
+
+    public static void formatDuration(long, java.io.PrintWriter, int)
+    {
+        long $l0;
+        java.io.PrintWriter $r0;
+        int $i1;
+        java.lang.String $r1;
+        java.lang.Object $r2;
+        char[] $r3;
+        java.lang.Throwable $r4;
+
+        $l0 := @parameter0: long;
+        $r0 := @parameter1: java.io.PrintWriter;
+        $i1 := @parameter2: int;
+        $r2 = <android.support.v4.util.TimeUtils: java.lang.Object sFormatSync>;
+        entermonitor $r2;
+
+     label0:
+        $i1 = staticinvoke <android.support.v4.util.TimeUtils: int formatDurationLocked(long,int)>($l0, $i1);
+        $r1 = new java.lang.String;
+        $r3 = <android.support.v4.util.TimeUtils: char[] sFormatStr>;
+        specialinvoke $r1.<java.lang.String: void <init>(char[],int,int)>($r3, 0, $i1);
+        virtualinvoke $r0.<java.io.PrintWriter: void print(java.lang.String)>($r1);
+        exitmonitor $r2;
+        return;
+
+     label1:
+        $r4 := @caughtexception;
+        exitmonitor $r2;
+
+     label2:
+        throw $r4;
+
+        catch java.lang.Throwable from label0 to label2 with label1;
+    }
+
+    public static void formatDuration(long, java.lang.StringBuilder)
+    {
+        long $l0;
+        java.lang.StringBuilder $r0;
+        int $i1;
+        java.lang.Object $r1;
+        char[] $r2;
+        java.lang.Throwable $r3;
+
+        $l0 := @parameter0: long;
+        $r0 := @parameter1: java.lang.StringBuilder;
+        $r1 = <android.support.v4.util.TimeUtils: java.lang.Object sFormatSync>;
+        entermonitor $r1;
+
+     label0:
+        $i1 = staticinvoke <android.support.v4.util.TimeUtils: int formatDurationLocked(long,int)>($l0, 0);
+        $r2 = <android.support.v4.util.TimeUtils: char[] sFormatStr>;
+        virtualinvoke $r0.<java.lang.StringBuilder: java.lang.StringBuilder append(char[],int,int)>($r2, 0, $i1);
+        exitmonitor $r1;
+        return;
+
+     label1:
+        $r3 := @caughtexception;
+        exitmonitor $r1;
+
+     label2:
+        throw $r3;
+
+        catch java.lang.Throwable from label0 to label2 with label1;
+    }
+
+    private static int formatDurationLocked(long, int)
+    {
+        long $l0, $l4;
+        int $i1, $i2, $i6, $i7, $i8, $i9, $i10, $i11, $i14;
+        char[] $r0;
+        byte $b3, $b13;
+        char $c5;
+        boolean $z0, $z1;
+        double $d0;
+
+        $l0 := @parameter0: long;
+        $i1 := @parameter1: int;
+        $r0 = <android.support.v4.util.TimeUtils: char[] sFormatStr>;
+        $i10 = lengthof $r0;
+        if $i10 >= $i1 goto label0;
+
+        $r0 = newarray (char)[$i1];
+        <android.support.v4.util.TimeUtils: char[] sFormatStr> = $r0;
+
+     label0:
+        $r0 = <android.support.v4.util.TimeUtils: char[] sFormatStr>;
+        $b3 = $l0 cmp 0L;
+        if $b3 != 0 goto label3;
+
+        $i10 = $i1 + -1;
+
+     label1:
+        if 0 >= $i10 goto label2;
+
+        $r0[0] = 32;
+        goto label1;
+
+     label2:
+        $r0[0] = 48;
+        return 1;
+
+     label3:
+        $b3 = $l0 cmp 0L;
+        if $b3 <= 0 goto label13;
+
+        $c5 = 43;
+
+     label4:
+        $l4 = $l0 % 1000L;
+        $i7 = (int) $l4;
+        $l4 = $l0 / 1000L;
+        $d0 = (double) $l4;
+        $d0 = staticinvoke <java.lang.Math: double floor(double)>($d0);
+        $i10 = (int) $d0;
+        $i2 = 0;
+        $i6 = 0;
+        $i8 = 0;
+        if $i10 <= 86400 goto label5;
+
+        $i2 = $i10 / 86400;
+        $i11 = 86400 * $i2;
+        $i10 = $i10 - $i11;
+
+     label5:
+        if $i10 <= 3600 goto label6;
+
+        $i6 = $i10 / 3600;
+        $i11 = $i6 * 3600;
+        $i10 = $i10 - $i11;
+
+     label6:
+        if $i10 <= 60 goto label7;
+
+        $i8 = $i10 / 60;
+        $i11 = $i8 * 60;
+        $i10 = $i10 - $i11;
+
+     label7:
+        $i11 = 0;
+        if $i1 == 0 goto label18;
+
+        $i9 = staticinvoke <android.support.v4.util.TimeUtils: int accumField(int,int,boolean,int)>($i2, 1, 0, 0);
+        if $i9 <= 0 goto label14;
+
+        $z1 = 1;
+
+     label8:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int accumField(int,int,boolean,int)>($i6, 1, $z1, 2);
+        $i14 = $i9 + $i14;
+        if $i14 <= 0 goto label15;
+
+        $z1 = 1;
+
+     label9:
+        $i9 = staticinvoke <android.support.v4.util.TimeUtils: int accumField(int,int,boolean,int)>($i8, 1, $z1, 2);
+        $i14 = $i14 + $i9;
+        if $i14 <= 0 goto label16;
+
+        $z1 = 1;
+
+     label10:
+        $i9 = staticinvoke <android.support.v4.util.TimeUtils: int accumField(int,int,boolean,int)>($i10, 1, $z1, 2);
+        $i14 = $i14 + $i9;
+        if $i14 <= 0 goto label17;
+
+        $b3 = 3;
+
+     label11:
+        $i9 = staticinvoke <android.support.v4.util.TimeUtils: int accumField(int,int,boolean,int)>($i7, 2, 1, $b3);
+        $i9 = $i9 + 1;
+        $i14 = $i14 + $i9;
+
+     label12:
+        if $i14 >= $i1 goto label18;
+
+        $r0[$i11] = 32;
+        $i11 = $i11 + 1;
+        $i14 = $i14 + 1;
+        goto label12;
+
+     label13:
+        $c5 = 45;
+        $l0 = neg $l0;
+        goto label4;
+
+     label14:
+        $z1 = 0;
+        goto label8;
+
+     label15:
+        $z1 = 0;
+        goto label9;
+
+     label16:
+        $z1 = 0;
+        goto label10;
+
+     label17:
+        $b3 = 0;
+        goto label11;
+
+     label18:
+        $r0[$i11] = $c5;
+        $i14 = $i11 + 1;
+        $i9 = $i14;
+        if $i1 == 0 goto label27;
+
+        $z1 = 1;
+
+     label19:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int printField(char[],int,char,int,boolean,int)>($r0, $i2, 100, $i14, 0, 0);
+        if $i14 == $i9 goto label28;
+
+        $z0 = 1;
+
+     label20:
+        if $z1 == 0 goto label29;
+
+        $b3 = 2;
+
+     label21:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int printField(char[],int,char,int,boolean,int)>($r0, $i6, 104, $i14, $z0, $b3);
+        if $i14 == $i9 goto label30;
+
+        $z0 = 1;
+
+     label22:
+        if $z1 == 0 goto label31;
+
+        $b13 = 2;
+
+     label23:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int printField(char[],int,char,int,boolean,int)>($r0, $i8, 109, $i14, $z0, $b13);
+        if $i14 == $i9 goto label32;
+
+        $z0 = 1;
+
+     label24:
+        if $z1 == 0 goto label33;
+
+        $b13 = 2;
+
+     label25:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int printField(char[],int,char,int,boolean,int)>($r0, $i10, 115, $i14, $z0, $b13);
+        if $z1 == 0 goto label34;
+
+        if $i14 == $i9 goto label34;
+
+        $b13 = 3;
+
+     label26:
+        $i14 = staticinvoke <android.support.v4.util.TimeUtils: int printField(char[],int,char,int,boolean,int)>($r0, $i7, 109, $i14, 1, $b13);
+        $r0[$i14] = 115;
+        $i10 = $i14 + 1;
+        return $i10;
+
+     label27:
+        $z1 = 0;
+        goto label19;
+
+     label28:
+        $z0 = 0;
+        goto label20;
+
+     label29:
+        $b3 = 0;
+        goto label21;
+
+     label30:
+        $z0 = 0;
+        goto label22;
+
+     label31:
+        $b13 = 0;
+        goto label23;
+
+     label32:
+        $z0 = 0;
+        goto label24;
+
+     label33:
+        $b13 = 0;
+        goto label25;
+
+     label34:
+        $b13 = 0;
+        goto label26;
+    }
+
+    private static int printField(char[], int, char, int, boolean, int)
+    {
+        char[] $r0;
+        int $i0, $i2, $i3, $i4, $i5, $i7;
+        char $c1, $c8;
+        boolean $z0;
+
+        $r0 := @parameter0: char[];
+        $i0 := @parameter1: int;
+        $c1 := @parameter2: char;
+        $i2 := @parameter3: int;
+        $z0 := @parameter4: boolean;
+        $i3 := @parameter5: int;
+        if $z0 != 0 goto label0;
+
+        if $i0 <= 0 goto label7;
+
+     label0:
+        $i5 = $i2;
+        if $z0 == 0 goto label1;
+
+        if $i3 >= 3 goto label2;
+
+     label1:
+        if $i0 <= 99 goto label3;
+
+     label2:
+        $i4 = $i0 / 100;
+        $i7 = $i4 + 48;
+        $c8 = (char) $i7;
+        $r0[$i2] = $c8;
+        $i2 = $i2 + 1;
+        $i7 = $i4 * 100;
+        $i0 = $i0 - $i7;
+
+     label3:
+        if $z0 == 0 goto label4;
+
+        if $i3 >= 2 goto label5;
+
+     label4:
+        if $i0 > 9 goto label5;
+
+        if $i5 == $i2 goto label6;
+
+     label5:
+        $i7 = $i0 / 10;
+        $i5 = $i7 + 48;
+        $c8 = (char) $i5;
+        $r0[$i2] = $c8;
+        $i2 = $i2 + 1;
+        $i7 = $i7 * 10;
+        $i0 = $i0 - $i7;
+
+     label6:
+        $i7 = $i0 + 48;
+        $c8 = (char) $i7;
+        $r0[$i2] = $c8;
+        $i7 = $i2 + 1;
+        $r0[$i7] = $c1;
+        $i2 = $i7 + 1;
+
+     label7:
+        return $i2;
+    }
+}

@@ -1,0 +1,32 @@
+public final class com.example.qian.R$id extends java.lang.Object
+{
+    public static final int action_settings;
+    public static final int autoCompleteTextView1;
+    public static final int btn1;
+    public static final int button;
+    public static final int button1;
+    public static final int button2;
+    public static final int button3;
+    public static final int item1;
+    public static final int progressBar1;
+    public static final int progressBar2;
+    public static final int sonbtn;
+    public static final int spinner2;
+    public static final int text1;
+    public static final int text2;
+    public static final int textView;
+    public static final int textView1;
+    public static final int textView2;
+    public static final int textView3;
+    public static final int timePicker1;
+    public static final int tv1;
+
+    public void <init>()
+    {
+        com.example.qian.R$id $r0;
+
+        $r0 := @this: com.example.qian.R$id;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

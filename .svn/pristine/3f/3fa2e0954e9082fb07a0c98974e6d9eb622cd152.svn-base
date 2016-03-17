@@ -1,0 +1,54 @@
+public class com.example.qian.Triples extends java.lang.Object
+{
+    java.lang.Class c;
+    java.lang.Object o;
+    android.view.View view;
+
+    public void <init>(java.lang.Class, android.view.View, java.lang.Object)
+    {
+        com.example.qian.Triples $r0;
+        java.lang.Class $r1;
+        android.view.View $r2;
+        java.lang.Object $r3;
+
+        $r0 := @this: com.example.qian.Triples;
+        $r1 := @parameter0: java.lang.Class;
+        $r2 := @parameter1: android.view.View;
+        $r3 := @parameter2: java.lang.Object;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r0.<com.example.qian.Triples: java.lang.Class c> = $r1;
+        $r0.<com.example.qian.Triples: android.view.View view> = $r2;
+        $r0.<com.example.qian.Triples: java.lang.Object o> = $r3;
+        return;
+    }
+
+    public java.lang.Class getC()
+    {
+        com.example.qian.Triples $r0;
+        java.lang.Class $r1;
+
+        $r0 := @this: com.example.qian.Triples;
+        $r1 = $r0.<com.example.qian.Triples: java.lang.Class c>;
+        return $r1;
+    }
+
+    public java.lang.Object getO()
+    {
+        com.example.qian.Triples $r0;
+        java.lang.Object $r1;
+
+        $r0 := @this: com.example.qian.Triples;
+        $r1 = $r0.<com.example.qian.Triples: java.lang.Object o>;
+        return $r1;
+    }
+
+    public android.view.View getView()
+    {
+        com.example.qian.Triples $r0;
+        android.view.View $r1;
+
+        $r0 := @this: com.example.qian.Triples;
+        $r1 = $r0.<com.example.qian.Triples: android.view.View view>;
+        return $r1;
+    }
+}

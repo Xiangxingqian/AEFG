@@ -1,0 +1,28 @@
+package com.app.test.modifyClass;
+
+import soot.tagkit.AttributeValueException;
+import soot.tagkit.Tag;
+
+public class ModifiedTag implements Tag{
+	public final static String Modified = "Modified";
+	boolean modified;
+
+	public ModifiedTag() {
+//		super();
+//		this.modified = modified;
+	}
+
+	@Override
+	public String getName() {
+		return Modified;
+	}
+
+	@Override
+	public byte[] getValue() throws AttributeValueException {
+		return null;
+	}
+
+	public boolean getFlag(){
+		return modified;
+	}
+}

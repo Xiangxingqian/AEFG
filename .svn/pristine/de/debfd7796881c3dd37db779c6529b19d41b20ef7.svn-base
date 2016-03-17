@@ -1,0 +1,212 @@
+public class com.example.qian.TestActivity extends android.app.Activity
+{
+    public static java.util.LinkedList activities;
+    public static java.util.LinkedList unVisitedActivities;
+    public static java.util.LinkedList viewLinkedList;
+    public static java.util.LinkedList listenerLinkedList;
+    public static boolean isMyEvent;
+
+    public void <init>()
+    {
+        com.example.qian.TestActivity $r0;
+
+        $r0 := @this: com.example.qian.TestActivity;
+        specialinvoke $r0.<android.app.Activity: void <init>()>();
+        return;
+    }
+
+    protected void onCreate(android.os.Bundle)
+    {
+        com.example.qian.TestActivity $r0;
+        android.os.Bundle $r1;
+        com.example.qian.TestA $r2;
+        com.example.qian.TestActivity$1 $r3;
+
+        $r0 := @this: com.example.qian.TestActivity;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<android.app.Activity: void onCreate(android.os.Bundle)>($r1);
+        virtualinvoke $r0.<com.example.qian.TestActivity: void CheckEvent()>();
+        virtualinvoke $r0.<com.example.qian.TestActivity: void setContentView(int)>(2130903041);
+        $r2 = new com.example.qian.TestA;
+        specialinvoke $r2.<com.example.qian.TestA: void <init>()>();
+        virtualinvoke $r2.<com.example.qian.TestA: void run()>();
+        $r3 = new com.example.qian.TestActivity$1;
+        specialinvoke $r3.<com.example.qian.TestActivity$1: void <init>(com.example.qian.TestActivity)>($r0);
+        virtualinvoke $r2.<com.example.qian.TestA: void setListener(com.example.qian.TestA$Listener)>($r3);
+        virtualinvoke $r0.<com.example.qian.TestActivity: void runMyThread()>();
+        return;
+    }
+
+    static void <clinit>()
+    {
+        java.util.LinkedList linkedList;
+
+        linkedList = new java.util.LinkedList;
+        specialinvoke linkedList.<java.util.LinkedList: void <init>()>();
+        <com.example.qian.TestActivity: java.util.LinkedList viewLinkedList> = linkedList;
+        linkedList = new java.util.LinkedList;
+        specialinvoke linkedList.<java.util.LinkedList: void <init>()>();
+        <com.example.qian.TestActivity: java.util.LinkedList listenerLinkedList> = linkedList;
+        <com.example.qian.TestActivity: boolean isMyEvent> = 0;
+        linkedList = <com.example.qian.MainActivity: java.util.LinkedList unVisitedActivities>;
+        <com.example.qian.TestActivity: java.util.LinkedList unVisitedActivities> = linkedList;
+        linkedList = <com.example.qian.MainActivity: java.util.LinkedList activities>;
+        <com.example.qian.TestActivity: java.util.LinkedList activities> = linkedList;
+        return;
+    }
+
+    public void onRestart()
+    {
+        com.example.qian.TestActivity base;
+        android.content.Intent intent;
+        java.util.LinkedList linkedList;
+        boolean flag;
+        java.lang.Object object;
+        java.lang.Class classLocal;
+
+        base := @this: com.example.qian.TestActivity;
+        specialinvoke base.<android.app.Activity: void onRestart()>();
+        linkedList = <com.example.qian.TestActivity: java.util.LinkedList unVisitedActivities>;
+        flag = virtualinvoke linkedList.<java.util.AbstractCollection: boolean isEmpty()>();
+        if flag != 0 goto label0;
+
+        intent = new android.content.Intent;
+        linkedList = <com.example.qian.TestActivity: java.util.LinkedList unVisitedActivities>;
+        object = virtualinvoke linkedList.<java.util.LinkedList: java.lang.Object poll()>();
+        classLocal = (java.lang.Class) object;
+        specialinvoke intent.<android.content.Intent: void <init>(android.content.Context,java.lang.Class)>(base, classLocal);
+        virtualinvoke intent.<android.content.Intent: android.content.Intent putExtra(java.lang.String,java.lang.String)>("qian", "OK");
+        virtualinvoke base.<android.app.Activity: void startActivity(android.content.Intent)>(intent);
+
+     label0:
+        return;
+    }
+
+    public void doTest()
+    {
+        com.example.qian.TestActivity activity;
+        java.lang.Object object;
+        android.view.View view;
+        android.widget.Toast toast;
+        int int0, int1;
+        boolean flag;
+        java.lang.Class classLocal;
+        java.lang.reflect.Method reflectMethod;
+        java.util.LinkedList linkedList;
+        java.lang.String string;
+        java.lang.Exception exception;
+        java.lang.String[] arrayObject;
+        java.lang.reflect.Method[] arrayReflectMethod;
+
+        activity := @this: com.example.qian.TestActivity;
+
+     label0:
+        linkedList = <com.example.qian.TestActivity: java.util.LinkedList viewLinkedList>;
+        flag = virtualinvoke linkedList.<java.util.AbstractCollection: boolean isEmpty()>();
+        if flag == 0 goto label1;
+
+        toast = staticinvoke <android.widget.Toast: android.widget.Toast makeText(android.content.Context,java.lang.CharSequence,int)>(activity, "Test finishes", 0);
+        virtualinvoke toast.<android.widget.Toast: void show()>();
+        return;
+
+     label1:
+        linkedList = <com.example.qian.TestActivity: java.util.LinkedList viewLinkedList>;
+        object = virtualinvoke linkedList.<java.util.LinkedList: java.lang.Object poll()>();
+        view = (android.view.View) object;
+        linkedList = <com.example.qian.TestActivity: java.util.LinkedList listenerLinkedList>;
+        object = virtualinvoke linkedList.<java.util.LinkedList: java.lang.Object poll()>();
+        classLocal = virtualinvoke object.<java.lang.Object: java.lang.Class getClass()>();
+        arrayReflectMethod = virtualinvoke classLocal.<java.lang.Class: java.lang.reflect.Method[] getMethods()>();
+        int0 = 0;
+
+     label2:
+        int1 = lengthof arrayReflectMethod;
+        if int0 >= int1 goto label0;
+
+        reflectMethod = arrayReflectMethod[int0];
+        string = virtualinvoke reflectMethod.<java.lang.reflect.Method: java.lang.String getName()>();
+        flag = virtualinvoke string.<java.lang.String: boolean startsWith(java.lang.String)>("on");
+        if flag == 0 goto label6;
+
+     label3:
+        arrayObject = newarray (java.lang.Object)[1];
+        arrayObject[0] = view;
+        virtualinvoke reflectMethod.<java.lang.reflect.Method: java.lang.Object invoke(java.lang.Object,java.lang.Object[])>(object, arrayObject);
+
+     label4:
+        goto label0;
+
+     label5:
+        exception := @caughtexception;
+        virtualinvoke exception.<java.lang.Throwable: void printStackTrace()>();
+
+     label6:
+        int0 = int0 + 1;
+        goto label2;
+
+        catch java.lang.Exception from label3 to label4 with label5;
+    }
+
+    public void runMyThread()
+    {
+        com.example.qian.TestActivity base;
+        com.example.qian.TestThread testThread;
+        com.example.qian.FinishThread finishThread;
+        java.lang.Class classLocal;
+        java.util.LinkedList linkedList1;
+        boolean flag;
+
+        base := @this: com.example.qian.TestActivity;
+        flag = <com.example.qian.TestActivity: boolean isMyEvent>;
+        if flag == 0 goto label1;
+
+        testThread = new com.example.qian.TestThread;
+        specialinvoke testThread.<com.example.qian.TestThread: void <init>(java.lang.Object)>(base);
+        virtualinvoke testThread.<java.lang.Thread: void start()>();
+
+     label0:
+        return;
+
+     label1:
+        classLocal = virtualinvoke base.<java.lang.Object: java.lang.Class getClass()>();
+        linkedList1 = <com.example.qian.TestActivity: java.util.LinkedList activities>;
+        flag = virtualinvoke linkedList1.<java.util.LinkedList: boolean contains(java.lang.Object)>(classLocal);
+        if flag != 0 goto label2;
+
+        linkedList1 = <com.example.qian.TestActivity: java.util.LinkedList activities>;
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(classLocal);
+        linkedList1 = <com.example.qian.TestActivity: java.util.LinkedList unVisitedActivities>;
+        virtualinvoke linkedList1.<java.util.LinkedList: boolean offer(java.lang.Object)>(classLocal);
+
+     label2:
+        finishThread = new com.example.qian.FinishThread;
+        specialinvoke finishThread.<com.example.qian.FinishThread: void <init>(java.lang.Object)>(base);
+        virtualinvoke finishThread.<java.lang.Thread: void start()>();
+        goto label0;
+    }
+
+    public void CheckEvent()
+    {
+        com.example.qian.TestActivity base;
+        android.os.Bundle bundle;
+        android.content.Intent intent;
+        java.lang.Object object;
+        boolean flag;
+
+        base := @this: com.example.qian.TestActivity;
+        intent = virtualinvoke base.<android.app.Activity: android.content.Intent getIntent()>();
+        bundle = virtualinvoke intent.<android.content.Intent: android.os.Bundle getExtras()>();
+        if bundle == null goto label0;
+
+        object = virtualinvoke bundle.<android.os.Bundle: java.lang.Object get(java.lang.String)>("qian");
+        if object == null goto label0;
+
+        flag = virtualinvoke object.<java.lang.Object: boolean equals(java.lang.Object)>("OK");
+        if flag == 0 goto label0;
+
+        <com.example.qian.TestActivity: boolean isMyEvent> = 1;
+
+     label0:
+        return;
+    }
+}

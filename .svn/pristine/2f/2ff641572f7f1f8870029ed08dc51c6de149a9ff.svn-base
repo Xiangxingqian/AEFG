@@ -1,0 +1,184 @@
+public class cz.romario.opensudoku.gui.Changelog extends java.lang.Object
+{
+    private static final java.lang.String PREF_FILE_CHANGELOG;
+    private static final java.lang.String TAG;
+    private android.content.Context mContext;
+    private android.content.SharedPreferences mPrefs;
+
+    public void <init>(android.content.Context)
+    {
+        cz.romario.opensudoku.gui.Changelog $r0;
+        android.content.Context $r1;
+        android.content.SharedPreferences $r3;
+
+        $r0 := @this: cz.romario.opensudoku.gui.Changelog;
+        $r1 := @parameter0: android.content.Context;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext> = $r1;
+        $r1 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext>;
+        $r3 = virtualinvoke $r1.<android.content.Context: android.content.SharedPreferences getSharedPreferences(java.lang.String,int)>("changelog", 0);
+        $r0.<cz.romario.opensudoku.gui.Changelog: android.content.SharedPreferences mPrefs> = $r3;
+        return;
+    }
+
+    private java.lang.String getChangelogFromResources()
+    {
+        cz.romario.opensudoku.gui.Changelog $r0;
+        char[] $r1;
+        java.io.IOException $r2, $r12, $r13, $r15;
+        java.io.InputStreamReader $r3;
+        java.io.InputStream $r4;
+        java.lang.StringBuilder $r5;
+        int $i0;
+        android.content.Context $r6;
+        android.content.res.Resources $r8;
+        java.lang.String $r10;
+        java.lang.Throwable $r14;
+
+        $r0 := @this: cz.romario.opensudoku.gui.Changelog;
+        $r4 = null;
+
+     label0:
+        $r6 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext>;
+
+     label1:
+        $r8 = virtualinvoke $r6.<android.content.Context: android.content.res.Resources getResources()>();
+        $r4 = virtualinvoke $r8.<android.content.res.Resources: java.io.InputStream openRawResource(int)>(2131034112);
+        $r1 = newarray (char)[65536];
+        $r5 = new java.lang.StringBuilder;
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>()>();
+        $r3 = new java.io.InputStreamReader;
+        specialinvoke $r3.<java.io.InputStreamReader: void <init>(java.io.InputStream,java.lang.String)>($r4, "UTF-8");
+
+     label2:
+        $i0 = lengthof $r1;
+        $i0 = virtualinvoke $r3.<java.io.Reader: int read(char[],int,int)>($r1, 0, $i0);
+        if $i0 <= 0 goto label3;
+
+        virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(char[],int,int)>($r1, 0, $i0);
+
+     label3:
+        if $i0 >= 0 goto label2;
+
+        $r10 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+
+     label4:
+        if $r4 == null goto label6;
+
+     label5:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label6:
+        return $r10;
+
+     label7:
+        $r2 := @caughtexception;
+        virtualinvoke $r2.<java.io.IOException: void printStackTrace()>();
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Changelog", "Error when reading changelog from raw resources.", $r2);
+        return $r10;
+
+     label8:
+        $r12 := @caughtexception;
+
+     label9:
+        virtualinvoke $r12.<java.io.IOException: void printStackTrace()>();
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Changelog", "Error when reading changelog from raw resources.", $r12);
+
+     label10:
+        if $r4 == null goto label12;
+
+     label11:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label12:
+        return "";
+
+     label13:
+        $r13 := @caughtexception;
+        virtualinvoke $r13.<java.io.IOException: void printStackTrace()>();
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Changelog", "Error when reading changelog from raw resources.", $r13);
+        goto label12;
+
+     label14:
+        $r14 := @caughtexception;
+        if $r4 == null goto label16;
+
+     label15:
+        virtualinvoke $r4.<java.io.InputStream: void close()>();
+
+     label16:
+        throw $r14;
+
+     label17:
+        $r15 := @caughtexception;
+        virtualinvoke $r15.<java.io.IOException: void printStackTrace()>();
+        staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>("Changelog", "Error when reading changelog from raw resources.", $r15);
+        goto label16;
+
+        catch java.io.IOException from label1 to label4 with label8;
+        catch java.lang.Throwable from label0 to label4 with label14;
+        catch java.io.IOException from label5 to label6 with label7;
+        catch java.lang.Throwable from label9 to label10 with label14;
+        catch java.io.IOException from label11 to label12 with label13;
+        catch java.io.IOException from label15 to label16 with label17;
+    }
+
+    private void showChangelogDialog()
+    {
+        cz.romario.opensudoku.gui.Changelog $r0;
+        java.lang.String $r1;
+        android.app.AlertDialog $r2;
+        android.webkit.WebView $r3;
+        android.content.Context $r4;
+        android.app.AlertDialog$Builder $r7;
+
+        $r0 := @this: cz.romario.opensudoku.gui.Changelog;
+        $r1 = specialinvoke $r0.<cz.romario.opensudoku.gui.Changelog: java.lang.String getChangelogFromResources()>();
+        $r3 = new android.webkit.WebView;
+        $r4 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext>;
+        specialinvoke $r3.<android.webkit.WebView: void <init>(android.content.Context)>($r4);
+        virtualinvoke $r3.<android.webkit.WebView: void loadData(java.lang.String,java.lang.String,java.lang.String)>($r1, "text/html", "utf-8");
+        $r7 = new android.app.AlertDialog$Builder;
+        $r4 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext>;
+        specialinvoke $r7.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($r4);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setIcon(int)>(17301569);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setTitle(int)>(2131296387);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setView(android.view.View)>($r3);
+        $r7 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)>(2131296264, null);
+        $r2 = virtualinvoke $r7.<android.app.AlertDialog$Builder: android.app.AlertDialog create()>();
+        virtualinvoke $r2.<android.app.AlertDialog: void show()>();
+        return;
+    }
+
+    public void showOnFirstRun()
+    {
+        cz.romario.opensudoku.gui.Changelog $r0;
+        android.content.SharedPreferences$Editor $r1;
+        java.lang.String $r2;
+        java.lang.StringBuilder $r3;
+        int $i0;
+        android.content.Context $r4;
+        android.content.SharedPreferences $r5;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.gui.Changelog;
+        $r3 = new java.lang.StringBuilder;
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>(java.lang.String)>("changelog_");
+        $r4 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.Context mContext>;
+        $i0 = staticinvoke <cz.romario.opensudoku.utils.AndroidUtils: int getAppVersionCode(android.content.Context)>($r4);
+        $r3 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+        $r2 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.String toString()>();
+        $r5 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.SharedPreferences mPrefs>;
+        $z0 = interfaceinvoke $r5.<android.content.SharedPreferences: boolean getBoolean(java.lang.String,boolean)>($r2, 0);
+        if $z0 != 0 goto label0;
+
+        specialinvoke $r0.<cz.romario.opensudoku.gui.Changelog: void showChangelogDialog()>();
+        $r5 = $r0.<cz.romario.opensudoku.gui.Changelog: android.content.SharedPreferences mPrefs>;
+        $r1 = interfaceinvoke $r5.<android.content.SharedPreferences: android.content.SharedPreferences$Editor edit()>();
+        interfaceinvoke $r1.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putBoolean(java.lang.String,boolean)>($r2, 1);
+        interfaceinvoke $r1.<android.content.SharedPreferences$Editor: boolean commit()>();
+
+     label0:
+        return;
+    }
+}

@@ -1,0 +1,294 @@
+public class cz.romario.opensudoku.game.command.CommandStack extends java.lang.Object
+{
+    private cz.romario.opensudoku.game.CellCollection mCells;
+    private java.util.Stack mCommandStack;
+
+    public void <init>(cz.romario.opensudoku.game.CellCollection)
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        cz.romario.opensudoku.game.CellCollection $r1;
+        java.util.Stack $r2;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 := @parameter0: cz.romario.opensudoku.game.CellCollection;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        $r2 = new java.util.Stack;
+        specialinvoke $r2.<java.util.Stack: void <init>()>();
+        $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack> = $r2;
+        $r0.<cz.romario.opensudoku.game.command.CommandStack: cz.romario.opensudoku.game.CellCollection mCells> = $r1;
+        return;
+    }
+
+    private cz.romario.opensudoku.game.command.AbstractCommand pop()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.util.Stack $r1;
+        java.lang.Object $r2;
+        cz.romario.opensudoku.game.command.AbstractCommand $r3;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r2 = virtualinvoke $r1.<java.util.Stack: java.lang.Object pop()>();
+        $r3 = (cz.romario.opensudoku.game.command.AbstractCommand) $r2;
+        return $r3;
+    }
+
+    private void push(cz.romario.opensudoku.game.command.AbstractCommand)
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        cz.romario.opensudoku.game.command.AbstractCommand $r1;
+        boolean $z0;
+        cz.romario.opensudoku.game.CellCollection $r2;
+        cz.romario.opensudoku.game.command.AbstractCellCommand $r4;
+        java.util.Stack $r5;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 := @parameter0: cz.romario.opensudoku.game.command.AbstractCommand;
+        $z0 = $r1 instanceof cz.romario.opensudoku.game.command.AbstractCellCommand;
+        if $z0 == 0 goto label0;
+
+        $r4 = (cz.romario.opensudoku.game.command.AbstractCellCommand) $r1;
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: cz.romario.opensudoku.game.CellCollection mCells>;
+        virtualinvoke $r4.<cz.romario.opensudoku.game.command.AbstractCellCommand: void setCells(cz.romario.opensudoku.game.CellCollection)>($r2);
+
+     label0:
+        $r5 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        virtualinvoke $r5.<java.util.Stack: java.lang.Object push(java.lang.Object)>($r1);
+        return;
+    }
+
+    private void validateCells()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        cz.romario.opensudoku.game.CellCollection $r1;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 = $r0.<cz.romario.opensudoku.game.command.CommandStack: cz.romario.opensudoku.game.CellCollection mCells>;
+        virtualinvoke $r1.<cz.romario.opensudoku.game.CellCollection: boolean validate()>();
+        return;
+    }
+
+    public boolean empty()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.util.Stack $r1;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $z0 = virtualinvoke $r1.<java.util.Stack: boolean empty()>();
+        return $z0;
+    }
+
+    public void execute(cz.romario.opensudoku.game.command.AbstractCommand)
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        cz.romario.opensudoku.game.command.AbstractCommand $r1;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 := @parameter0: cz.romario.opensudoku.game.command.AbstractCommand;
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.CommandStack: void push(cz.romario.opensudoku.game.command.AbstractCommand)>($r1);
+        virtualinvoke $r1.<cz.romario.opensudoku.game.command.AbstractCommand: void execute()>();
+        return;
+    }
+
+    public boolean hasCheckpoint()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.lang.Object $r1;
+        java.util.Stack $r2;
+        boolean $z0;
+        java.util.Iterator $r3;
+        cz.romario.opensudoku.game.command.AbstractCommand $r4;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r3 = virtualinvoke $r2.<java.util.Stack: java.util.Iterator iterator()>();
+
+     label0:
+        $z0 = interfaceinvoke $r3.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label1;
+
+        return 0;
+
+     label1:
+        $r1 = interfaceinvoke $r3.<java.util.Iterator: java.lang.Object next()>();
+        $r4 = (cz.romario.opensudoku.game.command.AbstractCommand) $r1;
+        $z0 = virtualinvoke $r4.<cz.romario.opensudoku.game.command.AbstractCommand: boolean isCheckpoint()>();
+        if $z0 == 0 goto label0;
+
+        return 1;
+    }
+
+    public boolean hasSomethingToUndo()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.util.Stack $r1;
+        int $i0;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $i0 = virtualinvoke $r1.<java.util.Stack: int size()>();
+        if $i0 == 0 goto label0;
+
+        return 1;
+
+     label0:
+        return 0;
+    }
+
+    public void restoreState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        android.os.Bundle $r1, $r3;
+        cz.romario.opensudoku.game.command.AbstractCommand $r2;
+        int $i0, $i1;
+        java.lang.String $r4;
+        java.lang.StringBuilder $r5;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 := @parameter0: android.os.Bundle;
+        $i1 = virtualinvoke $r1.<android.os.Bundle: int getInt(java.lang.String)>("cmdStack.size");
+        $i0 = 0;
+
+     label0:
+        if $i0 < $i1 goto label1;
+
+        return;
+
+     label1:
+        $r5 = new java.lang.StringBuilder;
+        specialinvoke $r5.<java.lang.StringBuilder: void <init>(java.lang.String)>("cmdStack.");
+        $r5 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+        $r4 = virtualinvoke $r5.<java.lang.StringBuilder: java.lang.String toString()>();
+        $r3 = virtualinvoke $r1.<android.os.Bundle: android.os.Bundle getBundle(java.lang.String)>($r4);
+        $r4 = virtualinvoke $r3.<android.os.Bundle: java.lang.String getString(java.lang.String)>("commandClass");
+        $r2 = staticinvoke <cz.romario.opensudoku.game.command.AbstractCommand: cz.romario.opensudoku.game.command.AbstractCommand newInstance(java.lang.String)>($r4);
+        virtualinvoke $r2.<cz.romario.opensudoku.game.command.AbstractCommand: void restoreState(android.os.Bundle)>($r3);
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.CommandStack: void push(cz.romario.opensudoku.game.command.AbstractCommand)>($r2);
+        $i0 = $i0 + 1;
+        goto label0;
+    }
+
+    public void saveState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        android.os.Bundle $r1, $r3;
+        java.lang.Object $r2;
+        int $i0, $i1;
+        java.util.Stack $r5;
+        cz.romario.opensudoku.game.command.AbstractCommand $r6;
+        java.lang.String $r7;
+        java.lang.StringBuilder $r8;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r1 := @parameter0: android.os.Bundle;
+        $r5 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $i0 = virtualinvoke $r5.<java.util.Stack: int size()>();
+        virtualinvoke $r1.<android.os.Bundle: void putInt(java.lang.String,int)>("cmdStack.size", $i0);
+        $i0 = 0;
+
+     label0:
+        $r5 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $i1 = virtualinvoke $r5.<java.util.Stack: int size()>();
+        if $i0 < $i1 goto label1;
+
+        return;
+
+     label1:
+        $r5 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r2 = virtualinvoke $r5.<java.util.Stack: java.lang.Object get(int)>($i0);
+        $r6 = (cz.romario.opensudoku.game.command.AbstractCommand) $r2;
+        $r3 = new android.os.Bundle;
+        specialinvoke $r3.<android.os.Bundle: void <init>()>();
+        $r7 = virtualinvoke $r6.<cz.romario.opensudoku.game.command.AbstractCommand: java.lang.String getCommandClass()>();
+        virtualinvoke $r3.<android.os.Bundle: void putString(java.lang.String,java.lang.String)>("commandClass", $r7);
+        virtualinvoke $r6.<cz.romario.opensudoku.game.command.AbstractCommand: void saveState(android.os.Bundle)>($r3);
+        $r8 = new java.lang.StringBuilder;
+        specialinvoke $r8.<java.lang.StringBuilder: void <init>(java.lang.String)>("cmdStack.");
+        $r8 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>($i0);
+        $r7 = virtualinvoke $r8.<java.lang.StringBuilder: java.lang.String toString()>();
+        virtualinvoke $r1.<android.os.Bundle: void putBundle(java.lang.String,android.os.Bundle)>($r7, $r3);
+        $i0 = $i0 + 1;
+        goto label0;
+    }
+
+    public void setCheckpoint()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.lang.Object $r1;
+        java.util.Stack $r2;
+        boolean $z0;
+        cz.romario.opensudoku.game.command.AbstractCommand $r3;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $z0 = virtualinvoke $r2.<java.util.Stack: boolean empty()>();
+        if $z0 != 0 goto label0;
+
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r1 = virtualinvoke $r2.<java.util.Stack: java.lang.Object peek()>();
+        $r3 = (cz.romario.opensudoku.game.command.AbstractCommand) $r1;
+        virtualinvoke $r3.<cz.romario.opensudoku.game.command.AbstractCommand: void setCheckpoint(boolean)>(1);
+
+     label0:
+        return;
+    }
+
+    public void undo()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        cz.romario.opensudoku.game.command.AbstractCommand $r1;
+        java.util.Stack $r2;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $z0 = virtualinvoke $r2.<java.util.Stack: boolean empty()>();
+        if $z0 != 0 goto label0;
+
+        $r1 = specialinvoke $r0.<cz.romario.opensudoku.game.command.CommandStack: cz.romario.opensudoku.game.command.AbstractCommand pop()>();
+        virtualinvoke $r1.<cz.romario.opensudoku.game.command.AbstractCommand: void undo()>();
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.CommandStack: void validateCells()>();
+
+     label0:
+        return;
+    }
+
+    public void undoToCheckpoint()
+    {
+        cz.romario.opensudoku.game.command.CommandStack $r0;
+        java.lang.Object $r1;
+        java.util.Stack $r2;
+        boolean $z0;
+        cz.romario.opensudoku.game.command.AbstractCommand $r3;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.CommandStack;
+
+     label0:
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $z0 = virtualinvoke $r2.<java.util.Stack: boolean empty()>();
+        if $z0 == 0 goto label2;
+
+     label1:
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.CommandStack: void validateCells()>();
+        return;
+
+     label2:
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r1 = virtualinvoke $r2.<java.util.Stack: java.lang.Object pop()>();
+        $r3 = (cz.romario.opensudoku.game.command.AbstractCommand) $r1;
+        virtualinvoke $r3.<cz.romario.opensudoku.game.command.AbstractCommand: void undo()>();
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $z0 = virtualinvoke $r2.<java.util.Stack: boolean empty()>();
+        if $z0 != 0 goto label1;
+
+        $r2 = $r0.<cz.romario.opensudoku.game.command.CommandStack: java.util.Stack mCommandStack>;
+        $r1 = virtualinvoke $r2.<java.util.Stack: java.lang.Object peek()>();
+        $r3 = (cz.romario.opensudoku.game.command.AbstractCommand) $r1;
+        $z0 = virtualinvoke $r3.<cz.romario.opensudoku.game.command.AbstractCommand: boolean isCheckpoint()>();
+        if $z0 == 0 goto label0;
+
+        goto label1;
+    }
+}

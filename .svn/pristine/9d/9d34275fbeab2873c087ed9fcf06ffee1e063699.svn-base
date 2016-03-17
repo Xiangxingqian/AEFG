@@ -1,0 +1,26 @@
+public final class cz.romario.opensudoku.R$attr extends java.lang.Object
+{
+    public static final int backgroundColor;
+    public static final int backgroundColorReadOnly;
+    public static final int backgroundColorSecondary;
+    public static final int backgroundColorSelected;
+    public static final int backgroundColorTouched;
+    public static final int lineColor;
+    public static final int max;
+    public static final int min;
+    public static final int sectorLineColor;
+    public static final int textColor;
+    public static final int textColorNote;
+    public static final int textColorReadOnly;
+    public static final int value;
+    public static final int valueFormat;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.R$attr $r0;
+
+        $r0 := @this: cz.romario.opensudoku.R$attr;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

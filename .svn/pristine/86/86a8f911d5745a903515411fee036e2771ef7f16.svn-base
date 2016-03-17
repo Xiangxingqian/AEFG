@@ -1,0 +1,12 @@
+public class com.example.qian.PlayActivity extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        com.example.qian.PlayActivity $r0;
+
+        $r0 := @this: com.example.qian.PlayActivity;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

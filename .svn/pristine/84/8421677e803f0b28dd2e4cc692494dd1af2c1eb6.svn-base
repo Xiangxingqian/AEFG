@@ -1,0 +1,14 @@
+public class cz.romario.opensudoku.utils.Const extends java.lang.Object
+{
+    public static final java.lang.String MIME_TYPE_OPENSUDOKU;
+    public static final java.lang.String TAG;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.utils.Const $r0;
+
+        $r0 := @this: cz.romario.opensudoku.utils.Const;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

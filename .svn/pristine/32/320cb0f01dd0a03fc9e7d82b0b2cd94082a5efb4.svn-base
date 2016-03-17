@@ -1,0 +1,195 @@
+public class cz.romario.opensudoku.game.command.ClearAllNotesCommand extends cz.romario.opensudoku.game.command.AbstractCellCommand
+{
+    private java.util.List mOldNotes;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand $r0;
+        java.util.ArrayList $r1;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.ClearAllNotesCommand;
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.AbstractCellCommand: void <init>()>();
+        $r1 = new java.util.ArrayList;
+        specialinvoke $r1.<java.util.ArrayList: void <init>()>();
+        $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes> = $r1;
+        return;
+    }
+
+    void execute()
+    {
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand $r0;
+        int $i0, $i1;
+        cz.romario.opensudoku.game.Cell $r1;
+        cz.romario.opensudoku.game.CellCollection $r2;
+        cz.romario.opensudoku.game.CellNote $r3;
+        java.util.List $r4;
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry $r5;
+        boolean $z0;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.ClearAllNotesCommand;
+        $r2 = virtualinvoke $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: cz.romario.opensudoku.game.CellCollection getCells()>();
+        $r4 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        interfaceinvoke $r4.<java.util.List: void clear()>();
+        $i1 = 0;
+
+     label0:
+        if $i1 < 9 goto label1;
+
+        return;
+
+     label1:
+        $i0 = 0;
+
+     label2:
+        if $i0 < 9 goto label3;
+
+        $i1 = $i1 + 1;
+        goto label0;
+
+     label3:
+        $r1 = virtualinvoke $r2.<cz.romario.opensudoku.game.CellCollection: cz.romario.opensudoku.game.Cell getCell(int,int)>($i1, $i0);
+        $r3 = virtualinvoke $r1.<cz.romario.opensudoku.game.Cell: cz.romario.opensudoku.game.CellNote getNote()>();
+        $z0 = virtualinvoke $r3.<cz.romario.opensudoku.game.CellNote: boolean isEmpty()>();
+        if $z0 != 0 goto label4;
+
+        $r4 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $r5 = new cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry;
+        specialinvoke $r5.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: void <init>(int,int,cz.romario.opensudoku.game.CellNote)>($i1, $i0, $r3);
+        interfaceinvoke $r4.<java.util.List: boolean add(java.lang.Object)>($r5);
+        $r3 = new cz.romario.opensudoku.game.CellNote;
+        specialinvoke $r3.<cz.romario.opensudoku.game.CellNote: void <init>()>();
+        virtualinvoke $r1.<cz.romario.opensudoku.game.Cell: void setNote(cz.romario.opensudoku.game.CellNote)>($r3);
+
+     label4:
+        $i0 = $i0 + 1;
+        goto label2;
+    }
+
+    void restoreState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand $r0;
+        android.os.Bundle $r1;
+        int[] $r2, $r4;
+        int $i0, $i1, $i2;
+        java.lang.String[] $r3;
+        java.lang.String $r5;
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry $r6;
+        java.util.List $r7;
+        cz.romario.opensudoku.game.CellNote $r8;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.ClearAllNotesCommand;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.AbstractCellCommand: void restoreState(android.os.Bundle)>($r1);
+        $r4 = virtualinvoke $r1.<android.os.Bundle: int[] getIntArray(java.lang.String)>("rows");
+        $r2 = virtualinvoke $r1.<android.os.Bundle: int[] getIntArray(java.lang.String)>("cols");
+        $r3 = virtualinvoke $r1.<android.os.Bundle: java.lang.String[] getStringArray(java.lang.String)>("notes");
+        $i0 = 0;
+
+     label0:
+        $i2 = lengthof $r4;
+        if $i0 < $i2 goto label1;
+
+        return;
+
+     label1:
+        $r7 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $r6 = new cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry;
+        $i1 = $r4[$i0];
+        $i2 = $r2[$i0];
+        $r5 = $r3[$i0];
+        $r8 = staticinvoke <cz.romario.opensudoku.game.CellNote: cz.romario.opensudoku.game.CellNote deserialize(java.lang.String)>($r5);
+        specialinvoke $r6.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: void <init>(int,int,cz.romario.opensudoku.game.CellNote)>($i1, $i2, $r8);
+        interfaceinvoke $r7.<java.util.List: boolean add(java.lang.Object)>($r6);
+        $i0 = $i0 + 1;
+        goto label0;
+    }
+
+    void saveState(android.os.Bundle)
+    {
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand $r0;
+        android.os.Bundle $r1;
+        int[] $r2, $r5;
+        int $i0, $i1;
+        java.lang.Object $r3;
+        java.lang.String[] $r4;
+        java.util.List $r6;
+        boolean $z0;
+        java.util.Iterator $r7;
+        java.lang.String $r8;
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry $r9;
+        cz.romario.opensudoku.game.CellNote $r10;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.ClearAllNotesCommand;
+        $r1 := @parameter0: android.os.Bundle;
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.AbstractCellCommand: void saveState(android.os.Bundle)>($r1);
+        $r6 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $i0 = interfaceinvoke $r6.<java.util.List: int size()>();
+        $r5 = newarray (int)[$i0];
+        $r6 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $i0 = interfaceinvoke $r6.<java.util.List: int size()>();
+        $r2 = newarray (int)[$i0];
+        $r6 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $i0 = interfaceinvoke $r6.<java.util.List: int size()>();
+        $r4 = newarray (java.lang.String)[$i0];
+        $i0 = 0;
+        $r6 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $r7 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>();
+
+     label0:
+        $z0 = interfaceinvoke $r7.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label1;
+
+        virtualinvoke $r1.<android.os.Bundle: void putIntArray(java.lang.String,int[])>("rows", $r5);
+        virtualinvoke $r1.<android.os.Bundle: void putIntArray(java.lang.String,int[])>("cols", $r2);
+        virtualinvoke $r1.<android.os.Bundle: void putStringArray(java.lang.String,java.lang.String[])>("notes", $r4);
+        return;
+
+     label1:
+        $r3 = interfaceinvoke $r7.<java.util.Iterator: java.lang.Object next()>();
+        $r9 = (cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry) $r3;
+        $i1 = $r9.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: int rowIndex>;
+        $r5[$i0] = $i1;
+        $i1 = $r9.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: int colIndex>;
+        $r2[$i0] = $i1;
+        $r10 = $r9.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: cz.romario.opensudoku.game.CellNote note>;
+        $r8 = virtualinvoke $r10.<cz.romario.opensudoku.game.CellNote: java.lang.String serialize()>();
+        $r4[$i0] = $r8;
+        $i0 = $i0 + 1;
+        goto label0;
+    }
+
+    void undo()
+    {
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand $r0;
+        cz.romario.opensudoku.game.CellCollection $r1;
+        java.lang.Object $r2;
+        java.util.List $r3;
+        boolean $z0;
+        int $i0, $i1;
+        java.util.Iterator $r4;
+        cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry $r5;
+        cz.romario.opensudoku.game.Cell $r6;
+        cz.romario.opensudoku.game.CellNote $r7;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.ClearAllNotesCommand;
+        $r1 = virtualinvoke $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: cz.romario.opensudoku.game.CellCollection getCells()>();
+        $r3 = $r0.<cz.romario.opensudoku.game.command.ClearAllNotesCommand: java.util.List mOldNotes>;
+        $r4 = interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>();
+
+     label0:
+        $z0 = interfaceinvoke $r4.<java.util.Iterator: boolean hasNext()>();
+        if $z0 != 0 goto label1;
+
+        return;
+
+     label1:
+        $r2 = interfaceinvoke $r4.<java.util.Iterator: java.lang.Object next()>();
+        $r5 = (cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry) $r2;
+        $i1 = $r5.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: int rowIndex>;
+        $i0 = $r5.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: int colIndex>;
+        $r6 = virtualinvoke $r1.<cz.romario.opensudoku.game.CellCollection: cz.romario.opensudoku.game.Cell getCell(int,int)>($i1, $i0);
+        $r7 = $r5.<cz.romario.opensudoku.game.command.ClearAllNotesCommand$NoteEntry: cz.romario.opensudoku.game.CellNote note>;
+        virtualinvoke $r6.<cz.romario.opensudoku.game.Cell: void setNote(cz.romario.opensudoku.game.CellNote)>($r7);
+        goto label0;
+    }
+}

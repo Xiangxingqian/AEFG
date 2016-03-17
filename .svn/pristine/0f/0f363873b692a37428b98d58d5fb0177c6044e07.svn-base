@@ -1,0 +1,171 @@
+//package com.app.test.newClass;
+//
+//import java.util.List;
+//
+//import java_cup.lalr_item;
+//
+//import soot.Local;
+//import soot.Modifier;
+//import soot.RefType;
+//import soot.Scene;
+//import soot.SootClass;
+//import soot.SootField;
+//import soot.SootMethod;
+//import soot.Type;
+//import soot.VoidType;
+//import soot.coffi.class_element_value;
+//import soot.jimple.Jimple;
+//import soot.jimple.ParameterRef;
+//import soot.jimple.ThisRef;
+//import soot.jimple.internal.JInstanceFieldRef;
+//import soot.jimple.internal.JNewExpr;
+//
+//import com.app.test.MethodBuilder;
+//
+//
+////ศýิชื้, activity, view and listener
+//public class Event extends ClassBuilder{
+//	//Name: com.qian.Event
+//	
+//	//public static final String CLASS_STRING = "com.qian.Triple";
+//	final RefType CLASS_TYPE = RefType.v("java.lang.Class");
+//	final RefType OBJECT_TYPE = RefType.v("java.lang.Object");
+//	final RefType VIEW_TYPE = RefType.v("android.view.View");
+//	final RefType LIST_TYPE = RefType.v("java.util.List");
+//	
+//	final RefType CLASSNAME_TYPE = RefType.v(className);
+//	
+//	SootField class_field;
+//	SootField object_field;
+//	SootField view_field;
+//	SootField events_field;
+//	
+//	public Event(String className) {
+//		super(className);
+//	}
+//
+//	@Override
+//	public void addMethods() {
+//		addMethod(new InitMethod(sc, "void <init>(java.lang.Class, android.view.View, java.lang.Object)"));
+//		addMethod(new GetMethod(sc, "getC",CLASS_TYPE,"getC"));
+//		addMethod(new GetMethod(sc, "getV",VIEW_TYPE,"getV"));
+//		addMethod(new GetMethod(sc, "getO",OBJECT_TYPE,"getO"));
+//		addMethod(new ClinitMethod(sc, "<clinit>"));
+//	}
+//
+//	@Override
+//	public void addFields() {
+//		class_field = addField("c", CLASS_TYPE);
+//		object_field = addField("o", OBJECT_TYPE);
+//		view_field = addField("v", VIEW_TYPE);
+//		events_field = addField("events", LIST_TYPE,Modifier.PUBLIC|Modifier.STATIC);
+//	}
+//	
+//	class InitMethod extends MethodBuilder{
+//		Local base,c,v,o;
+//		public InitMethod(SootClass sc, String subSignature) {
+//			super(sc, subSignature);
+//		}
+//
+//		@Override
+//		protected void addUnits() {
+//			SootClass sootClass = Scene.v().getSootClass("java.lang.Object");
+//			SootMethod initMethod = sootClass.getMethod("void <init>()");
+//			
+//			addIdentityStmt(base, new ThisRef(CLASSNAME_TYPE));
+//			addIdentityStmt(c, new ParameterRef(CLASS_TYPE,0));
+//			addIdentityStmt(v, new ParameterRef(VIEW_TYPE,1));
+//			addIdentityStmt(o, new ParameterRef(OBJECT_TYPE,2));
+//			
+//			addInvokeStmt(Jimple.v().newSpecialInvokeExpr(base, initMethod.makeRef()));
+//			addAssignStmt(new JInstanceFieldRef(base, class_field.makeRef()), c);
+//			addAssignStmt(new JInstanceFieldRef(base, view_field.makeRef()), v);
+//			addAssignStmt(new JInstanceFieldRef(base, object_field.makeRef()), o);
+//			addReturnVoidStmt();
+//		}
+//
+//		@Override
+//		protected void addLocals() {
+//			base = addLocal("t", RefType.v(className));
+//			c = addLocal("c", CLASS_TYPE);
+//			v = addLocal("v", VIEW_TYPE);
+//			o = addLocal("o", OBJECT_TYPE);
+//		}
+//
+//		@Override
+//		protected void newMethodName() {
+//			List<Type> types = paramTypes();
+//			types.add(CLASS_TYPE);
+//			types.add(VIEW_TYPE);
+//			types.add(OBJECT_TYPE);
+//			method = new SootMethod("<init>",types,VoidType.v(),Modifier.PUBLIC);;
+//		}
+//	}
+//	
+//	class GetMethod extends MethodBuilder{
+//		String methodName;
+//		Type type;
+//		Local base, l;
+//		public GetMethod(SootClass sc, String subSignature, Type type, String methodName) {
+//			super(sc, subSignature);
+//			this.type = type;
+//			this.methodName = methodName;
+//		}
+//		public GetMethod(SootClass sc, String subSignature) {
+//			super(sc, subSignature);
+//		}
+//
+//		@Override
+//		protected void addUnits() {
+//			addIdentityStmt(base, new ThisRef(CLASSNAME_TYPE));
+//			addAssignStmt(l,new JInstanceFieldRef(base, class_field.makeRef()));
+//			addReturnTypeStmt(l);
+//		}
+//
+//		@Override
+//		protected void addLocals() {
+//			base = addLocal("t", RefType.v(className));
+//			l = addLocal("l", type);
+//		}
+//
+//		@Override
+//		protected void newMethodName() {
+//			method = new SootMethod(methodName,paramTypes(),type,Modifier.PUBLIC);
+//		}
+//	}
+//	
+//	class ClinitMethod extends MethodBuilder{
+//		Local arrayList;
+//		public ClinitMethod(SootClass sc, String subSignature) {
+//			super(sc, subSignature);
+//		}
+//
+//		@Override
+//		protected void addUnits() {
+//			SootMethod sm = Scene.v().getMethod("<java.util.ArrayList: void <init>()>");
+//			
+//			//Jimple.v().newNewExpr(RefType.v("java.util.ArrayList"));
+//			addAssignStmt(arrayList, new JNewExpr(RefType.v("java.util.ArrayList")));
+//			//addIdentityStmt(arrayList, new ThisRef(RefType.v("java.util.ArrayList")));
+//			addInvokeStmt(Jimple.v().newSpecialInvokeExpr(arrayList, sm.makeRef()));
+//			addAssignStmt(Jimple.v().newStaticFieldRef(events_field.makeRef()), arrayList);
+//			addReturnVoidStmt();
+//		}
+//
+//		@Override
+//		protected void addLocals() {
+//			arrayList = addLocal("arrayList", RefType.v("java.util.ArrayList"));
+//		}
+//
+//		@Override
+//		protected void newMethodName() {
+//			method = new SootMethod("<clinit>", paramTypes(), VoidType.v(),Modifier.STATIC);
+//		}
+//		
+//	}
+//
+//	@Override
+//	public void addInterface() {
+//		
+//	}
+//}

@@ -1,0 +1,115 @@
+public class cz.romario.opensudoku.gui.importing.SdmImportTask extends cz.romario.opensudoku.gui.importing.AbstractImportTask
+{
+    private android.net.Uri mUri;
+
+    public void <init>(android.net.Uri)
+    {
+        cz.romario.opensudoku.gui.importing.SdmImportTask $r0;
+        android.net.Uri $r1;
+
+        $r0 := @this: cz.romario.opensudoku.gui.importing.SdmImportTask;
+        $r1 := @parameter0: android.net.Uri;
+        specialinvoke $r0.<cz.romario.opensudoku.gui.importing.AbstractImportTask: void <init>()>();
+        $r0.<cz.romario.opensudoku.gui.importing.SdmImportTask: android.net.Uri mUri> = $r1;
+        return;
+    }
+
+    protected void processImport() throws cz.romario.opensudoku.db.SudokuInvalidFormatException
+    {
+        cz.romario.opensudoku.gui.importing.SdmImportTask $r0;
+        java.io.BufferedReader $r1, $r2;
+        java.net.MalformedURLException $r3;
+        java.io.InputStreamReader $r4;
+        java.lang.String $r5;
+        java.net.URL $r6;
+        android.net.Uri $r7;
+        java.io.InputStream $r8;
+        boolean $z0;
+        java.lang.Throwable $r10;
+        java.lang.RuntimeException $r11;
+        java.io.IOException $r12;
+
+        $r0 := @this: cz.romario.opensudoku.gui.importing.SdmImportTask;
+        $r7 = $r0.<cz.romario.opensudoku.gui.importing.SdmImportTask: android.net.Uri mUri>;
+        $r5 = virtualinvoke $r7.<android.net.Uri: java.lang.String getLastPathSegment()>();
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.importing.SdmImportTask: void importFolder(java.lang.String)>($r5);
+        $r6 = new java.net.URL;
+        $r7 = $r0.<cz.romario.opensudoku.gui.importing.SdmImportTask: android.net.Uri mUri>;
+
+     label0:
+        $r5 = virtualinvoke $r7.<android.net.Uri: java.lang.String toString()>();
+        specialinvoke $r6.<java.net.URL: void <init>(java.lang.String)>($r5);
+        $r4 = new java.io.InputStreamReader;
+        $r8 = virtualinvoke $r6.<java.net.URL: java.io.InputStream openStream()>();
+        specialinvoke $r4.<java.io.InputStreamReader: void <init>(java.io.InputStream)>($r8);
+
+     label1:
+        $r1 = null;
+
+     label2:
+        $r2 = new java.io.BufferedReader;
+        specialinvoke $r2.<java.io.BufferedReader: void <init>(java.io.Reader)>($r4);
+
+     label3:
+        $r5 = virtualinvoke $r2.<java.io.BufferedReader: java.lang.String readLine()>();
+
+     label4:
+        if $r5 != null goto label7;
+
+        if $r2 == null goto label6;
+
+     label5:
+        virtualinvoke $r2.<java.io.BufferedReader: void close()>();
+
+     label6:
+        return;
+
+     label7:
+        $z0 = virtualinvoke $r5.<java.lang.String: boolean equals(java.lang.Object)>("");
+        if $z0 != 0 goto label3;
+
+        virtualinvoke $r0.<cz.romario.opensudoku.gui.importing.SdmImportTask: void importGame(java.lang.String)>($r5);
+
+     label8:
+        goto label3;
+
+     label9:
+        $r10 := @caughtexception;
+        $r1 = $r2;
+
+     label10:
+        if $r1 == null goto label12;
+
+     label11:
+        virtualinvoke $r1.<java.io.BufferedReader: void close()>();
+
+     label12:
+        throw $r10;
+
+     label13:
+        $r3 := @caughtexception;
+        $r11 = new java.lang.RuntimeException;
+        specialinvoke $r11.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r3);
+        throw $r11;
+
+     label14:
+        $r12 := @caughtexception;
+        $r11 = new java.lang.RuntimeException;
+        specialinvoke $r11.<java.lang.RuntimeException: void <init>(java.lang.Throwable)>($r12);
+        throw $r11;
+
+     label15:
+        $r10 := @caughtexception;
+        goto label10;
+
+        catch java.net.MalformedURLException from label0 to label1 with label13;
+        catch java.io.IOException from label0 to label1 with label14;
+        catch java.lang.Throwable from label2 to label3 with label15;
+        catch java.lang.Throwable from label3 to label4 with label9;
+        catch java.net.MalformedURLException from label5 to label6 with label13;
+        catch java.io.IOException from label5 to label6 with label14;
+        catch java.lang.Throwable from label7 to label8 with label9;
+        catch java.net.MalformedURLException from label11 to label13 with label13;
+        catch java.io.IOException from label11 to label13 with label14;
+    }
+}

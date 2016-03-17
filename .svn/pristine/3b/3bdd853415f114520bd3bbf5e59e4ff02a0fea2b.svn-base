@@ -1,0 +1,8 @@
+package com.app.test;
+
+import soot.RefType;
+
+public class MethodTypes {
+	public RefType menu_type = RefType.v("android.view.Menu");
+	public RefType menuItem_Type = RefType.v("android.view.MenuItem");
+}

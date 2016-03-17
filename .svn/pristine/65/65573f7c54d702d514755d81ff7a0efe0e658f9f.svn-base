@@ -1,0 +1,36 @@
+class com.example.qian.SecondActivity$1 extends java.lang.Object implements android.view.View$OnClickListener
+{
+    final com.example.qian.SecondActivity this$0;
+
+    void <init>(com.example.qian.SecondActivity)
+    {
+        com.example.qian.SecondActivity$1 $r0;
+        com.example.qian.SecondActivity $r1;
+
+        $r0 := @this: com.example.qian.SecondActivity$1;
+        $r1 := @parameter0: com.example.qian.SecondActivity;
+        $r0.<com.example.qian.SecondActivity$1: com.example.qian.SecondActivity this$0> = $r1;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void onClick(android.view.View)
+    {
+        com.example.qian.SecondActivity$1 $r0;
+        android.view.View $r1;
+        android.content.Intent $r2;
+        android.net.Uri $r4;
+        com.example.qian.SecondActivity $r5;
+
+        $r0 := @this: com.example.qian.SecondActivity$1;
+        $r1 := @parameter0: android.view.View;
+        $r2 = new android.content.Intent;
+        specialinvoke $r2.<android.content.Intent: void <init>()>();
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent setAction(java.lang.String)>("com.qian.action");
+        $r4 = staticinvoke <android.net.Uri: android.net.Uri parse(java.lang.String)>("comqian:gagaga");
+        virtualinvoke $r2.<android.content.Intent: android.content.Intent setData(android.net.Uri)>($r4);
+        $r5 = $r0.<com.example.qian.SecondActivity$1: com.example.qian.SecondActivity this$0>;
+        virtualinvoke $r5.<com.example.qian.SecondActivity: void startActivity(android.content.Intent)>($r2);
+        return;
+    }
+}

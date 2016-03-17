@@ -1,0 +1,21 @@
+public final class com.example.qian.R$drawable extends java.lang.Object
+{
+    public static final int b07;
+    public static final int b10;
+    public static final int b14;
+    public static final int b16;
+    public static final int b17;
+    public static final int custombutton;
+    public static final int diao;
+    public static final int ic_launcher;
+    public static final int maomi1;
+
+    public void <init>()
+    {
+        com.example.qian.R$drawable $r0;
+
+        $r0 := @this: com.example.qian.R$drawable;
+        specialinvoke $r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

@@ -1,0 +1,62 @@
+package com.app.test;
+
+import java.util.Set;
+
+import soot.Scene;
+import soot.SootClass;
+import soot.options.Options;
+import soot.util.Chain;
+
+import manifest.ProcessManifest;
+
+public class Main {
+	
+	public static Set<String> activities ;
+	public static String mainActivity ;
+
+	public static void main(String[] args ){
+		ProcessManifest processMan = new ProcessManifest();
+		processMan.loadManifestFile(args[3]);
+		//mainActivity = "com.example.qian.MainActivity";
+		mainActivity = "cz.romario.opensudoku.gui.FolderListActivity";
+		activities = processMan.getEntryPointClasses();
+		System.out.println(activities);
+		initSoot(args);
+		//SootClass sootClass = Scene.v().getSootClass("java.util.AbstractCollection");
+		//System.out.println(sootClass.getMethods());
+//		Chain<SootClass> classes = Scene.v().getClasses();
+//		System.out.println(classes);
+		AndroidInstrument androidInstrument = new AndroidInstrument();
+		androidInstrument.instrument(args);
+	}
+	
+	public static void initSoot(String[] args){
+		Options.v().set_soot_classpath(
+				"lib/rt.jar;" +
+				"lib/jce.jar;" +
+				"lib/tools.jar;" +
+				"lib/android.jar;"+
+				"lib/android-support-v4.jar;"
+				);	
+		//Options.v().set_android_jars(args[1]);
+		Options.v().set_src_prec(Options.src_prec_apk);
+		Options.v().set_output_format(Options.output_format_dex);
+        // resolve the PrintStream and System soot-classes
+		Scene.v().addBasicClass("java.io.PrintStream",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.System",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.util.LinkedList",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.reflect.Field",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.reflect.Method",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Class",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Boolean",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Exception",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("android.widget.Toast",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Throwable",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.util.AbstractCollection",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Object",SootClass.SIGNATURES);
+        Scene.v().addBasicClass("java.lang.Thread",SootClass.SIGNATURES);
+        //Scene.v().loadNecessaryClasses();
+       
+	}
+	
+}

@@ -1,0 +1,34 @@
+public abstract class cz.romario.opensudoku.game.command.AbstractCellCommand extends cz.romario.opensudoku.game.command.AbstractCommand
+{
+    private cz.romario.opensudoku.game.CellCollection mCells;
+
+    public void <init>()
+    {
+        cz.romario.opensudoku.game.command.AbstractCellCommand $r0;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.AbstractCellCommand;
+        specialinvoke $r0.<cz.romario.opensudoku.game.command.AbstractCommand: void <init>()>();
+        return;
+    }
+
+    protected cz.romario.opensudoku.game.CellCollection getCells()
+    {
+        cz.romario.opensudoku.game.command.AbstractCellCommand $r0;
+        cz.romario.opensudoku.game.CellCollection $r1;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.AbstractCellCommand;
+        $r1 = $r0.<cz.romario.opensudoku.game.command.AbstractCellCommand: cz.romario.opensudoku.game.CellCollection mCells>;
+        return $r1;
+    }
+
+    protected void setCells(cz.romario.opensudoku.game.CellCollection)
+    {
+        cz.romario.opensudoku.game.command.AbstractCellCommand $r0;
+        cz.romario.opensudoku.game.CellCollection $r1;
+
+        $r0 := @this: cz.romario.opensudoku.game.command.AbstractCellCommand;
+        $r1 := @parameter0: cz.romario.opensudoku.game.CellCollection;
+        $r0.<cz.romario.opensudoku.game.command.AbstractCellCommand: cz.romario.opensudoku.game.CellCollection mCells> = $r1;
+        return;
+    }
+}

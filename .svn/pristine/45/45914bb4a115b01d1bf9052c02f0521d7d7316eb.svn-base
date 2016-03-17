@@ -1,0 +1,78 @@
+package view;
+
+import java.util.List;
+
+import analysis.methodAnalysis.IntraMethodAnalysis;
+
+import soot.Body;
+import soot.Local;
+import soot.SootClass;
+import soot.SootMethod;
+import soot.Unit;
+import soot.Value;
+import soot.jimple.AssignStmt;
+import soot.jimple.DefinitionStmt;
+import soot.jimple.InvokeStmt;
+import soot.jimple.internal.JInstanceFieldRef;
+import soot.toolkits.graph.ExceptionalUnitGraph;
+import util.LocalValue;
+
+public class ViewResolver {
+	
+	private SootClass sClass;
+	private SootMethod sMethod;
+	LocalValue llv;
+	public ViewResolver(SootClass sc,SootMethod sm){
+		this.sClass = sc;
+		this.sMethod = sm;
+		llv = new LocalValue(sMethod);
+	}
+	
+	//输入l，输出l的findViewById值
+	public Value findView(InvokeStmt is, String viewdef){
+		if(is==null) return null;
+		Value invoker = is.getInvokeExpr().getUseBoxes().get(0).getValue();
+		
+		DefinitionStmt  localValue =(DefinitionStmt)  (llv.getValueTillCurUnit(is, invoker));					
+		if(localValue.getRightOp().toString().contains(viewdef)){
+			return localValue.getRightOp();
+		}
+		else{
+			Value value = localValue.getRightOp();
+			if(value instanceof JInstanceFieldRef){				
+				AssignStmt assignStmt = traceField(sClass,(JInstanceFieldRef)value,"findViewById");
+				if(assignStmt!=null){
+					return assignStmt.getRightOp();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public AssignStmt traceField(SootClass sClass,JInstanceFieldRef sField,String keyStmt){	
+		for(SootMethod sm:sClass.getMethods()){
+			if(sm.isConcrete()){
+				IntraMethodAnalysis ma = new IntraMethodAnalysis(sm);
+				List<AssignStmt> assignStmts = ma.getAssignStmts();			
+				for(AssignStmt s:assignStmts){	
+					if(s.getLeftOp().toString().equals(sField.toString())){
+						if(s.getRightOp().toString().contains(keyStmt)){
+							return s;
+						}
+						else if(s.getRightOp()instanceof Local) {
+							Local local =(Local) s.getRightOp();
+							LocalValue l = new LocalValue(sm);
+							DefinitionStmt dStmt = (DefinitionStmt)l.getValueTillCurUnit(s, local);
+							if(dStmt.toString().contains(keyStmt)){
+								return (AssignStmt)dStmt;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+}
