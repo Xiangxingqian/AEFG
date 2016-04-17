@@ -32,7 +32,7 @@ public class DrawGraph {
 	    String type = "pdf";	    
 	    //File out = new File("/tmp/out." + type);   // Linux
 	    //File out = new File("C:/tmp/out." + type);		//windows
-	    File out = new File(temp_dir+"/"+appName+"."+type);
+	    File out = new File(temp_dir+appName+"."+type);
 	    gv.writeGraphToFile( gv.getGraph( gv.getDotSource(), type ), out );
 	}
 }

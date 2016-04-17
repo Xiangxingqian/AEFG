@@ -4,10 +4,9 @@ import graph.ActivityEventFlowGraph;
 import graphTemp.TempGraph;
 
 import com.aefg.dataflowanalysis.Contexts;
-import com.aefg.intenttoactivity.ITS;
 import pair.PairFactory;
 import resource.ApkToRes;
-import sootAnalysis.Instrumentor;
+import sootAnalysis.AndroidAnalysis;
 import test.Events;
 import view.View;
 import em.EM;
@@ -21,22 +20,10 @@ public class SingltonFactory {
 	}
 	G g = new G();
 	
-	private Instrumentor instrumentor;
-	public Instrumentor getInstrumentor(){
-		if(instrumentor==null) instrumentor = new Instrumentor(g);
-		return instrumentor;
-	}
-	
 	private Global goa;
 	public Global getGOA(){
 		if(goa==null) goa = new Global(g);
 		return goa;
-	}
-		
-	private ITS its;
-	public ITS getITS(){
-		if(its==null) its = new ITS(g);
-		return its;
 	}
 	
 	private EM em;

@@ -1,1 +1,0 @@
-C:\Users\lenovo\workspace\AndroidTest\sootOutput>jarsigner -keystore qian.key -keypass 123456 -signedjar qian_signed.apk -digestalg SHA1 Qian.apk qian.key

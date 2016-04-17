@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import aefg.entry.CallGraphBuilder;
+
 import soot.Local;
 import soot.MethodOrMethodContext;
 import soot.Scene;
@@ -22,11 +24,10 @@ import soot.toolkits.graph.UnitGraph;
 import soot.util.Chain;
 import tags.MethodTag;
 import util.LocalAnalysis;
-import entry.Entry;
 
 public class InterMethodAnalysis {
 	
-	public static CallGraph callGraph = Entry.getCallGraph();
+	public static CallGraph callGraph = CallGraphBuilder.getCallGraph();
 
 	/**
 	 * 使用callgraph获得sootMethod包含的所有方法

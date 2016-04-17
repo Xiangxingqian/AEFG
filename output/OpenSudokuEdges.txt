@@ -1,0 +1,34 @@
+0 src: ImportSudokuActivity tgt: SudokuImportActivity 
+view: "onCreate"
+1 src: FileImportActivity tgt: ImportSudokuActivity 
+view: "onCreate"
+2 src: FileListActivity tgt: FileListActivity 
+view: "ItemsList"
+3 src: FileListActivity tgt: ImportSudokuActivity 
+view: "ItemsList"
+4 src: FolderListActivity tgt: null 
+view: "$r8 = new cz.romario.opensudoku.gui.FolderListActivity$1 "
+5 src: FolderListActivity tgt: SudokuExportActivity 
+view: "ContextMenu5"
+6 src: FolderListActivity tgt: SudokuListActivity 
+view: "ItemsList"
+7 src: FolderListActivity tgt: FileListActivity 
+view: "OptionMenu7"
+8 src: FolderListActivity tgt: SudokuExportActivity 
+view: "OptionMenu6"
+9 src: FolderListActivity tgt: FileListActivity 
+view: "OptionMenu7"
+10 src: FolderListActivity tgt: SudokuExportActivity 
+view: "OptionMenu6"
+11 src: SudokuListActivity tgt: SudokuPlayActivity 
+view: "ItemsList"
+12 src: SudokuListActivity tgt: SudokuEditActivity 
+view: "ContextMenu2"
+13 src: SudokuListActivity tgt: SudokuEditActivity 
+view: "OptionMenu1"
+14 src: SudokuListActivity tgt: FolderListActivity 
+view: "OptionMenu8"
+15 src: SudokuListActivity tgt: SudokuEditActivity 
+view: "OptionMenu1"
+16 src: SudokuListActivity tgt: FolderListActivity 
+view: "OptionMenu8"

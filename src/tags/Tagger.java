@@ -20,9 +20,8 @@ public class Tagger {
 	
 	public static SootMethod getMethodTag(Stmt s) {
 		Object tag = getTag(s, MethodTag.class);
+		if(tag==null) return null;
 		MethodTag mt = (MethodTag)tag;
-		if(mt==null) return null;
-		else
 			return mt.getMethod();
 	}
 	
@@ -44,9 +43,8 @@ public class Tagger {
 	
 	public static Value getValueTag(Stmt s) {
 		Object tag = getTag(s, ValueTag.class);
+		if(tag==null) return null;
 		ValueTag vt = (ValueTag)tag;
-		if(vt==null) return null;
-		else
 			return vt.getValueK();
 	}
 	

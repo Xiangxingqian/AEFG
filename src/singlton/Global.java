@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.aefg.intenttoactivity.ITSPair;
+
 import soot.Local;
 import soot.SootClass;
 import soot.SootMethod;
@@ -41,6 +43,10 @@ public class Global {
 	private Map<List<Stmt>, List<SootMethod>> stmtsToMethods = new HashMap<List<Stmt>, List<SootMethod>>();
 	private Map<InvokeStmt, List<Stmt>> startActivityToStmts = new HashMap<InvokeStmt, List<Stmt>>();
 	
+	private List<ITSPair> ITSPairs = new ArrayList<ITSPair>();
+	public  List<ITSPair> getITSPairs(){
+		return ITSPairs;
+	}
 	/**
 	 * merge localToStartActivity and StartActivityToStmts
 	 * */
@@ -110,7 +116,7 @@ public class Global {
 		return contentView;
 	}
 
-	public List<InvokeStmt> getAllStartActivities() {
+	public List<InvokeStmt> getStartActivityStmts() {
 		return allStartActivities;
 	}	
 	

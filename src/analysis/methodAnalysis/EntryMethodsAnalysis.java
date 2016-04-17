@@ -5,11 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import aefg.entry.CallGraphBuilder;
+
 import soot.SootClass;
 import soot.SootMethod;
 import soot.jimple.InvokeStmt;
 import soot.jimple.toolkits.callgraph.Edge;
-import entry.Entry;
 import entryPointCreator.AndroidEntryPointConstants;
 
 //两类入口方法：1. entryPoints 2. callbacks
@@ -84,11 +85,11 @@ public class EntryMethodsAnalysis extends InterMethodAnalysis{
 	
 	//判断sm是否是入口方法
 	public static boolean isEntryMethod(SootMethod sm){
-		return isEntry(sm, Entry.entrypoints);
+		return isEntry(sm, CallGraphBuilder.entrypoints);
 	}
 	//sm是Activity的生命周期方法
 	public static boolean isActivityMethod(SootMethod sm){
-		return isEntry(sm, Entry.fakeActivities);
+		return isEntry(sm, CallGraphBuilder.fakeActivities);
 	}
 	
 	private static boolean isEntry(SootMethod sm, Set<String> set) {

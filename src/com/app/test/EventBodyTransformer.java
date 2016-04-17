@@ -9,9 +9,11 @@ import java.util.Map;
 import soot.Body;
 import soot.BodyTransformer;
 import soot.BooleanType;
+import soot.G;
 import soot.Local;
 import soot.Modifier;
 import soot.PatchingChain;
+import soot.RefType;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootField;
@@ -21,6 +23,7 @@ import soot.Unit;
 import soot.Value;
 import soot.jimple.AbstractStmtSwitch;
 import soot.jimple.AssignStmt;
+import soot.jimple.CastExpr;
 import soot.jimple.GotoStmt;
 import soot.jimple.IdentityStmt;
 import soot.jimple.IfStmt;
@@ -34,8 +37,6 @@ import soot.jimple.StringConstant;
 import soot.jimple.internal.JNewExpr;
 import soot.jimple.internal.JVirtualInvokeExpr;
 import soot.util.Chain;
-
-import android.hardware.Camera.Size;
 
 import com.app.test.event.SystemEventCollector;
 import com.app.test.event.UIEventRecognizer;
@@ -58,38 +59,8 @@ import com.app.test.newMethod.RunMyThread;
 import com.test.xmldata.LayoutData;
 import com.test.xmldata.ManifestData;
 
-/**
- * three phases:
- * 1. collect events
- *     1.1 menu events, add {openOptionsMenu, onOptionsItemSelected} into doMenuTest.
- *     1.2 list events, add {onListItemClicked} into onMenuItemClicked.
- *     1.3 view events, add doReflect method //search view's belonging activity, activity.viewLinkedList.add(view). 
- *     1.4 dialog events. add doDialogReflect method
- * 2. transform activity
- * 	   add methods={doTest, doDialogTest, doMenuTest, onListItemClicked}
- * 3. calling event
- *     OnMenuItemList()
- *     in OnMenuItemList, invoking four defined methods: doTest, doDialogTest,doMenuTest,onListItemClicked
- *     
- * modified classes:
- * 1. activities class declaring in AndroidManifest.xml(do not including their super classes)
- * 		Add Fields: viewLinkedList, listenerLinkerList, isMyEvent, isVisited, dialogLinkerList, dialogListenerLinkedList, menu.
- *      Add Methods: doTest,doDialog,TestdoMenuTest,onListItemClicked, OutPrint.
- *      if sc does not declare onCreateOptionsMenu, add it, or modify it. 
- *      if sc does not declare <clinit>, add it, or modify it. 
- * 2. class containing setOn[A-Za-z]+Listener, and invoker is view. 
- * 		Add doReflect(); 
- * 3. class containing setOn[A-Za-z]+Listener, and invoker is dialog. 
- * 		Add doDialogReflect();
- * 
- *继续：
- *给Activity添加doViewAnalysis(),doDialogAnalysis().
- * */
 public class EventBodyTransformer extends BodyTransformer {
-
-	/**
-	 * 5 successor methods
-	 * */
+	
 	List<SootClass> sClasses = new ArrayList<SootClass>();
 	String lastClass = "";
 	@Override
@@ -109,15 +80,14 @@ public class EventBodyTransformer extends BodyTransformer {
 		if(name.startsWith("android")||name.startsWith("java"))
 			return;
 		
-		
-		
 		//if sc is activity, transform it.
 		if(ManifestData.activities.contains(name)){
 			transformActivity(b, sc);
 			ManifestData.activities.remove(name);
 		}
-//		fixAdobeReaderBug(b);
-		//start to collect event
+		
+		fixAdobeReaderBug(b);
+		
 		collectUIEvents(b);
 		collectUIEventsFromLayout(b);
 		
@@ -134,7 +104,6 @@ public class EventBodyTransformer extends BodyTransformer {
 			Main.methodsCount++;
 			addMethodList(sc);
 			new MethodCollector(b).parseBody();
-			
 		}
 	}
 	
@@ -300,83 +269,17 @@ public class EventBodyTransformer extends BodyTransformer {
 //	}
 	
 	/**
-	 * Fragment menu的步骤：
-	 * 	FragmentActivity fa = getActivity();
-	 *  fa.getField(fragment);
-	 * 1. MainActivity.fragment = this;
-	 * 2. Menu menu;
-	 *    menu = menu;
-	 * 
-	 * 最终在MainActivity中，用
-	 * fragment.setMenuVisibility(true);
-	 * Menu fragmentMenu = fragment.menu;
-	 * fragment.onOptionsItemSelected(fragmentMenu, getMenuInflater());
-	 * */
-//	private void modifyOnCreateView(Body b) {
-//		//TODO
-//	}
-//
-//	private void modifyFragmentOnCreateOptionMenu(Body b) {
-//		//TODO
-//	}
-
-	/**
-	 * sc is an Activity
-	 * transform activity: add OutPrint, DoTest, OnMenuItemSelected method.
-	 * if activity does not contains OnCreateOptionsMenu, <clinit> method, add them, or modify them.  
-	 * @param b input body.
-	 * @param sc b's declaringclass
-	 * */
-//	private void transformActivity(final Body b, final SootClass sc) {
-//		
-//		//addInterface
-//		if(!sc.implementsInterface("android.view.MenuItem$OnMenuItemClickListener"))
-//			sc.addInterface(Scene.v().getSootClass("android.view.MenuItem$OnMenuItemClickListener"));
-//		
-//		addFields(sc);
-//		
-//		//add methods
-//		if(!sc.declaresMethod(Clinit.SUBSIGNATURE))
-//			addClinit(sc);
-//		if(!sc.declaresMethod(OutPrint.SUBSIGNATURE))
-//			addOutPrintMethod(sc);
-//		if(!sc.declaresMethod(DoViewAnalysis.SUBSIGNATURE))
-//			addDoViewAnalysisMethod(sc);
-//		if(!sc.declaresMethod(DoDialogAnalysis.SUBSIGNATURE))
-//			addDoDialogAnalysisMethod(sc);
-//		if(!sc.declaresMethod(DoTest.SUBSIGNATURE))
-//			addDoTestMethod(sc);
-//		if(!sc.declaresMethod(OnCreateOptionsMenu.SUBSIGNATURE))
-//			addOnCreateOptionsMenuMethod(sc);
-//		if(!sc.declaresMethod(DoDialogTest.SUBSIGNATURE))
-//			addDoDialogTestMethod(sc);
-//		if(!sc.declaresMethod(OnMenuItemClick.SUBSIGNATURE))
-//			addOnMenuItemClickMethod(sc);
-//		
-//		if(b.getMethod().getSubSignature().equals(Clinit.SUBSIGNATURE))
-//			if(!isMyClinit(b))
-//				modifyClinit(b, sc);
-//		if(b.getMethod().getSubSignature().equals(Constants.onCreateOptionsMenu_activity)){
-//			if(!"activity".equals(b.getThisLocal().getName()))
-//				modifyOnCreateOptionMenu(b);
-//		}
-//
-//	}
-	
-	/**
-	 * Transform activity: add OutPrint, DoTest, OnMenuItemSelected method.<br>
 	 * If activity does not contains OnCreateOptionsMenu, <clinit> method, add them. If contains, modify them.  
 	 * @param b input body.
 	 * @param sc b's declaringclass
 	 * @return sc is inserted multiple methods.
 	 * */
 	private void transformActivity(final Body b, final SootClass sc) {
-		
-		//it exists: sc is declared as activity in androidManifest.xml, but it does not implement android.app.Activity.
-//		if(!Scene.v().getActiveHierarchy().getSuperclassesOf(sc).contains(Scene.v().getSootClass("android.app.Activity"))){
-//			System.err.println(sc+" is not an activity!!!");
-//			return ;
-//		}
+		//if an activity is declared in AndroidManifest but does not extend the super class "android.app.Activity", 
+		//throw a non activity exception.
+		if(!Scene.v().getActiveHierarchy().getSuperclassesOf(sc).contains(Scene.v().getSootClass("android.app.Activity"))){
+			throw new RuntimeException(sc+" is not an activity!");
+		}
 		
 		try {
 			isActivity(sc);
@@ -491,8 +394,8 @@ public class EventBodyTransformer extends BodyTransformer {
 ////				transformFragment(b, sc);
 //			}
 //			else 
-				if(UIEventRecognizer.isActivityMenuEvent(sm)){
-				System.out.println("ActivityMenuEvent: "+sm.getSignature());
+			if(UIEventRecognizer.isActivityMenuEvent(sm)){
+			System.out.println("ActivityMenuEvent: "+sm.getSignature());
 				//TODO
 			}
 		}
@@ -528,7 +431,6 @@ public class EventBodyTransformer extends BodyTransformer {
 	 * 
 	 * Field activityMenu and Method doMenuTestMethod() only exist in class who declares onCreateOptionsMenu<br>
 	 * 
-	 * 在aagtl中，onPrapareMenu中执行了menu.clear导致test添加不成功
 	 * */
 	private void modifyOnCreateOptionMenu(final Body b) {
 		final PatchingChain<Unit> units = b.getUnits();
@@ -581,59 +483,59 @@ public class EventBodyTransformer extends BodyTransformer {
 	/**
 	 * AdobeReader.apk contains bugs, fix it.
 	 * */
-//	private void fixAdobeReaderBug(Body b){
-//		String copyFile = "<com.adobe.libs.buildingblocks.utils.BBFileUtils: java.lang.String " +
-//				"copyFileFromRawResourcesToStorage(android.content.Context,java.lang.String,int,java.lang.String)>";
-//		if(!b.getMethod().getSignature().equals(copyFile)){
-//			return;
-//		}
-//		Chain<Local> locals = b.getLocals();
-//		Local leftLocal = null;
-//		Local rightLocal = null;
-//		for(Local l:locals){
-//			if(l.getName().equals("$r9")){
-//				if(l.getType().equals(Constants.string_Type)){
-//					l.setType(Constants.file_Type);
-//					leftLocal = l;
-//				}
-//			}
-//			else if(l.getName().equals("r22")){
-//				if(l.getType().equals(Constants.file_Type)){
-//					rightLocal = l;
-//				}
-//			}
-//		}
-//		
-//		final AssignStmt replace = Jimple.v().newAssignStmt(leftLocal, Jimple.v().newCastExpr(rightLocal, Constants.file_Type));
-//		final PatchingChain<Unit> units = b.getUnits();
-//		for(Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext();) {
-//			final Unit u = iter.next();
-//			u.apply(new AbstractStmtSwitch() {
-//				@Override			
-//				public void caseAssignStmt(AssignStmt stmt) {
-//					AssignStmt as = (AssignStmt)stmt;
-//					Value leftOp = as.getLeftOp();
-//					Value rightOp = as.getRightOp();
-//					
-//					if(rightOp instanceof CastExpr&&leftOp instanceof Local){
-//						Local leftLocal = (Local)leftOp;
-//						CastExpr castExpr = (CastExpr)rightOp;
-//						Value v = castExpr.getOp();
-//						RefType type = (RefType)castExpr.getCastType();
-//						if(type.equals(Constants.string_Type)&&v instanceof Local){
-//							Local local = (Local)v;
-//							if(local.getName().equals("r22")&&leftLocal.getName().equals("$r9")){
-//								units.insertBefore(replace, u);
-//								units.remove(u);
-//								G.v().out.println("532: "+stmt);
-//							}
-//						}
-//						
-//					}
-//				}
-//			});
-//		}
-//	}
+	private void fixAdobeReaderBug(Body b){
+		String copyFile = "<com.adobe.libs.buildingblocks.utils.BBFileUtils: java.lang.String " +
+				"copyFileFromRawResourcesToStorage(android.content.Context,java.lang.String,int,java.lang.String)>";
+		if(!b.getMethod().getSignature().equals(copyFile)){
+			return;
+		}
+		Chain<Local> locals = b.getLocals();
+		Local leftLocal = null;
+		Local rightLocal = null;
+		for(Local l:locals){
+			if(l.getName().equals("$r9")){
+				if(l.getType().equals(Constants.string_Type)){
+					l.setType(Constants.file_Type);
+					leftLocal = l;
+				}
+			}
+			else if(l.getName().equals("r22")){
+				if(l.getType().equals(Constants.file_Type)){
+					rightLocal = l;
+				}
+			}
+		}
+		
+		final AssignStmt replace = Jimple.v().newAssignStmt(leftLocal, Jimple.v().newCastExpr(rightLocal, Constants.file_Type));
+		final PatchingChain<Unit> units = b.getUnits();
+		for(Iterator<Unit> iter = units.snapshotIterator(); iter.hasNext();) {
+			final Unit u = iter.next();
+			u.apply(new AbstractStmtSwitch() {
+				@Override			
+				public void caseAssignStmt(AssignStmt stmt) {
+					AssignStmt as = (AssignStmt)stmt;
+					Value leftOp = as.getLeftOp();
+					Value rightOp = as.getRightOp();
+					
+					if(rightOp instanceof CastExpr&&leftOp instanceof Local){
+						Local leftLocal = (Local)leftOp;
+						CastExpr castExpr = (CastExpr)rightOp;
+						Value v = castExpr.getOp();
+						RefType type = (RefType)castExpr.getCastType();
+						if(type.equals(Constants.string_Type)&&v instanceof Local){
+							Local local = (Local)v;
+							if(local.getName().equals("r22")&&leftLocal.getName().equals("$r9")){
+								units.insertBefore(replace, u);
+								units.remove(u);
+								G.v().out.println("532: "+stmt);
+							}
+						}
+						
+					}
+				}
+			});
+		}
+	}
 	
 	private void modifyClinit(final Body b, final SootClass sc) {
 		final PatchingChain<Unit> units = b.getUnits();

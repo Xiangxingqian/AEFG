@@ -1,5 +1,7 @@
 package com.test.xmldata;
 
+import infolow.resource.ResourceOutput;
+
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -7,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.app.test.resource.ResourceOutput;
 
 public class LayoutData implements IXmlData{
 

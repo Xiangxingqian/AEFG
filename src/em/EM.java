@@ -3,12 +3,12 @@ package em;
 import java.util.ArrayList;
 import java.util.List;
 
+import singlton.Global;
 import singlton.SingltonFactory;
 import soot.SootMethod;
 import soot.jimple.InvokeStmt;
 import tags.Tagger;
 
-import com.aefg.intenttoactivity.ITS;
 import com.aefg.intenttoactivity.ITSPair;
 import com.aefg.intenttoactivity.StartActivity;
 
@@ -25,7 +25,7 @@ public class EM {
 	}
 	
 	public void genEm(){
-		List<ITSPair> itsPairs = ITS.v().getITSPairs();
+		List<ITSPair> itsPairs = Global.v().getITSPairs();
 		for(ITSPair itsPair:itsPairs){
 			StartActivity o2 = itsPair.getO2();
 			InvokeStmt is = o2.getValue();

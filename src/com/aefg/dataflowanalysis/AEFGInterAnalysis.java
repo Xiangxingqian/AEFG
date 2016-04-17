@@ -2,6 +2,8 @@ package com.aefg.dataflowanalysis;
 
 import java.util.List;
 
+import aefg.entry.CallGraphBuilder;
+
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Type;
@@ -11,7 +13,6 @@ import soot.jimple.InvokeStmt;
 import tags.FlagTag;
 import vasco.Context;
 import vasco.ProgramRepresentation;
-import entry.Entry;
 
 public abstract class AEFGInterAnalysis<A> extends AEFGInterproceduralAnalysis<SootMethod, Unit, A>{
 
@@ -68,7 +69,7 @@ public abstract class AEFGInterAnalysis<A> extends AEFGInterproceduralAnalysis<S
 
 	@Override
 	public ProgramRepresentation<SootMethod, Unit> programRepresentation() {
-		return new AEFGDefaultProgramRepresentation(m, Entry.getCallGraph());
+		return new AEFGDefaultProgramRepresentation(m, CallGraphBuilder.getCallGraph());
 	}
 	
 	/**

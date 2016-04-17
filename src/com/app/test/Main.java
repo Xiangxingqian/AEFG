@@ -1,5 +1,7 @@
 package com.app.test;
 
+import infolow.resource.ResoureHandler;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +13,6 @@ import soot.Scene;
 import soot.SootClass;
 import soot.options.Options;
 
-import com.app.test.resource.ResoureHandler;
 import com.test.xmldata.LayoutData;
 import com.test.xmldata.ManifestData;
 
@@ -107,7 +108,7 @@ public class Main {
 		Scene.v().addBasicClass("com.app.test.data.AndroidIntentFilter",SootClass.BODIES);
 	}
 	public static void loadXmlData(String apk){
-		ManifestData manifestData = new ManifestData(apk);	
+		ManifestData manifestData = new ManifestData(apk);
 		manifestData.build();
 		ResoureHandler rHandler = new ResoureHandler(apk);
 		rHandler.parseResourceLayout();

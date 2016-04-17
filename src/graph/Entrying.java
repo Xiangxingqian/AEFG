@@ -44,7 +44,7 @@ public class Entrying {
 //					//flag = true;
 //				}
 				
-				//修改。不在判断当前的s类中是否含有sm。之前的考虑在于，若子类重写父类的方法怎么办，现在不考虑
+				//修改。不再判断当前的s类中是否含有sm。之前的考虑若子类重写父类的方法怎么办，现在不考虑
 				if(activityClasses.contains(s.getName())){
 					TempEdge is = outTempEdges.get(i).clone();
 					is.setSourceNode(s.getName());

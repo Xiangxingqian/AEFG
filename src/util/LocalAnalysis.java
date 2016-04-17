@@ -193,6 +193,9 @@ public class LocalAnalysis {
 		return parseLocal(sm, type)!=null;
 	}
 	
+	/**
+	 * parse the define method of v.
+	 * */
 	public static List<SootMethod> parseDMBL(Local v, SootMethod sm) {
 		return parseDMBL(v, sm, v.getType().toString());
 	}
@@ -225,9 +228,9 @@ public class LocalAnalysis {
 		return defineMethods;
 	}
 	
-	//	2.1向上寻找
-	//	2.2向下寻找
-	//向上查找sm的前驱
+	/**
+	 * search precursor of sm for definition
+	 * */
 	private static Set<SootMethod> searchUpForDefineMethods(SootMethod sm,String type){
 		Set<SootMethod> methods = new HashSet<SootMethod>();
 		//1.判断sm中是否含有intent的定义信息，若有，则返回
@@ -267,7 +270,9 @@ public class LocalAnalysis {
 		return methods;
 	}
 	
-	//向下查找sm的后继
+	/**
+	 * search successor of sm for definition
+	 * */
 	private static Set<SootMethod> searchDownForDefineMethods(SootMethod sm,String type){
 		Set<SootMethod> methods = new HashSet<SootMethod>();
 		//1.判断sm中是否含有intent的定义信息，若有，则返回
@@ -304,6 +309,9 @@ public class LocalAnalysis {
 		return methods;
 	}
 
+	/**
+	 * If a method is abstract, it is override in its sub class.  
+	 * */
 	public static Set<SootMethod> getConcreteMethods(SootMethod abstractMethod){
 		SootClass declaringClass = abstractMethod.getDeclaringClass();
 		Set<SootMethod> methods = new HashSet<SootMethod>();
@@ -319,9 +327,9 @@ public class LocalAnalysis {
 		return methods;
 	}
 	
-	public static List<SootMethod> parseDMBT(SootMethod sMethod, String type){
-		Local local = parseLocal(sMethod, type);
-		return parseDMBL(local, sMethod);
+	public static List<SootMethod> parseDMBT(SootMethod method, String type){
+		Local local = parseLocal(method, type);
+		return parseDMBL(local, method);
 	}
 	
 	public static boolean containsInitMethod(SootMethod method,String type){

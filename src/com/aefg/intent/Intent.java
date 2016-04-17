@@ -132,8 +132,6 @@ public class Intent extends AbstractHost {
 	@Override
 	public Intent getValue() {
 		return null;
-		
-		//return intent;
 	}
 
 	@Override
