@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import aefg.entry.CallGraphBuilder;
+import aefg.callgraph.CallGraphBuilder;
+import aefg.global.Global.ManifestInfo;
 
 import soot.SootClass;
 import soot.SootMethod;
@@ -85,11 +86,11 @@ public class EntryMethodsAnalysis extends InterMethodAnalysis{
 	
 	//判断sm是否是入口方法
 	public static boolean isEntryMethod(SootMethod sm){
-		return isEntry(sm, CallGraphBuilder.entrypoints);
+		return isEntry(sm, ManifestInfo.entrypoints);
 	}
 	//sm是Activity的生命周期方法
 	public static boolean isActivityMethod(SootMethod sm){
-		return isEntry(sm, CallGraphBuilder.fakeActivities);
+		return isEntry(sm, ManifestInfo.allActivities);
 	}
 	
 	private static boolean isEntry(SootMethod sm, Set<String> set) {

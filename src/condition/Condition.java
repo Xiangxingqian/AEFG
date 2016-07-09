@@ -3,7 +3,9 @@ package condition;
 import java.util.ArrayList;
 import java.util.List;
 
-import singlton.Global;
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
+import aefg.global.Global;
+
 import soot.Local;
 import soot.SootMethod;
 import soot.Value;
@@ -19,7 +21,6 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import soot.toolkits.graph.SimpleDominatorsFinder;
 import soot.toolkits.graph.UnitGraph;
-import util.LocalAnalysis;
 import util.LocalValue;
 
 public class Condition {
@@ -67,11 +68,11 @@ public class Condition {
 				Stmt ifTarget = iStmt.getTarget();				
 				Value condition = iStmt.getCondition();							
 				ConditionExpr ce = (ConditionExpr)condition;				
-				Value v = LocalAnalysis.getDefValue_IF(ce.getOp1(), iStmt, ug);
+				Value v = AEFGLocalAnalysis.getDefValue_IF(ce.getOp1(), iStmt, ug);
 				Value rigthOp = ce.getOp2();
 				Value vv;
 				if(rigthOp instanceof Local){
-					 vv = LocalAnalysis.getDefValue_IF(ce.getOp2(), iStmt, ug);
+					 vv = AEFGLocalAnalysis.getDefValue_IF(ce.getOp2(), iStmt, ug);
 				}
 				else {
 					vv = rigthOp;
@@ -107,7 +108,7 @@ public class Condition {
 			if(sUnit instanceof LookupSwitchStmt){
 				LookupSwitchStmt lss = (LookupSwitchStmt)sUnit;
 				Value keyValue = lss.getKey();
-				Value v = LocalAnalysis.getDefValue_IF(keyValue, lss, ug);
+				Value v = AEFGLocalAnalysis.getDefValue_IF(keyValue, lss, ug);
 				List<IntConstant> lookupValues = lss.getLookupValues();
 				boolean flag = false;
 				for(int t = 0; t < lookupValues.size(); t++)

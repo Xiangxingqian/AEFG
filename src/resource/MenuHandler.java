@@ -3,12 +3,12 @@ package resource;
 
 import java.util.List;
 
+import aefg.global.Global;
 import analysis.methodAnalysis.IntraMethodAnalysis;
 import analysis.methodAnalysis.InterMethodAnalysis;
 
 
 
-import singlton.Global;
 import soot.SootMethod;
 import soot.Value;
 import soot.jimple.AssignStmt;

@@ -4,7 +4,8 @@ package analysis.methodAnalysis;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aefg.dataflowanalysis.TypeAndRepresentation;
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
+import aefg.dataflowanalysis.TypeAndRepresentation;
 
 
 
@@ -23,7 +24,6 @@ import soot.toolkits.graph.UnitGraph;
 import soot.util.Chain;
 import tags.MethodTag;
 import util.ClassAnalysis;
-import util.LocalAnalysis;
 
 public class IntraMethodAnalysis {
 

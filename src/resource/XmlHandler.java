@@ -18,9 +18,9 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import aefg.global.Global;
 import android.content.res.AXmlResourceParser;
 
-import singlton.Global;
 
 /*
  * 4+2+1+1{layoutName,UiName,src,@Text}+{uiId,layoutId,text}+{className}

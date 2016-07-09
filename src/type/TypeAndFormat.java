@@ -7,7 +7,7 @@ import java.util.Map;
 
 import soot.Type;
 
-import com.aefg.intent.IntentConstants;
+import aefg.intent.IntentConstants;
 
 public class TypeAndFormat extends Types{
 	public static Map<Type,List<String>> typeToFormat = new HashMap<Type, List<String>>();

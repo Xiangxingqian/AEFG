@@ -2,7 +2,7 @@ package com.aefg.intenttoactivity;
 
 import java.util.List;
 
-import com.aefg.intent.AbstractHost;
+import aefg.intent.AbstractHost;
 
 import condition.Condition;
 import soot.SootMethod;

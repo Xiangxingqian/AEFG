@@ -1,6 +1,6 @@
 package com.aefg.intenttoactivity;
 
-import com.aefg.intent.Intent;
+import aefg.intent.Intent;
 
 import soot.toolkits.scalar.Pair;
 import tags.ConditionTag;

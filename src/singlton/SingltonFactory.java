@@ -1,9 +1,11 @@
 package singlton;
 
-import graph.ActivityEventFlowGraph;
 import graphTemp.TempGraph;
 
-import com.aefg.dataflowanalysis.Contexts;
+import aefg.aefgraph.ActivityEventFlowGraph;
+import aefg.dataflowanalysis.Contexts;
+import aefg.global.Global;
+
 import pair.PairFactory;
 import resource.ApkToRes;
 import sootAnalysis.AndroidAnalysis;
@@ -62,11 +64,11 @@ public class SingltonFactory {
 		return contexts;
 	}
 	
-	private ActivityEventFlowGraph activityEventFlowGraph;
-	public ActivityEventFlowGraph getActivityEventFlowGraph(){
-		if(activityEventFlowGraph==null) activityEventFlowGraph = new ActivityEventFlowGraph(g);
-		return activityEventFlowGraph;
-	}
+//	private ActivityEventFlowGraph activityEventFlowGraph;
+//	public ActivityEventFlowGraph getActivityEventFlowGraph(){
+//		if(activityEventFlowGraph==null) activityEventFlowGraph = new ActivityEventFlowGraph(g);
+//		return activityEventFlowGraph;
+//	}
 	
 	private Events events;
 	public Events getEvents(){

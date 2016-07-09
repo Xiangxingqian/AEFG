@@ -36,9 +36,10 @@ import org.xmlpull.v1.XmlPullParser;
 
 import util.ArrayUtil;
 
+import aefg.intent.ActivityAndFilter;
+
 import com.content.res.xmlprinter.AXmlResourceParser;
 
-import com.aefg.intent.ActivityAndFilter;
 import com.app.test.data.AndroidIntentFilter;
 
 public class ProcessManifest {
@@ -476,8 +477,8 @@ public class ProcessManifest {
 		return serviceToFilters;
 	}
 
-	public void getMainActivity(){
-		
+	public String getMainActivity(){
+		return mainActivity;
 	}
 	
 	public List<ActivityAndFilter> getAFilters(){

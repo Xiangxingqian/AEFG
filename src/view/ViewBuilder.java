@@ -19,12 +19,12 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import tags.Tagger;
 import type.TypeAndFormat;
-import util.LocalAnalysis;
 import util.StringHandler;
+import aefg.dataflowanalysis.AEFG_LocalResolver;
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
 import analysis.methodAnalysis.InterMethodAnalysis;
 import analysis.methodAnalysis.IntraMethodAnalysis;
 
-import com.aefg.dataflowanalysis.AEFG_LocalResolver;
 
 public class ViewBuilder {
 	
@@ -52,7 +52,7 @@ public class ViewBuilder {
 			SootMethod method = Tagger.getMethodTag(is);
 			//Value definition = LocalAnalysis.getDefValue(is, new ExceptionalUnitGraph(method.retrieveActiveBody()));
 			
-			AssignStmt defAS_IS = LocalAnalysis.getDefAS_IS(is, new ExceptionalUnitGraph(method.retrieveActiveBody()));
+			AssignStmt defAS_IS = AEFGLocalAnalysis.getDefAS_IS(is, new ExceptionalUnitGraph(method.retrieveActiveBody()));
 			if(defAS_IS!=null){
 				viewToClass.put(defAS_IS, method.getDeclaringClass());
 				Value definition = defAS_IS.getRightOp();

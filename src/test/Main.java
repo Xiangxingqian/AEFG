@@ -10,27 +10,56 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.app.test.CallBack;
 
 public class Main {
 	
 	public static void main(String[] args){
-		CallBack.viewToCallBacks.put("qian", Arrays.asList("xiang"));
-		Class callBack = CallBack.class;
-		serializationObject(callBack, "D:/serial.txt");
-		try {
-			deserialization("D:/serial.txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		String s2 = "string";
+		System.out.println(s2.matches("//w+"));
+		
+		String string = "[{values:1,key:2,appoint:3,origin:4,},{values:1,appoint:3,origin:4,key:2,},{values:5,appoint:3,origin:4,ow:6}]";
+//		String regex = "values[^,]*,";
+		System.out.println(string.replaceAll("\\S*(?=(values[^,]*,))\\S*", "1"));
+		
+		
+		
+		
+		StringBuilder sBuilder = new StringBuilder();
+		Pattern pattern = Pattern.compile(".*(values[^,]*,).*");
+		Matcher matcher = pattern.matcher("[{values:1,key:2");
+		
+		while(matcher.find()){
+			sBuilder.append(matcher.group()+"123");
 		}
+		String string2 = sBuilder.toString();
+		System.out.println(string2.replaceAll(",+", ",").replace(",}", "}"));;
+//		string.replaceAll(".*[,]{1}.*,", "\\}");
+//		Pattern pattern = Pattern.compile("[?!(values)]");
+//		Matcher matcher = pattern.matcher(string);
+//		while (matcher.find()) {
+//			s2 = s2+matcher.group();
+//		}
+//		System.out.println(s2);
+//		CallBack.viewToCallBacks.put("qian", Arrays.asList("xiang"));
+//		Class callBack = CallBack.class;
+//		serializationObject(callBack, "D:/serial.txt");
+//		try {
+//			deserialization("D:/serial.txt");
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	private static void serializationObject(Object g, String edgeStorageLocation) {

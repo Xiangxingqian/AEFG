@@ -3,12 +3,14 @@ package test;
 import java.util.List;
 import java.util.Map;
 
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
+import aefg.global.Global;
+
 import com.android.event.EventContants;
 
 import component.Component;
 import component.ComponentHandler;
 
-import singlton.Global;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Unit;
@@ -19,7 +21,6 @@ import soot.tagkit.IntegerConstantValueTag;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import tags.MethodTag;
 import tags.Tagger;
-import util.LocalAnalysis;
 import view.ViewBuilder;
 
 public class EventExplorer {
@@ -39,7 +40,7 @@ public class EventExplorer {
 			SootMethod method = Tagger.getMethodTag(is);
 			SootClass declaringClass = method.getDeclaringClass();
 			ExceptionalUnitGraph graph = new ExceptionalUnitGraph(method.retrieveActiveBody());
-			AssignStmt defAS_IS = LocalAnalysis.getDefAS_IS(is, graph);
+			AssignStmt defAS_IS = AEFGLocalAnalysis.getDefAS_IS(is, graph);
 			
 			ComponentHandler componentHandler = new ComponentHandler(declaringClass);
 			componentHandler.build();

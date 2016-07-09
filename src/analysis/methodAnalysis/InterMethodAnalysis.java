@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import aefg.entry.CallGraphBuilder;
+import aefg.callgraph.CallGraphBuilder;
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
+import aefg.global.Global;
 
 import soot.Local;
 import soot.MethodOrMethodContext;
@@ -23,11 +25,10 @@ import soot.jimple.toolkits.callgraph.Targets;
 import soot.toolkits.graph.UnitGraph;
 import soot.util.Chain;
 import tags.MethodTag;
-import util.LocalAnalysis;
 
 public class InterMethodAnalysis {
 	
-	public static CallGraph callGraph = CallGraphBuilder.getCallGraph();
+	public static CallGraph callGraph = Global.v().getCallGraph();
 
 	/**
 	 * 使用callgraph获得sootMethod包含的所有方法
@@ -120,7 +121,7 @@ public class InterMethodAnalysis {
 			for(SootClass sc:classes2)
 				if(sc.isConcrete())
 					for(SootMethod sm:sc.getMethods())
-						if(sm.isConcrete()&&!classes.contains(sm)&&LocalAnalysis.containLocal(sm, ex.getName())){
+						if(sm.isConcrete()&&!classes.contains(sm)&&AEFGLocalAnalysis.containType(sm, ex.getName())){
 							classes.add(sc);
 							break;
 						}

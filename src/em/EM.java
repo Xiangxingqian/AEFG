@@ -3,11 +3,12 @@ package em;
 import java.util.ArrayList;
 import java.util.List;
 
-import singlton.Global;
 import singlton.SingltonFactory;
 import soot.SootMethod;
 import soot.jimple.InvokeStmt;
 import tags.Tagger;
+
+import aefg.global.Global;
 
 import com.aefg.intenttoactivity.ITSPair;
 import com.aefg.intenttoactivity.StartActivity;

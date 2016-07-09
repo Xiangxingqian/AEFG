@@ -1,12 +1,13 @@
 package GraphDraw;
 
-import graph.ActivityEventFlowGraph;
-import graph.ActivityEventFlowGraphEdge;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import aefg.aefgraph.ActivityEventFlowGraph;
+import aefg.aefgraph.ActivityEventFlowGraphEdge;
 
 public class DrawGraph {
 	public static void drawGraph(ActivityEventFlowGraph aeg, String temp_dir, String dot, String appName){

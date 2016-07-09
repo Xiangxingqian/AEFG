@@ -6,6 +6,7 @@ import soot.jimple.AssignStmt;
 import soot.jimple.FieldRef;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import tags.MethodTag;
+import aefg.dataflowanalysis.AEFGLocalAnalysis;
 import analysis.methodAnalysis.IntraMethodAnalysis;
 
 //注意：1. FieldRef指向的第一个值作为其值。 2. 优先级：若FieldRef在UsedMethod中定义，则只分析UsedMethod。
@@ -67,7 +68,7 @@ public class FieldAnalysis {
 	
 	private void resolveDefValue(){
 		if(defUnit!=null&&defMethod!=null){
-			finalDefUnit = LocalAnalysis.getDefAssignStmt(defUnit,defUnit.getLeftOp(), new ExceptionalUnitGraph(defMethod.retrieveActiveBody()));
+			finalDefUnit = AEFGLocalAnalysis.getDefAssignStmt(defUnit,defUnit.getLeftOp(), new ExceptionalUnitGraph(defMethod.retrieveActiveBody()));
 			finalDefUnit.addTag(new MethodTag(defMethod));
 		}
 	}
